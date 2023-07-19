@@ -4,9 +4,7 @@ package ec.edu.espe.evsustore.controller;
 import ec.edu.espe.evsustore.model.HardwareComponent;
 import java.util.ArrayList;
 import javax.swing.JTable;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -16,40 +14,37 @@ public class ViewController {
     
     
     public static HardwareComponent obtainComponent(int id){
-        DatabaseController database = new DatabaseController();
-        database.connectDatabase();
+        DatabaseController databaseController = DatabaseController.getInstance();
         
-        HardwareComponent selectedComponent = database.obtainComponent(id);
+        HardwareComponent selectedComponent = databaseController.obtainComponent(id);
         
         return selectedComponent;
     }
     
     public static ArrayList<HardwareComponent> obtainAllComponents(){
-        DatabaseController database = new DatabaseController();
-        database.connectDatabase();
+        DatabaseController databaseController = DatabaseController.getInstance();
         
-        ArrayList<HardwareComponent> components = database.obtainAllComponents();
+        ArrayList<HardwareComponent> components = databaseController.obtainAllComponents();
         
         return components;
     }
     
     public static ArrayList<HardwareComponent> obtainComponentsCoincidences(String field){
-        DatabaseController database = new DatabaseController();
-        database.connectDatabase();
+        DatabaseController databaseController = DatabaseController.getInstance();
         
-        ArrayList<HardwareComponent> components = database.obtainComponentsCoincidence(field);
+        ArrayList<HardwareComponent> components = databaseController.obtainComponentsCoincidence(field);
         
         return components;
     }
 
     public static DefaultTableModel writeTable(ArrayList<HardwareComponent> components, JTable tblComponents) {
-        DefaultTableModel catlaogTableModel = new DefaultTableModel();
+        DefaultTableModel inventoryTableModel = new DefaultTableModel();
         
         Object[] componentData = new Object[tblComponents.getColumnCount()];
         
         String[] header = {"ID","Cantidad","Nombre","Modelo","Costo","Precio"};
         
-        catlaogTableModel.setColumnIdentifiers(header);
+        inventoryTableModel.setColumnIdentifiers(header);
         
         for(HardwareComponent component: components){
             
@@ -60,12 +55,35 @@ public class ViewController {
             componentData[4] = component.getCost();
             componentData[5] = component.getPrice();
             
-            catlaogTableModel.addRow(componentData);
+            inventoryTableModel.addRow(componentData);
             
         }
         
-        return catlaogTableModel;
+        return inventoryTableModel;
     }
+    
+    public static DefaultTableModel writeCatalog(ArrayList<HardwareComponent> components, JTable catalogComponents) {
+        DefaultTableModel catalogTableModel = new DefaultTableModel();
+        
+        Object[] componentData = new Object[catalogComponents.getColumnCount()];
+        
+        String[] header = {"Producto","Cantidad","Precio"};
+        
+        catalogTableModel.setColumnIdentifiers(header);
+        
+        for(HardwareComponent component: components){
+            
+            componentData[0] = component.getName() + " " + component.getModel();
+            componentData[1] = component.getQuantity();
+            componentData[2] = component.getPrice();
+            
+            catalogTableModel.addRow(componentData);
+            
+        }
+        
+        return catalogTableModel;
+    }
+    
     
     public static DefaultTableModel writeBillTable(ArrayList<HardwareComponent> components, JTable tblComponents) {
         DefaultTableModel catlaogTableModel = new DefaultTableModel();
@@ -91,20 +109,18 @@ public class ViewController {
     }
     
     public static void deleteComponentInDB(HardwareComponent component) {
-        DatabaseController database = new DatabaseController();
-        database.connectDatabase();
-        database.delete(component);
+        DatabaseController databaseController = DatabaseController.getInstance();
+        databaseController.delete(component);
     }
     
     public static void saveComponentInDB(HardwareComponent component) {
-        DatabaseController database = new DatabaseController();
-        database.connectDatabase();
+        DatabaseController databaseController = DatabaseController.getInstance();
         int id = component.getId();
-        if(database.obtainComponent(id)==null){
-            database.insertComponent(component);
+        if(databaseController.obtainComponent(id)==null){
+            databaseController.insertComponent(component);
         }
         else{
-            database.update(component);
+            databaseController.update(component);
         }
     }
     

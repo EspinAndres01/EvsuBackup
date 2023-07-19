@@ -16,6 +16,7 @@ import org.bson.Document;
  *
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
+
 public class DatabaseManager {
     
     public static MongoDatabase connectToDatabase(String url, String dataBase){

@@ -15,9 +15,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
-public class PnelUpdateInventory extends javax.swing.JPanel {
+public class PnelViewInventory extends javax.swing.JPanel {
 
-    public PnelUpdateInventory( ) {
+    public PnelViewInventory( ) {
         initComponents();
         
         displayTableComponents();
@@ -201,7 +201,7 @@ public class PnelUpdateInventory extends javax.swing.JPanel {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         HardwareComponent selectedComponent = getSelectedComponent();
         PnelSaveHardwareComponent frmComponentToUpdate = new PnelSaveHardwareComponent(selectedComponent);
-        frmComponentToUpdate.setVisible(true);
+        showPanel(frmComponentToUpdate);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

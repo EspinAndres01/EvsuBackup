@@ -20,14 +20,11 @@ import javax.swing.UIManager;
  */
 public class FrmLogin extends javax.swing.JFrame {
 
-    DatabaseController database = new DatabaseController();
-    
-
+    DatabaseController database = DatabaseController.getInstance();
 
     public FrmLogin() {
         
         initComponents();
-        database.connectDatabase();
         txtOcult.setVisible(false);
         
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

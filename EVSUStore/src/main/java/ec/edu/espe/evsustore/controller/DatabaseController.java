@@ -14,13 +14,32 @@ import org.bson.Document;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class DatabaseController {
-    String clientURL = "mongodb+srv://jcobena:jcobena@cluster0.mhpiaao.mongodb.net/";
-    String databaseName = "EVSUStore";
+    String clientURL;
+    String databaseName;
     MongoDatabase database;
+
+    private static DatabaseController instance;
     
-    public void connectDatabase(){
-        database = DatabaseManager.connectToDatabase(clientURL, databaseName);
+    private DatabaseController() {
+        this.clientURL = "mongodb+srv://jcobena:jcobena@cluster0.mhpiaao.mongodb.net/";
+        this.databaseName = "EVSUStore";
+        this.database = DatabaseManager.connectToDatabase(clientURL, databaseName);
     }
+    
+    public synchronized static DatabaseController getInstance (){
+        if (instance==null){
+            instance = new DatabaseController();
+        }
+        
+        return instance;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
+    }
+    
+    
     
     public void insertComponent(HardwareComponent hardwareComponent){
         MongoCollection collection = DatabaseManager.connectToCollection(database, "HardwareComponents");

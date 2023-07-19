@@ -31,13 +31,12 @@ import javax.swing.JOptionPane;
  * @author Andres Espin, KillChain, DCOO-ESPE
  */
 public class FrmRecoverPassword extends javax.swing.JFrame {
-    DatabaseController database = new DatabaseController();
+    DatabaseController database = DatabaseController.getInstance();
     /**
      * Creates new form RecoverPassword
      */
     public FrmRecoverPassword() {
         initComponents();
-        database.connectDatabase();
         
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         

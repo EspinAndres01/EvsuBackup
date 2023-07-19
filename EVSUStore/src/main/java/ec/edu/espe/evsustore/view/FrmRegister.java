@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmRegister extends javax.swing.JFrame {
 
-    DatabaseController database = new DatabaseController();
+    DatabaseController database = DatabaseController.getInstance();;
     public FrmRegister() {
         initComponents();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -193,10 +193,8 @@ public class FrmRegister extends javax.swing.JFrame {
         String username = txtUserName.getText().trim();
         String password = new String(txtPassword.getPassword()).trim();
 
-        DatabaseController databaseController = new DatabaseController();
-        databaseController.connectDatabase();
 
-        boolean createUserSuccess = databaseController.createUser(name, lastName, username, password);
+        boolean createUserSuccess = database.createUser(name, lastName, username, password);
         if (createUserSuccess) {
             JOptionPane.showMessageDialog(this, "Usuario creado exitosamente");
             FrmLogin frmLogin = new FrmLogin();

@@ -106,7 +106,7 @@ public class PnelInventory extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddToInventoryActionPerformed
 
     private void btnSeeInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeeInventoryActionPerformed
-        PnelUpdateInventory pnelUpdateInventory=new PnelUpdateInventory();
+        PnelViewInventory pnelUpdateInventory=new PnelViewInventory();
         showPanel(pnelUpdateInventory);
     }//GEN-LAST:event_btnSeeInventoryActionPerformed
 

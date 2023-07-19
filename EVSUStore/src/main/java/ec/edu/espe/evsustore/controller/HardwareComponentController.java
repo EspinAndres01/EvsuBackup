@@ -9,13 +9,14 @@ import java.util.ArrayList;
  */
 public class HardwareComponentController {
     public static int generateId(){
-        
-        DatabaseController database = new DatabaseController();
-        database.connectDatabase();
-        
+        DatabaseController database = DatabaseController.getInstance();
         ArrayList<HardwareComponent> componentsInDB = database.obtainAllComponents();
-
-        
         return componentsInDB.size()+1;
     }
+    
+    public static Double calculatePrice (Double componentCost, Double gainPercentage){
+        
+        return (1+(gainPercentage/100.0F))*(componentCost);
+    }
+    
 }

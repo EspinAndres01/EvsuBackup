@@ -4,7 +4,7 @@ package ec.edu.espe.evsustore.view;
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
 import ec.edu.espe.evsustore.controller.ViewController;
 import ec.edu.espe.evsustore.model.HardwareComponent;
-import ec.edu.espe.evsustore.utils.Tax;
+import ec.edu.espe.evsustore.utils.DecimalsControl;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -243,41 +243,37 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
                         .addComponent(btnBackToMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(ContentLayout.createSequentialGroup()
-                .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(36, 36, 36)
+                .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(ContentLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtGainPercentage))
+                    .addGroup(ContentLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(41, 41, 41)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ContentLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ContentLayout.createSequentialGroup()
                         .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ContentLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtGainPercentage, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ContentLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(41, 41, 41)
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ContentLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ContentLayout.createSequentialGroup()
-                                .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtQuantity)
-                                    .addComponent(txtModel)))
-                            .addGroup(ContentLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCost, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(90, 90, 90))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentLayout.createSequentialGroup()
-                        .addContainerGap()
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtModel)
+                            .addComponent(txtQuantity)))
+                    .addGroup(ContentLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCost))
+                    .addGroup(ContentLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
-                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)))
+                        .addComponent(txtPrice)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(msgWarningCost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                     .addComponent(msgWarningQuantity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -333,7 +329,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
                         .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
                 .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -405,17 +401,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
             clearFields();
         }
     }//GEN-LAST:event_btnSaveActionPerformed
-    
-    private void showPanel(JPanel panelUI) {
-        panelUI.setSize(900, 675);
-        panelUI.setLocation(0, 0);
-        Content.removeAll();
-        Content.add(panelUI, BorderLayout.CENTER);
-        Content.revalidate();
-        Content.repaint();
-    }
-    
-    
+
                                         
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -426,12 +412,21 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         //
     }   
     
+    private void showPanel(JPanel panelUI) {
+        panelUI.setSize(900, 675);
+        panelUI.setLocation(0, 0);
+        Content.removeAll();
+        Content.add(panelUI, BorderLayout.CENTER);
+        Content.revalidate();
+        Content.repaint();
+    }
+    
     private void addListeners(){
         
         txtCost.addKeyListener(doubleListener());
         txtGainPercentage.addKeyListener(doubleListener());
-        txtCost.getDocument().addDocumentListener(filledPriceListener());
-        txtGainPercentage.getDocument().addDocumentListener(filledPriceListener());
+        txtCost.getDocument().addDocumentListener(fillPriceListener());
+        txtGainPercentage.getDocument().addDocumentListener(fillPriceListener());
         txtQuantity.addKeyListener(integerListener());
         
         txtId.getDocument().addDocumentListener(allFieldsFilledListener());
@@ -523,7 +518,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         return allFieldsFilledListener;
     }
     
-    private DocumentListener filledPriceListener(){
+    private DocumentListener fillPriceListener(){
         DocumentListener filledPriceListener = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -548,12 +543,13 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
             txtPrice.setText("");
         }
         else{
-            Double cost = Double.parseDouble(txtCost.getText());
-            Double gain = Double.parseDouble(txtGainPercentage.getText());
-            Double price = cost*(1+(gain/100));
-            Double roundedPrice = Tax.roundToTwoTenths(price);
+            Double cost = Double.valueOf(txtCost.getText());
+            Double gain = Double.valueOf(txtGainPercentage.getText());
+            Double price = HardwareComponentController.calculatePrice(cost, gain);
             
-            String priceText = String.format ("%.2f", roundedPrice); 
+            System.out.println("Costo :" + cost + " Gain: " + gain + " Precio: " + price);
+            
+            String priceText = String.format ("%.2f", DecimalsControl.roundToTwoTenths(price)); 
 
             txtPrice.setText(priceText);
         }
@@ -585,14 +581,22 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
     private void validateTypedDoubleNumbers (java.awt.event.KeyEvent evt) { 
         
         char enteredChar = evt.getKeyChar ();
-        if (!Character.toString (enteredChar).matches ("[0-9\\.]")) {
+        if (!Character.toString (enteredChar).matches ("[0-9]") && !Character.toString (enteredChar).matches("\\.")) {
             evt.consume ();
         }
         else {
             JTextField field = (JTextField) evt.getSource ();
             String numbersText = field.getText ();
             if(numbersText!=null){
-                if (numbersText.matches ("[0-9]+((\\.){1}[0-9]{2})")) {
+                if (numbersText.matches ("[0-9]{1,7}+\\.{1}[0-9]{2}")) {
+                    if(Character.toString (enteredChar).matches("\\.")){
+                       evt.consume();
+                    }
+                    else {
+                        
+                    }
+                }
+                else if(Character.toString (enteredChar).matches("\\.") && field.getText().contains(".") ){
                     evt.consume ();
                 }
             }

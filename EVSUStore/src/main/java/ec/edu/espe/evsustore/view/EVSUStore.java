@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class EVSUStore extends javax.swing.JFrame {
-    DatabaseController database = new DatabaseController();
+    DatabaseController database = DatabaseController.getInstance();
     public EVSUStore() {
         initComponents();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -26,9 +26,6 @@ public class EVSUStore extends javax.swing.JFrame {
         
         PnelStart pnelStart=new PnelStart();
         showPanel(pnelStart);
-        database.connectDatabase();
-
-
     } 
  
     /**

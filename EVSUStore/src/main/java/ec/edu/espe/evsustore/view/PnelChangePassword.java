@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class PnelChangePassword extends javax.swing.JPanel {
 
+    
     /**
      * Creates new form PnelChangePassword
      */
@@ -109,8 +110,7 @@ public class PnelChangePassword extends javax.swing.JPanel {
         String newPassword = new String(txtPassword.getPassword()).trim();
         String confirmPassword = new String(txtConfirmPassword.getPassword()).trim();
 
-        DatabaseController databaseController = new DatabaseController();
-        databaseController.connectDatabase();
+        DatabaseController databaseController = DatabaseController.getInstance();
         databaseController.setNewPassword(newPassword); 
 
         boolean passwordChanged = databaseController.changePassword(confirmPassword); // Solo se necesita pasar la confirmación de la contraseña.
