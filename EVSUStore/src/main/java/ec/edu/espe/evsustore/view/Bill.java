@@ -363,17 +363,6 @@ public class Bill extends javax.swing.JPanel implements Printable {
     }
     
     public void fillBill(Sale sale) {
-        DefaultTableModel tblModel = ViewController.writeTable(sale.getSoldComponents(), tblSoldObjects);
-        String customerName = sale.getCustomer().getName();
-        String customerLastName = sale.getCustomer().getLastName();
-        String customerIdCardNumber = String.valueOf(sale.getCustomer().getIdCardNumber());
-        String saleDate = String.valueOf(sale.getDate());
-        
-        txtCustomerName.setText(customerName+" "+customerLastName);
-        txtCustomerIdCardNumber.setText(customerIdCardNumber);
-        txtDate.setText(saleDate);
-        
-        tblSoldObjects.setModel(tblModel);
         
     }
     

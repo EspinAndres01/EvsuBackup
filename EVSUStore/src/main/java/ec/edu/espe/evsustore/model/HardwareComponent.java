@@ -1,18 +1,22 @@
 package ec.edu.espe.evsustore.model;
 
+import java.util.HashMap;
+
 
 
 /**
  *
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
-public class HardwareComponent {
+public class HardwareComponent implements Mapeable{
     private int id;
     private int quantity;
     private double cost;
     private double price;
     private String name;
     private String model;
+    
+    private HashMap<Object, Object> data;
     
     @Override
     public String toString() {
@@ -22,6 +26,14 @@ public class HardwareComponent {
     }
 
     public HardwareComponent(int id, int quantity, double cost, double price, String name, String model) {
+        data = new HashMap<>();
+        data.put("id", id);
+        data.put("quantity", quantity);
+        data.put("cost", cost);
+        data.put("price", price);
+        data.put("name", name);
+        data.put("model", model);
+        
         this.id = id;
         this.quantity = quantity;
         this.cost = cost;
@@ -79,6 +91,11 @@ public class HardwareComponent {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    @Override
+    public HashMap<Object, Object> getData() {
+        return data;
     }
     
 }

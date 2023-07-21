@@ -2,15 +2,17 @@
 package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
-import ec.edu.espe.evsustore.controller.ViewController;
 import ec.edu.espe.evsustore.model.HardwareComponent;
 import ec.edu.espe.evsustore.utils.DecimalsControl;
+import ec.edu.espe.evsustore.utils.HashMapManger;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,13 +27,15 @@ import javax.swing.event.DocumentListener;
  */
 public class PnelSaveHardwareComponent extends javax.swing.JPanel {
 
+    HardwareComponentController componentController = HardwareComponentController.getInstance();
+    
     /**
      * Creates new form PnelSaveHardwareComponent
      */
     public PnelSaveHardwareComponent() {
         initComponents();
         
-        int generatedId = HardwareComponentController.generateId();
+        int generatedId = componentController.generateId();
         txtId.setText(String.valueOf(generatedId));
         
         btnClear.addActionListener(new ActionListener() {
@@ -48,18 +52,16 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         addListeners();
     }
     
-    public PnelSaveHardwareComponent(HardwareComponent updatingComponent) {
+    public PnelSaveHardwareComponent(int idOfUpdatingComponent) {
         initComponents();
         
-        fillFields(updatingComponent);
-        
-        int idOfUpdating = updatingComponent.getId();
-        
+        fillFields(componentController.obtainFromDb(idOfUpdatingComponent));
+
         btnClear.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    clearFields(idOfUpdating);
+                    clearFields(idOfUpdatingComponent);
 
                 }
             }
@@ -389,13 +391,14 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         JRootPane rootPane = new JRootPane();
 
         if (option == 0) {
-              try {
-                ViewController.saveComponentInDB(enteredComponent);
+            boolean isSaved = componentController.save(enteredComponent);
+            if(isSaved){
                 JOptionPane.showMessageDialog(rootPane, "Se ha guardado exitosamente");
                 clearFields();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Error al guardar el componente:\n" + e.getMessage());
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Hubo un error al guardar el archivo, intentelo nuevamente");
             }
+            
         } else if (option == 1) {
             JOptionPane.showMessageDialog(rootPane, "No guardado");
             clearFields();
@@ -545,9 +548,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         else{
             Double cost = Double.valueOf(txtCost.getText());
             Double gain = Double.valueOf(txtGainPercentage.getText());
-            Double price = HardwareComponentController.calculatePrice(cost, gain);
-            
-            System.out.println("Costo :" + cost + " Gain: " + gain + " Precio: " + price);
+            Double price = componentController.calculatePrice(cost, gain);
             
             String priceText = String.format ("%.2f", DecimalsControl.roundToTwoTenths(price)); 
 
@@ -637,7 +638,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         if(option == 0){
             
             String voidString = "";
-            int generatedId = HardwareComponentController.generateId();
+            int generatedId = componentController.generateId();
             txtId.setText(String.valueOf(generatedId));
             txtQuantity.setText(voidString);
             txtName.setText(voidString);
@@ -665,14 +666,15 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         lblLogo.setIcon(scaledLogo);
     }
     
-    public void fillFields(HardwareComponent updatingComponent){
+    public void fillFields(HashMap<Object, Object> updatingComponent){
         String voidString = "";
-        txtId.setText(String.valueOf(updatingComponent.getId()));
-        txtQuantity.setText(String.valueOf(updatingComponent.getQuantity()));
-        txtName.setText(updatingComponent.getName());
-        txtModel.setText(updatingComponent.getModel());
-        txtCost.setText(String.valueOf(updatingComponent.getCost()));
-        txtPrice.setText(String.valueOf(updatingComponent.getPrice()));
+        ArrayList<String> values = HashMapManger.getValues(updatingComponent);
+        txtId.setText(String.valueOf(values.get(0)));
+        txtQuantity.setText(String.valueOf(values.get(1)));
+        txtName.setText(values.get(2));
+        txtModel.setText(values.get(3));
+        txtCost.setText(String.valueOf(values.get(4)));
+        txtPrice.setText(String.valueOf(values.get(5)));
     }
     
     public void clearFields(int idOfUpdating){

@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.DatabaseController;
+import ec.edu.espe.evsustore.controller.SessionController;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +11,7 @@ import javax.swing.JOptionPane;
  */
 public class PnelChangePassword extends javax.swing.JPanel {
 
+    SessionController sessionController = SessionController.getInstance();
     
     /**
      * Creates new form PnelChangePassword
@@ -109,11 +108,10 @@ public class PnelChangePassword extends javax.swing.JPanel {
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         String newPassword = new String(txtPassword.getPassword()).trim();
         String confirmPassword = new String(txtConfirmPassword.getPassword()).trim();
+        
+        sessionController.setNewPassword(newPassword); 
 
-        DatabaseController databaseController = DatabaseController.getInstance();
-        databaseController.setNewPassword(newPassword); 
-
-        boolean passwordChanged = databaseController.changePassword(confirmPassword); // Solo se necesita pasar la confirmación de la contraseña.
+        boolean passwordChanged = sessionController.changePassword(confirmPassword); // Solo se necesita pasar la confirmación de la contraseña.
 
         if (passwordChanged) {
             JOptionPane.showMessageDialog(null, "La contraseña se ha cambiado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);

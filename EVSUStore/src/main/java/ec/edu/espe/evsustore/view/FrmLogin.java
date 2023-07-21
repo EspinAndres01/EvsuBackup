@@ -3,6 +3,7 @@ package ec.edu.espe.evsustore.view;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import ec.edu.espe.evsustore.controller.DatabaseController;
+import ec.edu.espe.evsustore.controller.SessionController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -20,7 +21,7 @@ import javax.swing.UIManager;
  */
 public class FrmLogin extends javax.swing.JFrame {
 
-    DatabaseController database = DatabaseController.getInstance();
+    SessionController sessionController = SessionController.getInstance();
 
     public FrmLogin() {
         
@@ -261,9 +262,9 @@ public class FrmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Algun campo está vacío, intentelo de nuevo", "ERROR DE INGRESO", JOptionPane.INFORMATION_MESSAGE);
         }else{
             
-            database.migratePasswordsToBCrypt();
+            sessionController.migratePasswordsToBCrypt();
 
-            if (database.checkCredentials(username, password)) {
+            if (sessionController.checkCredentials(username, password)) {
                 JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso", "Inicio de sesión", JOptionPane.INFORMATION_MESSAGE);
                 EVSUStore mainApp = new EVSUStore();
                 mainApp.setVisible(true);

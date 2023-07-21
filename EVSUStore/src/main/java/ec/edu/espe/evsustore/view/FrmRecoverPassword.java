@@ -5,6 +5,7 @@ package ec.edu.espe.evsustore.view;
  * @author Andres Espin, KillChain, DCOO-ESPE
  */
 import ec.edu.espe.evsustore.controller.DatabaseController;
+import ec.edu.espe.evsustore.controller.SessionController;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Properties;
@@ -31,7 +32,9 @@ import javax.swing.JOptionPane;
  * @author Andres Espin, KillChain, DCOO-ESPE
  */
 public class FrmRecoverPassword extends javax.swing.JFrame {
-    DatabaseController database = DatabaseController.getInstance();
+    
+    SessionController sessionController = SessionController.getInstance();
+    
     /**
      * Creates new form RecoverPassword
      */
@@ -186,8 +189,8 @@ public class FrmRecoverPassword extends javax.swing.JFrame {
         String username = txtUserName.getText();
         String recipient = txtEmail.getText();
 
-        String temporaryPassword = database.generateTemporaryPassword();
-        boolean passwordUpdated = database.updatePassword(username,temporaryPassword, temporaryPassword);
+        String temporaryPassword = sessionController.generateTemporaryPassword();
+        boolean passwordUpdated = sessionController.updatePassword(username,temporaryPassword, temporaryPassword);
 
         if (!passwordUpdated) {
             JOptionPane.showMessageDialog(null, "No se encontró ningún usuario con el nombre de usuario proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);

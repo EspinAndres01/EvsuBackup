@@ -14,7 +14,6 @@
     <property name="user.script" value=""/>
     <property name="user.country" value="MX"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="test" value="ec.edu.espe.evsustore.utils.TaxTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="D:\Descargas\BackupEVSU\EvsuBackup\EVSUStore"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
@@ -47,7 +46,7 @@
     <property name="java.class.path" value="C:\Program Files\NetBeans-17\netbeans\java\maven\boot\plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="20"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=ec.edu.espe.evsustore.utils.TaxTest -Dmaven.ext.class.path=C:\Program Files\NetBeans-17\netbeans\java\maven-nblib\netbeans-eventspy.jar --no-transfer-progress surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files\NetBeans-17\netbeans\java\maven-nblib\netbeans-eventspy.jar --no-transfer-progress clean install"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-20"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>

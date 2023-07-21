@@ -3,12 +3,14 @@ package ec.edu.espe.evsustore.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  *
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
-public class Sale {
+public class Sale implements Mapeable{
+    private int id;
     private ArrayList <HardwareComponent> soldComponents;
     private ArrayList <Clothing> soldClothing;
     private int saleId;
@@ -16,21 +18,23 @@ public class Sale {
     private double salePrice;
     private Date date;
 
-
+    private HashMap<Object, Object> data;
     
-    public Sale(ArrayList<HardwareComponent> soldComponents, 
+    public Sale(int id, ArrayList<HardwareComponent> soldComponents, 
         ArrayList<Clothing> soldClothing, Customer customer, double salePrice, Date date) {
+        data = new HashMap<>();
+        data.put("id", id);
+        data.put("soldComponents", soldComponents);
+        data.put("soldClothing", soldClothing);
+        data.put("customer", customer);
+        data.put("salePrice", salePrice);
+        data.put("date", date);
+        
         this.soldComponents = soldComponents;
         this.soldClothing = soldClothing;
-        this.saleId = generateId();
         this.customer = customer;
         this.salePrice = salePrice;
         this.date = date;
-    }
-    
-    public int generateId() {
-        //TODOIId generation based in bills
-        return 0;
     }
 
     public Date getDate() {
@@ -75,6 +79,11 @@ public class Sale {
 
     public void setSoldComponents(ArrayList<HardwareComponent> soldComponents) {
         this.soldComponents = soldComponents;
+    }
+
+    @Override
+    public HashMap<Object, Object> getData() {
+        return data;
     }
     
     

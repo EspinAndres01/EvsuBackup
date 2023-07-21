@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.evsustore.view;
 
-import ec.edu.espe.evsustore.controller.DatabaseController;
+import ec.edu.espe.evsustore.controller.SessionController;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -16,7 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class FrmRegister extends javax.swing.JFrame {
 
-    DatabaseController database = DatabaseController.getInstance();;
+    SessionController sessionController = SessionController.getInstance();;
+    
     public FrmRegister() {
         initComponents();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -194,7 +191,7 @@ public class FrmRegister extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword()).trim();
 
 
-        boolean createUserSuccess = database.createUser(name, lastName, username, password);
+        boolean createUserSuccess = sessionController.createUser(name, lastName, username, password);
         if (createUserSuccess) {
             JOptionPane.showMessageDialog(this, "Usuario creado exitosamente");
             FrmLogin frmLogin = new FrmLogin();
