@@ -4,14 +4,11 @@ package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
 import ec.edu.espe.evsustore.controller.ViewController;
-import ec.edu.espe.evsustore.model.HardwareComponent;
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -26,6 +23,7 @@ public class PnelViewInventory extends javax.swing.JPanel {
         initComponents();
         
         displayComponentsTable();
+        addListeners();
     }
     
     
@@ -108,6 +106,12 @@ public class PnelViewInventory extends javax.swing.JPanel {
         btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshTableActionPerformed(evt);
+            }
+        });
+
+        txtSearchBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchBarActionPerformed(evt);
             }
         });
 
@@ -231,6 +235,17 @@ public class PnelViewInventory extends javax.swing.JPanel {
         PnelInventory pnelInventory=new PnelInventory();
         showPanel(pnelInventory);
     }//GEN-LAST:event_btnBacktToInventoryMenuActionPerformed
+
+    private void txtSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchBarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchBarActionPerformed
+    
+    private void addListeners(){
+        TableRowSorter rowSorter = new TableRowSorter(tblComponents.getModel());
+        tblComponents.setRowSorter(rowSorter);
+        SearchBarListener searchBarListener = new SearchBarListener(tblComponents, txtSearchBar);
+        txtSearchBar.getDocument().addDocumentListener(searchBarListener);
+    }
     
     private void showPanel(JPanel panelUI) {
         panelUI.setSize(900, 675);
@@ -250,6 +265,10 @@ public class PnelViewInventory extends javax.swing.JPanel {
     
     public void displayComponentsTable(){
         ViewController.displayTable(tblComponents, componentController.obtainAllFromDb());
+    
+        TableColumnModel tblColumnModel = tblComponents.getColumnModel();
+        
+        tblColumnModel.moveColumn(5, 1);
     }
     
 

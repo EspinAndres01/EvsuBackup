@@ -1,11 +1,13 @@
 
 package ec.edu.espe.evsustore.controller;
 
+import net.suuft.libretranslate.Translator;
+import ec.edu.espe.evsustore.utils.HashMapManger;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.suuft.libretranslate.Language;
 
 /**
  *
@@ -29,8 +31,12 @@ public class ViewController {
         
         ArrayList<String> header = new ArrayList<>();
         
-        for(Map.Entry<Object,Object> keyValues: referenceMap.entrySet()){
-            header.add((String) keyValues.getKey());
+        ArrayList<Object> mapKeys = HashMapManger.getKeys(referenceMap);
+        int initialIdIndex = HashMapManger.getIdIndex(referenceMap);
+        HashMapManger.reorderkeys(mapKeys);
+        
+        for(Object key: mapKeys){
+            header.add(translateText(key.toString()).toUpperCase());
         }
         
         tableModel.setColumnIdentifiers(header.toArray());
@@ -39,8 +45,10 @@ public class ViewController {
         
         for(HashMap<Object, Object> mapedData: mapedsData){
             int i = 0;
-            for(Map.Entry<Object,Object> keyValues: mapedData.entrySet()){
-                tableData[i] = keyValues.getValue();
+            ArrayList<Object> values = HashMapManger.getValues(mapedData);
+            HashMapManger.reorderValues(values, initialIdIndex);
+            for(Object value: values){
+                tableData[i] = value;
                 i++;
             }
             
@@ -51,7 +59,10 @@ public class ViewController {
         return tableModel;
     }
     
-    
+    public static String translateText(String text){
+        String translatedTex = Translator.translate(Language.ENGLISH, Language.SPANISH, text);
+        return translatedTex;
+    }
 
     
 }

@@ -95,6 +95,7 @@ public class HardwareComponent implements Mapeable{
 
     @Override
     public HashMap<Object, Object> getData() {
+        
         return data;
     }
     

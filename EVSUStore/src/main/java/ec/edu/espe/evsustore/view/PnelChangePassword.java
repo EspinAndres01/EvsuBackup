@@ -1,7 +1,6 @@
 
 package ec.edu.espe.evsustore.view;
 
-import ec.edu.espe.evsustore.controller.DatabaseController;
 import ec.edu.espe.evsustore.controller.SessionController;
 import javax.swing.JOptionPane;
 

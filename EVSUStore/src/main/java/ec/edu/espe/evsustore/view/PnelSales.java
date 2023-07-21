@@ -3,11 +3,7 @@ package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
 import ec.edu.espe.evsustore.controller.ViewController;
-import ec.edu.espe.evsustore.model.HardwareComponent;
-import java.util.ArrayList;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  *

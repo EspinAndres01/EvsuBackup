@@ -3,6 +3,7 @@ ec\edu\espe\evsustore\view\EVSUStore$6.class
 ec\edu\espe\evsustore\view\PnelViewInventory$1.class
 ec\edu\espe\evsustore\view\PnelViewInventory$4.class
 ec\edu\espe\evsustore\view\FrmLogin$1.class
+ec\edu\espe\evsustore\view\SelectedListener.class
 ec\edu\espe\evsustore\view\FrmPrint$3.class
 ec\edu\espe\evsustore\view\FrmLogin$9.class
 ec\edu\espe\evsustore\view\PnelCatalog$1.class

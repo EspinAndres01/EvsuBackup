@@ -4,14 +4,12 @@ package ec.edu.espe.evsustore.view;
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
 import ec.edu.espe.evsustore.model.HardwareComponent;
 import ec.edu.espe.evsustore.utils.DecimalsControl;
-import ec.edu.espe.evsustore.utils.HashMapManger;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -590,12 +588,8 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
             String numbersText = field.getText ();
             if(numbersText!=null){
                 if (numbersText.matches ("[0-9]{1,7}+\\.{1}[0-9]{2}")) {
-                    if(Character.toString (enteredChar).matches("\\.")){
-                       evt.consume();
-                    }
-                    else {
-                        
-                    }
+                    evt.consume();
+                    
                 }
                 else if(Character.toString (enteredChar).matches("\\.") && field.getText().contains(".") ){
                     evt.consume ();
@@ -668,13 +662,13 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
     
     public void fillFields(HashMap<Object, Object> updatingComponent){
         String voidString = "";
-        ArrayList<String> values = HashMapManger.getValues(updatingComponent);
-        txtId.setText(String.valueOf(values.get(0)));
-        txtQuantity.setText(String.valueOf(values.get(1)));
-        txtName.setText(values.get(2));
-        txtModel.setText(values.get(3));
-        txtCost.setText(String.valueOf(values.get(4)));
-        txtPrice.setText(String.valueOf(values.get(5)));
+        
+        txtId.setText(updatingComponent.get("id").toString());
+        txtQuantity.setText(updatingComponent.get("quantity").toString());
+        txtName.setText(updatingComponent.get("name").toString());
+        txtModel.setText(updatingComponent.get("model").toString());
+        txtCost.setText(updatingComponent.get("cost").toString());
+        txtPrice.setText(updatingComponent.get("price").toString());
     }
     
     public void clearFields(int idOfUpdating){

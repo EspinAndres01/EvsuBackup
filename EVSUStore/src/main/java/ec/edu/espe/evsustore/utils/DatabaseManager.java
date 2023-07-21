@@ -7,8 +7,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -110,7 +108,7 @@ public class DatabaseManager {
         if (existsDocument(collection, searchField, searchValue)) {
             Document query = new Document(searchField, searchValue);
             Document document = collection.find(query).first();
-            Object value =document.get(targetField);
+            Object value = document.get(targetField);
             return value;
         } else {
             return null;
@@ -179,7 +177,6 @@ public class DatabaseManager {
             else{
                 value = keyValues[i].substring(separator+1, keyValues[i].length()-2);
             }
-            System.out.println("KEY:" + key + "\n VALUE:"+ value);
             converted.put(key, value);
             
         }
