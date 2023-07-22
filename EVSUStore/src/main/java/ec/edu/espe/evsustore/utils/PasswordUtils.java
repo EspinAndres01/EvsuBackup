@@ -1,10 +1,8 @@
 package ec.edu.espe.evsustore.utils;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -160,4 +158,6 @@ public class PasswordUtils {
 
         return false;
     }
+    
+
 }
