@@ -3,9 +3,7 @@ package ec.edu.espe.evsustore.controller;
 
 import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.evsustore.utils.DatabaseManager;
-import java.util.ArrayList;
 import com.mongodb.client.MongoCollection;
-import ec.edu.espe.evsustore.utils.PasswordUtils;
 import org.bson.Document;
 /**
  *

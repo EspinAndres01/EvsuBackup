@@ -16,7 +16,6 @@ public class Catalog implements Mapeable{
 
     public Catalog(int id, String productDescription, int quantity, Double pvp) {
         data = new HashMap<>();
-        data.put("id", id);
         data.put("productDescription", productDescription);
         data.put("quantity", quantity);
         data.put("pvp", pvp);
