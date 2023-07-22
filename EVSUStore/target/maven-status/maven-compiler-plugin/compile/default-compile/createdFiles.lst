@@ -5,6 +5,7 @@ ec\edu\espe\evsustore\view\PnelViewInventory$4.class
 ec\edu\espe\evsustore\view\FrmLogin$1.class
 ec\edu\espe\evsustore\view\SelectedListener.class
 ec\edu\espe\evsustore\view\FrmPrint$3.class
+ec\edu\espe\evsustore\view\PnelViewInventory$7.class
 ec\edu\espe\evsustore\view\FrmLogin$9.class
 ec\edu\espe\evsustore\view\PnelCatalog$1.class
 ec\edu\espe\evsustore\view\EVSUStore$3.class
@@ -59,6 +60,7 @@ ec\edu\espe\evsustore\view\PnelSaveHardwareComponent$5.class
 ec\edu\espe\evsustore\view\FrmRecoverPassword$1.class
 ec\edu\espe\evsustore\view\PnelViewInventory.class
 ec\edu\espe\evsustore\view\PnelSaveHardwareComponent$8.class
+ec\edu\espe\evsustore\model\Catalog.class
 ec\edu\espe\evsustore\view\FrmRegister$2.class
 ec\edu\espe\evsustore\view\EVSUStore$7.class
 ec\edu\espe\evsustore\view\FrmPrint$1.class
@@ -87,6 +89,7 @@ ec\edu\espe\evsustore\model\Mapeable.class
 ec\edu\espe\evsustore\view\Bill.class
 ec\edu\espe\evsustore\view\FrmAddImage$1.class
 ec\edu\espe\evsustore\view\PnelViewInventory$5.class
+ec\edu\espe\evsustore\view\EVSUStore$8.class
 ec\edu\espe\evsustore\view\FrmPrint$2.class
 ec\edu\espe\evsustore\view\FrmRegister$1.class
 ec\edu\espe\evsustore\controller\ClothingController.class
