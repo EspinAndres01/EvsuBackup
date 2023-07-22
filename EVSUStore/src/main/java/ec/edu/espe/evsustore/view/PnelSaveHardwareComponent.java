@@ -549,7 +549,9 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
             Double price = componentController.calculatePrice(cost, gain);
             
             String priceText = String.format ("%.2f", DecimalsControl.roundToTwoTenths(price)); 
-
+            if(priceText.contains(",")){
+                priceText = priceText.replace(",", ".");
+            }
             txtPrice.setText(priceText);
         }
         
