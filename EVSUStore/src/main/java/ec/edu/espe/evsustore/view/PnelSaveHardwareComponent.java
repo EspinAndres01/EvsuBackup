@@ -553,6 +553,8 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
                 priceText = priceText.replace(",", ".");
             }
             txtPrice.setText(priceText);
+
+            
         }
         
 

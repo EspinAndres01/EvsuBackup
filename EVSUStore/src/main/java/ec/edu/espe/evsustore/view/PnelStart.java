@@ -29,25 +29,28 @@ public class PnelStart extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(134, 44, 195));
+        setPreferredSize(new java.awt.Dimension(1200, 683));
 
+        jPanel1.setBackground(new java.awt.Color(44, 45, 57));
+
+        jLabel2.setBackground(new java.awt.Color(44, 45, 57));
         jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\kibok\\OneDrive\\Desktop\\POO202305\\ESPE23-KillChainTeam\\06-Code\\EVSUStoreInMaven\\EVSUStore\\src\\main\\resources\\logo-removebg-preview.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(650, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(194, 194, 194)
                 .addComponent(jLabel2)
-                .addGap(259, 259, 259))
+                .addContainerGap(437, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(51, 51, 51)
                 .addComponent(jLabel2)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

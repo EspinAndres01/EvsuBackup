@@ -89,6 +89,7 @@ ec\edu\espe\evsustore\model\Mapeable.class
 ec\edu\espe\evsustore\view\Bill.class
 ec\edu\espe\evsustore\view\FrmAddImage$1.class
 ec\edu\espe\evsustore\view\PnelViewInventory$5.class
+ec\edu\espe\evsustore\view\EVSUStore$8.class
 ec\edu\espe\evsustore\view\FrmPrint$2.class
 ec\edu\espe\evsustore\view\FrmRegister$1.class
 ec\edu\espe\evsustore\controller\ClothingController.class
