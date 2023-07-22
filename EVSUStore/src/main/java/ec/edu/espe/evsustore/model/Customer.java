@@ -1,23 +1,43 @@
 
 package ec.edu.espe.evsustore.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  *
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
-public class Customer {
+public class Customer implements Mapeable{
     private int id;
     private String name;
     private String lastName;
     private int phoneNumber;
     private int idCardNumber;
+    private ArrayList<Sale> sales;
+    
+    private HashMap<Object, Object> data;
 
-    public Customer(String name, String lastName, int phoneNumber, int idCardNumber) {
-        this.id = generateId();
+    @Override
+    public String toString() {
+        return "Customer{" + "id=" + id + ", name=" + name + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", idCardNumber=" + idCardNumber + ", sales=" + sales + ", data=" + data + '}';
+    }
+
+    public Customer(int id, String name, String lastName, int phoneNumber, int idCardNumber, ArrayList<Sale> sales) {
+        data = new HashMap<>();
+        data.put("id", id);
+        data.put("name", name);
+        data.put("lastName", lastName);
+        data.put("phoneNumber", phoneNumber);
+        data.put("idCardNumber", idCardNumber);
+        data.put("sales", sales);
+        
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.idCardNumber = idCardNumber;
+        this.sales = sales;
     }
     
     public int getId() {
@@ -59,9 +79,18 @@ public class Customer {
     public void setIdCardNumber(int idCardNumber) {
         this.idCardNumber = idCardNumber;
     }
-    
-    public static int generateId(){
-        //TODO generateId algorithm
-        return 0;
+
+    public ArrayList<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(ArrayList<Sale> sales) {
+        this.sales = sales;
+    }
+
+
+    @Override
+    public HashMap<Object, Object> getData() {
+       return data;
     }
 }

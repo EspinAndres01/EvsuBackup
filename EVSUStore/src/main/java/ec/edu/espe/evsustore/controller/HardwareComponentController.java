@@ -37,6 +37,12 @@ public class HardwareComponentController {
         return obtainAllFromDb().size()+1;
     }
     
+    public boolean isInDB(HardwareComponent component){
+        boolean isInDB;
+        isInDB = DatabaseManager.existsDocument(collection, "id", component.getId());
+        return isInDB;
+    }
+    
     public boolean save(HardwareComponent component){
         boolean verification;
         verification = DatabaseManager.insertDocument(collection, component.getData());

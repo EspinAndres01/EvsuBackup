@@ -30,12 +30,18 @@ public class DatabaseManager {
     
     public static MongoCollection connectToCollection(MongoDatabase database, String collection){
         MongoCollection<Document> mongoCollection = database.getCollection(collection);
+       
+        if (mongoCollection == null ){
+            database.createCollection(collection);
+            mongoCollection = database.getCollection(collection);
+        }
+        
         return mongoCollection; 
     }
     
     public static  boolean insertDocument(MongoCollection collection, HashMap<Object, Object> map){
         Object documentId  = map.get("id");
-        if(!existsDocument(collection,"id", (int)documentId)){
+        if(!existsDocument(collection,"id", Integer.valueOf(documentId.toString()))){
             Document document = createDocument(map);
             try {
                 collection.insertOne(document);
@@ -59,7 +65,15 @@ public class DatabaseManager {
         return document;
     }
     
-
+    private static Document createUpdateDocument(HashMap<Object, Object> map) {
+        Document document = new Document();
+        for (Map.Entry<Object, Object> entry : map.entrySet()) {
+            document.append(entry.getKey().toString(), entry.getValue());
+        }
+        Document updateDocument = new Document("$set", document);
+        return updateDocument;
+    }
+    
     
     public static ArrayList<Object> getFieldValues(MongoCollection<Document> collection, String field) {
         ArrayList<Object> readedValues = new ArrayList<>();
@@ -76,10 +90,10 @@ public class DatabaseManager {
     
     public static boolean updateDocument(MongoCollection<Document> collection, HashMap<Object, Object> updatedMap){
         Object documentId  = updatedMap.get("id");
-        Bson foundedDocument = search(collection, (int) documentId);
-        if (foundedDocument!=null) {
-            Bson updatedDocument = createDocument(updatedMap);
-            collection.updateOne(foundedDocument,updatedDocument);
+        Bson filter = search(collection, Integer.parseInt(documentId.toString()));
+        if (filter!=null) {
+            Bson updatedDocument = createUpdateDocument(updatedMap);
+            collection.updateOne(filter, updatedDocument);
             System.out.println("-> Updated succesfully");
             return true;
         }
@@ -91,9 +105,9 @@ public class DatabaseManager {
     
     public static boolean deleteDocument(MongoCollection<Document> collection, HashMap<Object, Object> targetMap) {
         Object documentId  = targetMap.get("id");
-        Document foundedDocument = search(collection, (int) documentId);
+        Document foundedDocument = search(collection, Integer.parseInt(documentId.toString()));
         if (foundedDocument!=null) {
-            Bson query = createDocument(targetMap);
+            Bson query = foundedDocument;
             collection.deleteOne(query);
             System.out.println("-> Deleted successfully");
             return true; 
@@ -122,22 +136,22 @@ public class DatabaseManager {
     }
     
     public static boolean existsField(MongoCollection<Document> collection, String field) {
-        // Obtenemos un documento de la colección como ejemplo
         Document sampleDoc = collection.find().first();
-        // Verificamos si el documento es null y si contiene la clave dada
         return sampleDoc != null && sampleDoc.containsKey(field);
-    }
-    
-    public static Document search(MongoCollection<Document> collection, int id){
-        Document query = new Document("id", id);
-        FindIterable<Document> documents = collection.find(query);
-        Document foundedDocument = documents.first();
-        
-        return foundedDocument;
     }
     
     public static HashMap<Object,Object> obtain(MongoCollection<Document> collection, int id) {
         Document obtainedDocument = search(collection, id);
+        HashMap<Object,Object> obtained = new HashMap<>();
+        
+        if(obtainedDocument!=null){
+            obtained = convertDocumentStringIntoKeyValues(obtainedDocument.toString());             
+        }
+        return obtained;
+    }
+    
+    public static HashMap<Object,Object> obtain(MongoCollection<Document> collection, String key, Object value) {
+        Document obtainedDocument = search(collection, key, value);
         HashMap<Object,Object> obtained = new HashMap<>();
         
         if(obtainedDocument!=null){
@@ -182,6 +196,22 @@ public class DatabaseManager {
         }
         return converted;
     }
+    
+    public static Document search(MongoCollection<Document> collection, int id){
+        Document query = new Document("id", id);
+        FindIterable<Document> documents = collection.find(query);
+        Document foundedDocument = documents.first();
+        
+        return foundedDocument;
+    }
 
+    public static Document search(MongoCollection<Document> collection, String key, Object value){
+        Document query = new Document(key, value);
+        FindIterable<Document> documents = collection.find(query);
+        Document foundedDocument = documents.first();
+        
+        return foundedDocument;
+    }
+    
 }
 

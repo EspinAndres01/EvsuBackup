@@ -31,6 +31,7 @@ ec\edu\espe\evsustore\view\PnelSales.class
 ec\edu\espe\evsustore\utils\DecimalsControl.class
 ec\edu\espe\evsustore\utils\HashMapManger.class
 ec\edu\espe\evsustore\view\FrmLogin$6.class
+ec\edu\espe\evsustore\utils\ViewManager.class
 ec\edu\espe\evsustore\controller\ListenersController.class
 ec\edu\espe\evsustore\model\Clothing.class
 ec\edu\espe\evsustore\model\Purchase.class
@@ -55,6 +56,7 @@ ec\edu\espe\evsustore\view\PnelSaveHardwareComponent$11.class
 ec\edu\espe\evsustore\view\EVSUStore.class
 ec\edu\espe\evsustore\view\PnelInventory.class
 ec\edu\espe\evsustore\view\FrmRecoverPassword.class
+ec\edu\espe\evsustore\controller\CatalogController.class
 ec\edu\espe\evsustore\view\FrmRecoverPassword$4.class
 ec\edu\espe\evsustore\view\PnelSaveHardwareComponent$5.class
 ec\edu\espe\evsustore\view\FrmRecoverPassword$1.class
@@ -71,7 +73,10 @@ ec\edu\espe\evsustore\utils\PasswordUtils.class
 ec\edu\espe\evsustore\view\FrmLogin$2.class
 ec\edu\espe\evsustore\view\EVSUStore$1.class
 ec\edu\espe\evsustore\view\PnelSaveHardwareComponent$4.class
+ec\edu\espe\evsustore\view\PnelViewCustomers.class
 ec\edu\espe\evsustore\view\FrmLogin$3.class
+ec\edu\espe\evsustore\view\PnelViewCustomers$2.class
+ec\edu\espe\evsustore\utils\HeaderTranslator.class
 ec\edu\espe\evsustore\model\Salesman.class
 ec\edu\espe\evsustore\view\FrmRecoverPassword$5.class
 ec\edu\espe\evsustore\view\PnelViewInventory$6.class
@@ -80,9 +85,9 @@ ec\edu\espe\evsustore\view\Bill$1.class
 ec\edu\espe\evsustore\model\HardwareComponent.class
 ec\edu\espe\evsustore\view\FrmRegister.class
 ec\edu\espe\evsustore\view\PnelSaveHardwareComponent$3.class
-ec\edu\espe\evsustore\controller\ViewController.class
 ec\edu\espe\evsustore\view\FrmRecoverPassword$6.class
 ec\edu\espe\evsustore\view\EVSUStore$2.class
+ec\edu\espe\evsustore\view\PnelViewCustomers$1.class
 ec\edu\espe\evsustore\view\PnelPurchases.class
 ec\edu\espe\evsustore\view\FrmLogin$4.class
 ec\edu\espe\evsustore\model\Mapeable.class

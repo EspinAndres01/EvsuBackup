@@ -3,10 +3,15 @@ package ec.edu.espe.evsustore.view;
 
 
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
-import ec.edu.espe.evsustore.controller.ViewController;
+import ec.edu.espe.evsustore.utils.ViewManager;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
@@ -38,124 +43,93 @@ public class PnelViewInventory extends javax.swing.JPanel {
     private void initComponents() {
 
         Content = new javax.swing.JPanel();
+        pnelTbleActions = new javax.swing.JPanel();
+        txtSearchBar = new javax.swing.JTextField();
+        btnRefresh = new javax.swing.JButton();
         pnelViewInfo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblComponents = new javax.swing.JTable();
-        pnelTableButtons = new javax.swing.JPanel();
-        btnRefreshTable = new javax.swing.JButton();
-        txtSearchBar = new javax.swing.JTextField();
-        btnBacktToInventoryMenu = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
+        pnelButtons = new javax.swing.JPanel();
         btnUpdate = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         Content.setBackground(new java.awt.Color(18, 9, 24));
-        Content.setForeground(new java.awt.Color(18, 9, 24));
-        Content.setPreferredSize(new java.awt.Dimension(900, 675));
+
+        pnelTbleActions.setBackground(new java.awt.Color(18, 9, 24));
+
+        txtSearchBar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+
+        btnRefresh.setBackground(new java.awt.Color(92, 50, 118));
+        btnRefresh.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnRefresh.setText("Refrescar Tabla");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnelTbleActionsLayout = new javax.swing.GroupLayout(pnelTbleActions);
+        pnelTbleActions.setLayout(pnelTbleActionsLayout);
+        pnelTbleActionsLayout.setHorizontalGroup(
+            pnelTbleActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnelTbleActionsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        pnelTbleActionsLayout.setVerticalGroup(
+            pnelTbleActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnelTbleActionsLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(pnelTbleActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        pnelViewInfo.setBackground(new java.awt.Color(18, 9, 24));
 
         tblComponents.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         tblComponents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Cantidad", "Nombre", "Modelo", "Costo", "Precio"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblComponents.setMaximumSize(new java.awt.Dimension(300, 25));
-        tblComponents.setOpaque(false);
-        tblComponents.setRowHeight(25);
+        ));
+        tblComponents.setRowHeight(30);
         tblComponents.setSelectionBackground(new java.awt.Color(169, 104, 216));
         tblComponents.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblComponents.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblComponents.getTableHeader().setReorderingAllowed(false);
-        tblComponents.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tblComponentsPropertyChange(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblComponents);
 
         javax.swing.GroupLayout pnelViewInfoLayout = new javax.swing.GroupLayout(pnelViewInfo);
         pnelViewInfo.setLayout(pnelViewInfoLayout);
         pnelViewInfoLayout.setHorizontalGroup(
             pnelViewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnelViewInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         pnelViewInfoLayout.setVerticalGroup(
             pnelViewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-        );
-
-        pnelTableButtons.setBackground(new java.awt.Color(18, 9, 24));
-
-        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshTableActionPerformed(evt);
-            }
-        });
-
-        txtSearchBar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchBarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnelTableButtonsLayout = new javax.swing.GroupLayout(pnelTableButtons);
-        pnelTableButtons.setLayout(pnelTableButtonsLayout);
-        pnelTableButtonsLayout.setHorizontalGroup(
-            pnelTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelTableButtonsLayout.createSequentialGroup()
+            .addGroup(pnelViewInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105))
-        );
-        pnelTableButtonsLayout.setVerticalGroup(
-            pnelTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnelTableButtonsLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(pnelTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRefreshTable, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(txtSearchBar))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnBacktToInventoryMenu.setBackground(new java.awt.Color(133, 44, 194));
-        btnBacktToInventoryMenu.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        btnBacktToInventoryMenu.setText("Volver al Menú de Inventario");
-        btnBacktToInventoryMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBacktToInventoryMenuActionPerformed(evt);
-            }
-        });
+        pnelButtons.setBackground(new java.awt.Color(18, 9, 24));
 
-        btnDelete.setBackground(new java.awt.Color(133, 44, 194));
-        btnDelete.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        btnDelete.setText("Borrar");
-        btnDelete.setEnabled(false);
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setBackground(new java.awt.Color(133, 44, 194));
+        btnUpdate.setBackground(new java.awt.Color(92, 50, 118));
         btnUpdate.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnUpdate.setText("Actualizar");
         btnUpdate.setEnabled(false);
@@ -165,86 +139,134 @@ public class PnelViewInventory extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(92, 50, 118));
+        btnBack.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnBack.setText("Volver al Menú Inventario");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setBackground(new java.awt.Color(92, 50, 118));
+        btnDelete.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnDelete.setText("Eliminar");
+        btnDelete.setEnabled(false);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnelButtonsLayout = new javax.swing.GroupLayout(pnelButtons);
+        pnelButtons.setLayout(pnelButtonsLayout);
+        pnelButtonsLayout.setHorizontalGroup(
+            pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnelButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        pnelButtonsLayout.setVerticalGroup(
+            pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnelButtonsLayout.createSequentialGroup()
+                .addGroup(pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout ContentLayout = new javax.swing.GroupLayout(Content);
         Content.setLayout(ContentLayout);
         ContentLayout.setHorizontalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContentLayout.createSequentialGroup()
-                .addComponent(pnelTableButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnelViewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136))
-            .addGroup(ContentLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126)
-                .addComponent(btnBacktToInventoryMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(pnelTbleActions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnelViewInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         ContentLayout.setVerticalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentLayout.createSequentialGroup()
-                .addComponent(pnelTableButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnelTbleActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnelViewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnBacktToInventoryMenu))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Content, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Content, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
+            .addComponent(Content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        HashMap<Object, Object> selectedComponent = getSelectedComponent();
-        PnelSaveHardwareComponent frmComponentToUpdate = new PnelSaveHardwareComponent((int)selectedComponent.get("id"));
-        showPanel(frmComponentToUpdate);
+        int idOfUpdatingComponent = Integer.parseInt(getSelectedComponent().get("id").toString());
+        PnelSaveHardwareComponent pnelSaveHardwareComponent = new PnelSaveHardwareComponent(idOfUpdatingComponent);
+        showPanel(pnelSaveHardwareComponent);
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        PnelInventory pnelInventory = new PnelInventory();
+        showPanel(pnelInventory);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         HashMap<Object, Object> selectedComponent = getSelectedComponent();
-        componentController.delete(selectedComponent);
-        displayComponentsTable();
+        deleteConfirmation(selectedComponent);
+        
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void tblComponentsPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblComponentsPropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblComponentsPropertyChange
-
-    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        
         displayComponentsTable();
-    }//GEN-LAST:event_btnRefreshTableActionPerformed
-
-    private void btnBacktToInventoryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBacktToInventoryMenuActionPerformed
-        PnelInventory pnelInventory=new PnelInventory();
-        showPanel(pnelInventory);
-    }//GEN-LAST:event_btnBacktToInventoryMenuActionPerformed
-
-    private void txtSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchBarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchBarActionPerformed
+    }//GEN-LAST:event_btnRefreshActionPerformed
     
     private void addListeners(){
         TableRowSorter rowSorter = new TableRowSorter(tblComponents.getModel());
         tblComponents.setRowSorter(rowSorter);
+        
         SearchBarListener searchBarListener = new SearchBarListener(tblComponents, txtSearchBar);
         txtSearchBar.getDocument().addDocumentListener(searchBarListener);
+        
+        ArrayList<JButton> buttonsToEnable = new ArrayList<>();
+        buttonsToEnable.add(btnDelete);
+        buttonsToEnable.add(btnUpdate);
+        SelectedListener selectedListener = new SelectedListener(buttonsToEnable);
+        tblComponents.getSelectionModel().addListSelectionListener(selectedListener);
+    }
+    
+    private void deleteConfirmation(HashMap<Object, Object> selectedComponent){
+        String warningMessage = "¿Está seguro de que quiere eliminar el siguiente producto?\n";
+        String component = selectedComponent.toString().replace("\t|| ", "\n");
+
+        int option = JOptionPane.showConfirmDialog(this, warningMessage + component);
+        JRootPane rootPane = new JRootPane();
+
+        if (option == 0) {
+            boolean isDeleted = componentController.delete(selectedComponent);
+            if(isDeleted){
+                JOptionPane.showMessageDialog(rootPane, "Se ha eliminado exitosamente");
+
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Hubo un error al eliminar el archivo, intentelo nuevamente");
+            }
+            
+        } else if (option == 1) {
+            JOptionPane.showMessageDialog(rootPane, "No eliminado");
+        }
     }
     
     private void showPanel(JPanel panelUI) {
@@ -258,13 +280,13 @@ public class PnelViewInventory extends javax.swing.JPanel {
     
     private HashMap<Object, Object> getSelectedComponent() {
         int selectedRowIndex = tblComponents.getSelectedRow();
-        int id = (int) tblComponents.getValueAt(selectedRowIndex, 0);
+        int id = Integer.parseInt(tblComponents.getValueAt(selectedRowIndex, 0).toString());
         HashMap<Object, Object> selectedComponent = componentController.obtainFromDb(id);
         return selectedComponent;
     }
     
-    public void displayComponentsTable(){
-        ViewController.displayTable(tblComponents, componentController.obtainAllFromDb());
+    private void displayComponentsTable(){
+        ViewManager.displayTable(tblComponents, componentController.obtainAllFromDb());
     
         TableColumnModel tblColumnModel = tblComponents.getColumnModel();
         
@@ -274,12 +296,13 @@ public class PnelViewInventory extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Content;
-    private javax.swing.JButton btnBacktToInventoryMenu;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnRefreshTable;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel pnelTableButtons;
+    private javax.swing.JPanel pnelButtons;
+    private javax.swing.JPanel pnelTbleActions;
     private javax.swing.JPanel pnelViewInfo;
     private javax.swing.JTable tblComponents;
     private javax.swing.JTextField txtSearchBar;

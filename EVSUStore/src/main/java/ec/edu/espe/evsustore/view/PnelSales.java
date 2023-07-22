@@ -1,8 +1,13 @@
 
 package ec.edu.espe.evsustore.view;
 
+import ec.edu.espe.evsustore.controller.CatalogController;
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
-import ec.edu.espe.evsustore.controller.ViewController;
+import ec.edu.espe.evsustore.utils.ViewManager;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
 
 
 /**
@@ -12,6 +17,8 @@ import ec.edu.espe.evsustore.controller.ViewController;
 public class PnelSales extends javax.swing.JPanel {
 
     HardwareComponentController componentController = HardwareComponentController.getInstance();
+    CatalogController catalogController = CatalogController.getInstance();
+    
     
     /**
      * Creates new form PnelSales
@@ -19,7 +26,8 @@ public class PnelSales extends javax.swing.JPanel {
     public PnelSales() {
         initComponents();
     
-        ViewController.displayTable(tblCatalog, componentController.obtainAllFromDb());
+        displayCatalogTable();
+        addListeners();
     }
 
     /**
@@ -35,13 +43,18 @@ public class PnelSales extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCatalog = new javax.swing.JTable();
         pnelButtons = new javax.swing.JPanel();
+        btnSell = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        pnelSearchBar = new javax.swing.JPanel();
+        txtSearchBar = new javax.swing.JTextField();
 
+        tblCatalog.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         tblCatalog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null}
             },
             new String [] {
-                "Producto", "Cantidad", "PVP"
+                "Descripcion del producto", "Cantidad", "PVP"
             }
         ) {
             Class[] types = new Class [] {
@@ -59,6 +72,9 @@ public class PnelSales extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblCatalog.setRowHeight(30);
+        tblCatalog.setSelectionBackground(new java.awt.Color(169, 104, 216));
+        tblCatalog.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(tblCatalog);
 
         javax.swing.GroupLayout pnelViewInfoLayout = new javax.swing.GroupLayout(pnelViewInfo);
@@ -66,27 +82,64 @@ public class PnelSales extends javax.swing.JPanel {
         pnelViewInfoLayout.setHorizontalGroup(
             pnelViewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelViewInfoLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         pnelViewInfoLayout.setVerticalGroup(
             pnelViewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelViewInfoLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        btnSell.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnSell.setText("Vender");
+        btnSell.setEnabled(false);
+
+        btnBack.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnBack.setText("Volver al Menú de Ventas");
 
         javax.swing.GroupLayout pnelButtonsLayout = new javax.swing.GroupLayout(pnelButtons);
         pnelButtons.setLayout(pnelButtonsLayout);
         pnelButtonsLayout.setHorizontalGroup(
             pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnelButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSell, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnelButtonsLayout.setVerticalGroup(
             pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 94, Short.MAX_VALUE)
+            .addGroup(pnelButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSell, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        txtSearchBar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtSearchBar.setText("Escriba aqui para buscar...");
+
+        javax.swing.GroupLayout pnelSearchBarLayout = new javax.swing.GroupLayout(pnelSearchBar);
+        pnelSearchBar.setLayout(pnelSearchBarLayout);
+        pnelSearchBarLayout.setHorizontalGroup(
+            pnelSearchBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnelSearchBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(294, Short.MAX_VALUE))
+        );
+        pnelSearchBarLayout.setVerticalGroup(
+            pnelSearchBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnelSearchBarLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(txtSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -95,21 +148,50 @@ public class PnelSales extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnelViewInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnelSearchBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnelViewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnelSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnelViewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addListeners(){
+        TableRowSorter rowSorter = new TableRowSorter(tblCatalog.getModel());
+        tblCatalog.setRowSorter(rowSorter);
+        
+        SearchBarListener searchBarListener = new SearchBarListener(tblCatalog, txtSearchBar);
+        txtSearchBar.getDocument().addDocumentListener(searchBarListener);
+        
+        ArrayList<JButton> btnsToEnable = new ArrayList<>();
+        btnsToEnable.add(btnSell);
+        SelectedListener selectedListener = new SelectedListener(btnsToEnable);
+        tblCatalog.getSelectionModel().addListSelectionListener(selectedListener);
+    }
+    
+    private void displayCatalogTable(){
+        ViewManager.displayTableWithoutIds(tblCatalog, catalogController.obtainAll());
+        
+        TableColumnModel tblColumnModel = tblCatalog.getColumnModel();
+        
+        tblColumnModel.moveColumn(2, 0);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSell;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnelButtons;
+    private javax.swing.JPanel pnelSearchBar;
     private javax.swing.JPanel pnelViewInfo;
     private javax.swing.JTable tblCatalog;
+    private javax.swing.JTextField txtSearchBar;
     // End of variables declaration//GEN-END:variables
 }
