@@ -2,7 +2,6 @@
 package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
-import ec.edu.espe.evsustore.controller.ViewController;
 import ec.edu.espe.evsustore.model.HardwareComponent;
 import ec.edu.espe.evsustore.utils.DecimalsControl;
 import java.awt.BorderLayout;
@@ -11,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,13 +25,15 @@ import javax.swing.event.DocumentListener;
  */
 public class PnelSaveHardwareComponent extends javax.swing.JPanel {
 
+    HardwareComponentController componentController = HardwareComponentController.getInstance();
+    
     /**
      * Creates new form PnelSaveHardwareComponent
      */
     public PnelSaveHardwareComponent() {
         initComponents();
         
-        int generatedId = HardwareComponentController.generateId();
+        int generatedId = componentController.generateId();
         txtId.setText(String.valueOf(generatedId));
         
         btnClear.addActionListener(new ActionListener() {
@@ -48,18 +50,16 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         addListeners();
     }
     
-    public PnelSaveHardwareComponent(HardwareComponent updatingComponent) {
+    public PnelSaveHardwareComponent(int idOfUpdatingComponent) {
         initComponents();
         
-        fillFields(updatingComponent);
-        
-        int idOfUpdating = updatingComponent.getId();
-        
+        fillFields(componentController.obtainFromDb(idOfUpdatingComponent));
+
         btnClear.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    clearFields(idOfUpdating);
+                    clearFields(idOfUpdatingComponent);
 
                 }
             }
@@ -389,13 +389,14 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         JRootPane rootPane = new JRootPane();
 
         if (option == 0) {
-              try {
-                ViewController.saveComponentInDB(enteredComponent);
+            boolean isSaved = componentController.save(enteredComponent);
+            if(isSaved){
                 JOptionPane.showMessageDialog(rootPane, "Se ha guardado exitosamente");
                 clearFields();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Error al guardar el componente:\n" + e.getMessage());
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Hubo un error al guardar el archivo, intentelo nuevamente");
             }
+            
         } else if (option == 1) {
             JOptionPane.showMessageDialog(rootPane, "No guardado");
             clearFields();
@@ -545,9 +546,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         else{
             Double cost = Double.valueOf(txtCost.getText());
             Double gain = Double.valueOf(txtGainPercentage.getText());
-            Double price = HardwareComponentController.calculatePrice(cost, gain);
-            
-            System.out.println("Costo :" + cost + " Gain: " + gain + " Precio: " + price);
+            Double price = componentController.calculatePrice(cost, gain);
             
             String priceText = String.format ("%.2f", DecimalsControl.roundToTwoTenths(price)); 
 
@@ -589,12 +588,8 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
             String numbersText = field.getText ();
             if(numbersText!=null){
                 if (numbersText.matches ("[0-9]{1,7}+\\.{1}[0-9]{2}")) {
-                    if(Character.toString (enteredChar).matches("\\.")){
-                       evt.consume();
-                    }
-                    else {
-                        
-                    }
+                    evt.consume();
+                    
                 }
                 else if(Character.toString (enteredChar).matches("\\.") && field.getText().contains(".") ){
                     evt.consume ();
@@ -637,7 +632,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         if(option == 0){
             
             String voidString = "";
-            int generatedId = HardwareComponentController.generateId();
+            int generatedId = componentController.generateId();
             txtId.setText(String.valueOf(generatedId));
             txtQuantity.setText(voidString);
             txtName.setText(voidString);
@@ -665,14 +660,15 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         lblLogo.setIcon(scaledLogo);
     }
     
-    public void fillFields(HardwareComponent updatingComponent){
+    public void fillFields(HashMap<Object, Object> updatingComponent){
         String voidString = "";
-        txtId.setText(String.valueOf(updatingComponent.getId()));
-        txtQuantity.setText(String.valueOf(updatingComponent.getQuantity()));
-        txtName.setText(updatingComponent.getName());
-        txtModel.setText(updatingComponent.getModel());
-        txtCost.setText(String.valueOf(updatingComponent.getCost()));
-        txtPrice.setText(String.valueOf(updatingComponent.getPrice()));
+        
+        txtId.setText(updatingComponent.get("id").toString());
+        txtQuantity.setText(updatingComponent.get("quantity").toString());
+        txtName.setText(updatingComponent.get("name").toString());
+        txtModel.setText(updatingComponent.get("model").toString());
+        txtCost.setText(updatingComponent.get("cost").toString());
+        txtPrice.setText(updatingComponent.get("price").toString());
     }
     
     public void clearFields(int idOfUpdating){

@@ -1,10 +1,8 @@
 
 package ec.edu.espe.evsustore.view;
 
+import ec.edu.espe.evsustore.controller.HardwareComponentController;
 import ec.edu.espe.evsustore.controller.ViewController;
-import ec.edu.espe.evsustore.model.HardwareComponent;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -13,11 +11,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PnelCatalog extends javax.swing.JPanel {
 
+    HardwareComponentController componentController = HardwareComponentController.getInstance();
+    
     /**
      * Creates new form PnelCatalog
      */
     public PnelCatalog() {
         initComponents();
+        
+        ViewController.displayTable(tblCatalog, componentController.obtainAllFromDb());
     }
 
     /**
@@ -69,15 +71,15 @@ public class PnelCatalog extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -92,35 +94,6 @@ public class PnelCatalog extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void writeTableComponents( ){
-        
-        ArrayList<HardwareComponent> componentsInDB = ViewController.obtainAllComponents();
-        
-        DefaultTableModel catlaogTableModel = new DefaultTableModel();
-        
-        int i = 0;
-        Object[] componentData = new Object[tblCatalog.getColumnCount()];
-        tblCatalog.setModel(catlaogTableModel);
-        
-        String[] header = {"ID","Quantity","Name","Model","Cost","Price"};
-        
-        catlaogTableModel.setColumnIdentifiers(header);
-        
-        for(HardwareComponent component: componentsInDB){
-            
-            componentData[0] = component.getId();
-            componentData[1] = component.getQuantity();
-            componentData[2] = component.getName();
-            componentData[3]= component.getModel();
-            componentData[4] = component.getCost();
-            componentData[5] = component.getPrice();
-            
-            catlaogTableModel.addRow(componentData);
-            
-        }
-        
-       
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

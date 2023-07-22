@@ -7,10 +7,11 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import ec.edu.espe.evsustore.model.Clothing;
-import ec.edu.espe.evsustore.model.HardwareComponent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -19,9 +20,10 @@ import org.bson.Document;
 
 public class DatabaseManager {
     
-    public static MongoDatabase connectToDatabase(String url, String dataBase){
-        MongoClient mongoClient = MongoClients.create(url);
+   public static MongoDatabase connectToDatabase(String uri, String dataBase){
+        MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase mongoDatabase = mongoClient.getDatabase(dataBase);
+        
         System.out.println("-> Connected successfully to server " + dataBase);  
         return mongoDatabase;
     }
@@ -31,10 +33,10 @@ public class DatabaseManager {
         return mongoCollection; 
     }
     
-    
-    public static boolean insertOne(MongoCollection<Document> collection, HardwareComponent component){
-        Document document = createDocument(component);
-        if(!document.isEmpty()){
+    public static  boolean insertDocument(MongoCollection collection, HashMap<Object, Object> map){
+        Object documentId  = map.get("id");
+        if(!existsDocument(collection,"id", (int)documentId)){
+            Document document = createDocument(map);
             try {
                 collection.insertOne(document);
                 System.out.println("-> Inserted successfully");
@@ -49,104 +51,81 @@ public class DatabaseManager {
         }
     }
     
-    public static boolean insertOne(MongoCollection<Document> collection, Clothing clothing){
-        Document document = createDocument(clothing);
-        if(!document.isEmpty()){
-            try {
-                collection.insertOne(document);
-                System.out.println("-> Inserted successfully");
-                return true;
-            } catch (Exception e) {
-                System.out.println("-> Insertion failed");
-                return false;
-            }
-        }else{
-            System.out.println("-> Insertion failed");
-            return false;
+    private static Document createDocument(HashMap<Object, Object> map) {
+        Document document = new Document();
+        for (Map.Entry<Object, Object> entry : map.entrySet()) {
+            document.append(entry.getKey().toString(), entry.getValue());
         }
-    }
-    
-    public static Document createDocument(HardwareComponent component){
-        Document document = new Document();
-        
-        int id = component.getId();
-        int quantity = component.getQuantity();
-        double cost = component.getCost();
-        double price = component.getPrice();
-        String name = component.getName();
-        String model = component.getModel();
-        
-        document.append("id", id);
-        document.append("quantity", quantity);
-        document.append("cost", cost);
-        document.append("price", price);
-        document.append("name", name);
-        document.append("model", model);
-                
-        return document; 
-    }
-    
-    public static Document createDocument(Clothing clothing){
-        Document document = new Document();
-        //TODO Code for document with clothing
-        
         return document;
     }
     
-    public static HardwareComponent obtainComponent(MongoCollection<Document> collection, int id){
-        Document obtainedDocument = search(collection, id);
-        if(obtainedDocument != null){
-            int componentId = obtainedDocument.getInteger("id");
-            int quantity = obtainedDocument.getInteger("quantity");
-            double cost = obtainedDocument.getDouble("cost");
-            double price = obtainedDocument.getDouble("price");
-            String name = obtainedDocument.getString("name");
-            String model = obtainedDocument.getString("model");
-        
-            HardwareComponent obtainedComponent = new HardwareComponent(id, quantity, cost, price, name, model);
-            return obtainedComponent;
+
+    
+    public static ArrayList<Object> getFieldValues(MongoCollection<Document> collection, String field) {
+        ArrayList<Object> readedValues = new ArrayList<>();
+        if (existsField(collection, field)) {
+            try (MongoCursor<Document> cursor = collection.find().iterator()) {
+                while (cursor.hasNext()) {
+                    Document document = cursor.next();
+                    readedValues.add(document.get(field));
+                }
+            }
         }
-        else{
+        return readedValues;
+    }
+    
+    public static boolean updateDocument(MongoCollection<Document> collection, HashMap<Object, Object> updatedMap){
+        Object documentId  = updatedMap.get("id");
+        Bson foundedDocument = search(collection, (int) documentId);
+        if (foundedDocument!=null) {
+            Bson updatedDocument = createDocument(updatedMap);
+            collection.updateOne(foundedDocument,updatedDocument);
+            System.out.println("-> Updated succesfully");
+            return true;
+        }
+        else {
+            System.out.println("-> Updated failed");
+            return false;
+        }
+    }
+    
+    public static boolean deleteDocument(MongoCollection<Document> collection, HashMap<Object, Object> targetMap) {
+        Object documentId  = targetMap.get("id");
+        Document foundedDocument = search(collection, (int) documentId);
+        if (foundedDocument!=null) {
+            Bson query = createDocument(targetMap);
+            collection.deleteOne(query);
+            System.out.println("-> Deleted successfully");
+            return true; 
+        }
+        else {
+            System.out.println("-> Deleted failed");
+            return false;
+        }
+    }
+    
+    public static Object getDocumentValue(MongoCollection<Document> collection, String searchField, Object searchValue, String targetField) {
+        if (existsDocument(collection, searchField, searchValue)) {
+            Document query = new Document(searchField, searchValue);
+            Document document = collection.find(query).first();
+            Object value = document.get(targetField);
+            return value;
+        } else {
             return null;
         }
-        
     }
     
-    public static ArrayList<HardwareComponent> obtainAllComponents(MongoCollection<Document> collection){
-        MongoCursor<Document> cursor = collection.find().iterator();
-        ArrayList<HardwareComponent> obtainedComponents = new ArrayList<>();
-        
-        while(cursor.hasNext()){
-            Document obtainedDocument = cursor.next();
-            if(obtainedDocument != null){
-                int componentId = obtainedDocument.getInteger("id");
-                int quantity = obtainedDocument.getInteger("quantity");
-                double cost = obtainedDocument.getDouble("cost");
-                double price = obtainedDocument.getDouble("price");
-                String name = obtainedDocument.getString("name");
-                String model = obtainedDocument.getString("model");
-
-                HardwareComponent obtainedComponent = new HardwareComponent(componentId, quantity, cost, price, name, model);
-                
-                obtainedComponents.add(obtainedComponent);
-            }
-            else{
-                
-            }
-        }
-        return obtainedComponents;
+    public static boolean existsDocument(MongoCollection collection, String field,  Object value){
+        Document query = new Document(field, value);
+        FindIterable<Document> documents = collection.find(query);
+        return documents.first() != null;
     }
     
-    public static void update(MongoCollection<Document> collection, HardwareComponent component){
-        int id = component.getId();
-        Document documentToUpdate = search(collection, id);
-        Document updatedDocument = createDocument(component);
-        collection.updateOne(documentToUpdate, updatedDocument);
-    }
-    
-    public static void delete(MongoCollection<Document> collection, int id){
-        Document documentToDelete = search(collection, id);
-        collection.deleteOne(documentToDelete);
+    public static boolean existsField(MongoCollection<Document> collection, String field) {
+        // Obtenemos un documento de la colección como ejemplo
+        Document sampleDoc = collection.find().first();
+        // Verificamos si el documento es null y si contiene la clave dada
+        return sampleDoc != null && sampleDoc.containsKey(field);
     }
     
     public static Document search(MongoCollection<Document> collection, int id){
@@ -156,106 +135,53 @@ public class DatabaseManager {
         
         return foundedDocument;
     }
-
     
-    public static ArrayList<HardwareComponent> foundComponentCoincidences(MongoCollection<Document> collection, String anyField){
-        ArrayList<Document> foundedCoincidences = searchAllCoincidences(collection, anyField);
-        ArrayList<HardwareComponent> componentCoincidences = new ArrayList<>();
-                
-        for(Document document: foundedCoincidences){
-            if(document != null){
-                int componentId = document.getInteger("id");
-                int quantity = document.getInteger("quantity");
-                double cost = document.getDouble("cost");
-                double price = document.getDouble("price");
-                String name = document.getString("name");
-                String model = document.getString("model");
-
-                HardwareComponent obtainedComponent = new HardwareComponent(componentId, quantity, cost, price, name, model);
-                
-                componentCoincidences.add(obtainedComponent);
-            }
+    public static HashMap<Object,Object> obtain(MongoCollection<Document> collection, int id) {
+        Document obtainedDocument = search(collection, id);
+        HashMap<Object,Object> obtained = new HashMap<>();
+        
+        if(obtainedDocument!=null){
+            obtained = convertDocumentStringIntoKeyValues(obtainedDocument.toString());             
         }
-        return componentCoincidences;
+        return obtained;
     }
     
-    public static ArrayList<Document> searchAllCoincidences(MongoCollection<Document> collection, String anyField){
-        ArrayList<Document> foundedCoincidences = new ArrayList<>();
-        Document query = new Document();
-        try{
-            int id = Integer.parseInt(anyField);
-            query = new Document("id", id);
-            FindIterable<Document> documents = collection.find(query);
-            for(Document document: documents){
-                foundedCoincidences.add(document);
+    public static ArrayList<HashMap<Object,Object>> obtainAll(MongoCollection<Document> collection) {
+        MongoCursor<Document> cursor = collection.find().iterator();
+        ArrayList<HashMap<Object,Object>> allObtained = new ArrayList<>();
+        HashMap<Object,Object> obtained = new HashMap<>();
+        
+        while(cursor.hasNext()){
+            Document obtainedDocument = cursor.next();
+            if(obtainedDocument!=null){
+                obtained = convertDocumentStringIntoKeyValues(obtainedDocument.toString());             
+                allObtained.add(obtained);
             }
         }
-        catch(Exception e){
-                
-        }
-
-        try{
-            int quantity = Integer.parseInt(anyField);
-            query = new Document("quantity", quantity);
-            FindIterable<Document> documents = collection.find(query);
-            for(Document document: documents){
-                foundedCoincidences.add(document);
-            }
-        }
-        catch(Exception e){
-                
-        }
+        
+        return allObtained;
+    }
+    
+    public static HashMap<Object,Object> convertDocumentStringIntoKeyValues(String documentString){
+        HashMap<Object, Object> converted = new HashMap<>();
+        String[] keyValues = documentString.split(", ");
+        
+        for(int i = 1; i<keyValues.length; i++){
             
-        try{
-            String name = anyField;
-            query = new Document("name", name);
-            FindIterable<Document> documents = collection.find(query);
-            for(Document document: documents){
-                foundedCoincidences.add(document);
+            int separator = keyValues[i].indexOf("=");
+            String key = keyValues[i].substring(0, separator);
+            String value;
+            if(i<keyValues.length-1){
+                value = keyValues[i].substring(separator+1, keyValues[i].length());
             }
-        }
-        catch(Exception e){
-                
-        }  
-        
-        try{
-            String model = anyField;
-            query = new Document("model", model);
-            FindIterable<Document> documents = collection.find(query);
-            for(Document document: documents){
-                foundedCoincidences.add(document);
+            else{
+                value = keyValues[i].substring(separator+1, keyValues[i].length()-2);
             }
+            converted.put(key, value);
+            
         }
-        catch(Exception e){
-                
-        }
-        
-        try{
-            double cost = Double.parseDouble(anyField);
-            query = new Document("cost", cost);
-            FindIterable<Document> documents = collection.find(query);
-            for(Document document: documents){
-                foundedCoincidences.add(document);
-            }
-        }
-        catch(Exception e){
-                
-        }
-        
-        try{
-            double price = Double.parseDouble(anyField);
-            query = new Document("price", price);
-            FindIterable<Document> documents = collection.find(query);
-            for(Document document: documents){
-                foundedCoincidences.add(document);
-            }
-        }
-        catch(Exception e){
-                
-        }
-        
-        return foundedCoincidences;
+        return converted;
     }
-   
+
 }
 

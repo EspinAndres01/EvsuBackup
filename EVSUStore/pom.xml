@@ -30,6 +30,12 @@
             <version>1.2.11</version>
         </dependency>
         <dependency>
+            <groupId>net.clojars.suuft</groupId>
+            <artifactId>libretranslate-java</artifactId>
+            <version>1.0.5</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.6.0</version>
@@ -81,5 +87,10 @@
             
 
     </dependencies>
-    
+    <repositories>    
+        <repository>
+            <id>clojars.org</id>
+            <url>https://repo.clojars.org</url>
+        </repository>
+    </repositories> 
 </project>
