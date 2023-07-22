@@ -1,7 +1,7 @@
 
 package ec.edu.espe.evsustore.view;
 
-import ec.edu.espe.evsustore.controller.ViewController;
+import ec.edu.espe.evsustore.utils.ViewManager;
 import ec.edu.espe.evsustore.model.Sale;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

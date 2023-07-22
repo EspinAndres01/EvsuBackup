@@ -1,7 +1,9 @@
 
 package ec.edu.espe.evsustore.view;
 
+import ec.edu.espe.evsustore.controller.CatalogController;
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
+import ec.edu.espe.evsustore.model.Catalog;
 import ec.edu.espe.evsustore.model.HardwareComponent;
 import ec.edu.espe.evsustore.utils.DecimalsControl;
 import java.awt.BorderLayout;
@@ -26,6 +28,7 @@ import javax.swing.event.DocumentListener;
 public class PnelSaveHardwareComponent extends javax.swing.JPanel {
 
     HardwareComponentController componentController = HardwareComponentController.getInstance();
+    CatalogController catalogController = CatalogController.getInstance();
     
     /**
      * Creates new form PnelSaveHardwareComponent
@@ -380,7 +383,29 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackToMainMenuActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
         HardwareComponent enteredComponent = readComponent();
+        
+        if(componentController.isInDB(enteredComponent)){
+            updateConfirmation(enteredComponent);
+        }
+        else{
+            saveConfirmation(enteredComponent);
+        }
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+                                        
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        //
+    }                                        
+
+    private void btnClearUpdatingActionPerformed(java.awt.event.ActionEvent evt, int id) {                                         
+        //
+    }   
+    
+    private void saveConfirmation(HardwareComponent enteredComponent){
 
         String warningMessage = "¿Está seguro de que quiere guardar el siguiente producto?\n";
         String component = enteredComponent.toString().replace("\t|| ", "\n");
@@ -401,17 +426,30 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(rootPane, "No guardado");
             clearFields();
         }
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }
+    
+    private void updateConfirmation(HardwareComponent enteredComponent){
 
-                                        
+        String warningMessage = "¿Está seguro de que quiere actualizar el producto con los siguientes datos?\n";
+        String component = enteredComponent.toString().replace("\t|| ", "\n");
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        //
-    }                                        
+        int option = JOptionPane.showConfirmDialog(this, warningMessage + component);
+        JRootPane rootPane = new JRootPane();
 
-    private void btnClearUpdatingActionPerformed(java.awt.event.ActionEvent evt, int id) {                                         
-        //
-    }   
+        if (option == 0) {
+            boolean isUpdated = componentController.update(enteredComponent);
+            if(isUpdated){
+                JOptionPane.showMessageDialog(rootPane, "Se ha actualizado exitosamente");
+                clearFields();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Hubo un error al actualizar el archivo, intentelo nuevamente");
+            }
+            
+        } else if (option == 1) {
+            JOptionPane.showMessageDialog(rootPane, "No guardado");
+            clearFields();
+        }
+    }
     
     private void showPanel(JPanel panelUI) {
         panelUI.setSize(900, 675);
@@ -591,7 +629,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
             JTextField field = (JTextField) evt.getSource ();
             String numbersText = field.getText ();
             if(numbersText!=null){
-                if (numbersText.matches ("[0-9]{1,7}+\\.{1}[0-9]{2}")) {
+                if (numbersText.matches ("[0-9]{1,6}+\\.{1}[0-9]{2}")) {
                     evt.consume();
                     
                 }

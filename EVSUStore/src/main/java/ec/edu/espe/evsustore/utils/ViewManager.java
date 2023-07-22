@@ -1,31 +1,31 @@
 
-package ec.edu.espe.evsustore.controller;
+package ec.edu.espe.evsustore.utils;
 
-import net.suuft.libretranslate.Translator;
-import ec.edu.espe.evsustore.utils.HashMapManger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import net.suuft.libretranslate.Language;
 
 /**
  *
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
-public class ViewController {
-
-    
+public class ViewManager {    
     
     public static void displayTable(JTable table, ArrayList<HashMap<Object, Object>> mapedsData){
-        
+        table.removeAll();
         DefaultTableModel inventoryTableModel = writeTable(table, mapedsData);
         table.setModel(inventoryTableModel);
         table.setDefaultEditor(Object.class, null);
     }
     
     public static DefaultTableModel writeTable(JTable table, ArrayList<HashMap<Object, Object>> mapedsData) {
+
         DefaultTableModel tableModel = new DefaultTableModel();
+        
+        if(mapedsData.isEmpty()){
+            return tableModel;
+        }
         
         HashMap<Object, Object> referenceMap = mapedsData.get(0);
         
@@ -59,8 +59,47 @@ public class ViewController {
         return tableModel;
     }
     
+    public static void displayTableWithoutIds(JTable table, ArrayList<HashMap<Object, Object>> mapedsData){
+        
+        DefaultTableModel inventoryTableModel = writeTableWithoutIds(table, mapedsData);
+        table.setModel(inventoryTableModel);
+        table.setDefaultEditor(Object.class, null);
+    }
+    
+    public static DefaultTableModel writeTableWithoutIds(JTable table, ArrayList<HashMap<Object, Object>> mapedsData) {
+        DefaultTableModel tableModel = new DefaultTableModel();
+        
+        HashMap<Object, Object> referenceMap = mapedsData.get(0);
+        
+        ArrayList<String> header = new ArrayList<>();
+        
+        ArrayList<Object> mapKeys = HashMapManger.getKeys(referenceMap);
+        
+        for(Object key: mapKeys){
+            header.add(translateText(key.toString()).toUpperCase());
+        }
+        
+        tableModel.setColumnIdentifiers(header.toArray());
+        
+        Object[] tableData = new Object[header.size()];
+        
+        for(HashMap<Object, Object> mapedData: mapedsData){
+            int i = 0;
+            ArrayList<Object> values = HashMapManger.getValues(mapedData);
+            for(Object value: values){
+                tableData[i] = value;
+                i++;
+            }
+            
+            tableModel.addRow(tableData);
+            
+        }
+        
+        return tableModel;
+    }
+    
     public static String translateText(String text){
-        String translatedTex = Translator.translate(Language.ENGLISH, Language.SPANISH, text);
+        String translatedTex = HeaderTranslator.translateEN_ES(text);
         return translatedTex;
     }
 

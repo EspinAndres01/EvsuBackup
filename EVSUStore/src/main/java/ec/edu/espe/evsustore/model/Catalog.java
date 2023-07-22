@@ -8,23 +8,27 @@ import java.util.HashMap;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class Catalog implements Mapeable{
-    int id;
     String productDescription;
     int quantity;
-    Double pvp;
+    Double price;
     HashMap<Object, Object> data;
 
-    public Catalog(int id, String productDescription, int quantity, Double pvp) {
+    @Override
+    public String toString() {
+        return "Catalog{" + "productDescription=" + productDescription + ", quantity=" + quantity + ", price=" + price + ", data=" + data + '}';
+    }
+
+    
+    
+    public Catalog( String productDescription, int quantity, Double price) {
         data = new HashMap<>();
         data.put("productDescription", productDescription);
         data.put("quantity", quantity);
-        data.put("pvp", pvp);
+        data.put("price", price);
         
-        
-        this.id = id;
         this.productDescription = productDescription;
         this.quantity = quantity;
-        this.pvp = pvp;
+        this.price = price;
     }
 
     

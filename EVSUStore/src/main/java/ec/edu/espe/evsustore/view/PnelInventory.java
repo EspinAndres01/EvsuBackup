@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package ec.edu.espe.evsustore.view;
 
 import java.awt.BorderLayout;
@@ -30,17 +27,19 @@ public class PnelInventory extends javax.swing.JPanel {
     private void initComponents() {
 
         Content = new javax.swing.JPanel();
-        btnAddToInventory = new javax.swing.JButton();
+        btnPrintInventory = new javax.swing.JButton();
         btnSeeInventory = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(18, 9, 24));
+
         Content.setPreferredSize(new java.awt.Dimension(900, 675));
 
-        btnAddToInventory.setText("Añadir al inventario");
-        btnAddToInventory.addActionListener(new java.awt.event.ActionListener() {
+        btnPrintInventory.setText("Imprimir Inventario");
+        btnPrintInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddToInventoryActionPerformed(evt);
+                btnPrintInventoryActionPerformed(evt);
             }
         });
 
@@ -60,64 +59,54 @@ public class PnelInventory extends javax.swing.JPanel {
         Content.setLayout(ContentLayout);
         ContentLayout.setHorizontalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentLayout.createSequentialGroup()
+                .addContainerGap(137, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(134, 134, 134))
             .addGroup(ContentLayout.createSequentialGroup()
+                .addGap(374, 374, 374)
                 .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ContentLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jLabel1))
-                    .addGroup(ContentLayout.createSequentialGroup()
-                        .addGap(310, 310, 310)
-                        .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSeeInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAddToInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(btnSeeInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrintInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ContentLayout.setVerticalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addGap(45, 45, 45)
+                .addGap(58, 58, 58)
                 .addComponent(jLabel2)
-                .addGap(79, 79, 79)
-                .addComponent(btnAddToInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGap(70, 70, 70)
                 .addComponent(btnSeeInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(466, Short.MAX_VALUE))
+                .addGap(84, 84, 84)
+                .addComponent(btnPrintInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(226, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Content, javax.swing.GroupLayout.PREFERRED_SIZE, 675, Short.MAX_VALUE)
+            .addComponent(Content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Content, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(Content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddToInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToInventoryActionPerformed
-        PnelSaveHardwareComponent pnelSaveHardwareComponent=new PnelSaveHardwareComponent();
-        showPanel(pnelSaveHardwareComponent);
-    }//GEN-LAST:event_btnAddToInventoryActionPerformed
+    private void btnPrintInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintInventoryActionPerformed
+        PnelViewCustomers pnelViewCustomers = new PnelViewCustomers();
+        showPanel(pnelViewCustomers);
+    }//GEN-LAST:event_btnPrintInventoryActionPerformed
 
     private void btnSeeInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeeInventoryActionPerformed
-        PnelViewInventory pnelUpdateInventory=new PnelViewInventory();
-        showPanel(pnelUpdateInventory);
+        PnelViewInventory pnelViewInventory = new PnelViewInventory();
+        showPanel(pnelViewInventory);
     }//GEN-LAST:event_btnSeeInventoryActionPerformed
 
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Content;
-    private javax.swing.JButton btnAddToInventory;
-    private javax.swing.JButton btnSeeInventory;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    // End of variables declaration//GEN-END:variables
     private void showPanel(JPanel panelUI) {
         panelUI.setSize(900, 675);
         panelUI.setLocation(0, 0);
@@ -126,4 +115,14 @@ public class PnelInventory extends javax.swing.JPanel {
         Content.revalidate();
         Content.repaint();
     }
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Content;
+    private javax.swing.JButton btnPrintInventory;
+    private javax.swing.JButton btnSeeInventory;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    // End of variables declaration//GEN-END:variables
+
 }

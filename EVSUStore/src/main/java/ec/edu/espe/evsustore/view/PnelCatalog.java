@@ -1,8 +1,8 @@
 
 package ec.edu.espe.evsustore.view;
 
-import ec.edu.espe.evsustore.controller.HardwareComponentController;
-import ec.edu.espe.evsustore.controller.ViewController;
+import ec.edu.espe.evsustore.controller.CatalogController;
+import ec.edu.espe.evsustore.utils.ViewManager;
 
 
 /**
@@ -11,7 +11,7 @@ import ec.edu.espe.evsustore.controller.ViewController;
  */
 public class PnelCatalog extends javax.swing.JPanel {
 
-    HardwareComponentController componentController = HardwareComponentController.getInstance();
+    CatalogController catalogController = CatalogController.getInstance();
     
     /**
      * Creates new form PnelCatalog
@@ -19,7 +19,7 @@ public class PnelCatalog extends javax.swing.JPanel {
     public PnelCatalog() {
         initComponents();
         
-        ViewController.displayTable(tblCatalog, componentController.obtainAllFromDb());
+        ViewManager.displayTableWithoutIds(tblCatalog, catalogController.obtainAll());
     }
 
     /**
