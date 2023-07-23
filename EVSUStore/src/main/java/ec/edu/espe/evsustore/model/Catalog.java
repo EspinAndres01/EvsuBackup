@@ -9,6 +9,7 @@ import java.util.HashMap;
  */
 public class Catalog implements Mapeable{
     String productDescription;
+    int id;
     int quantity;
     Double price;
     HashMap<Object, Object> data;
@@ -20,8 +21,9 @@ public class Catalog implements Mapeable{
 
     
     
-    public Catalog( String productDescription, int quantity, Double price) {
+    public Catalog(int id, String productDescription, int quantity, Double price) {
         data = new HashMap<>();
+        data.put("id", id);
         data.put("productDescription", productDescription);
         data.put("quantity", quantity);
         data.put("price", price);

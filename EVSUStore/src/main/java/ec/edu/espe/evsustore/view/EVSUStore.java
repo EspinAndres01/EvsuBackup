@@ -285,7 +285,7 @@ public class EVSUStore extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCatalogActionPerformed
 
     private void btnSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalesActionPerformed
-        PnelSales pnelSales = new PnelSales();
+        PnelSalesCatalog pnelSales = new PnelSalesCatalog();
         showPanel(pnelSales);
     }//GEN-LAST:event_btnSalesActionPerformed
 

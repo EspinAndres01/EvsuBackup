@@ -201,7 +201,6 @@ public class DatabaseManager {
         Document query = new Document("id", id);
         FindIterable<Document> documents = collection.find(query);
         Document foundedDocument = documents.first();
-        
         return foundedDocument;
     }
 

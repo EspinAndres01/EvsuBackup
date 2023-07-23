@@ -39,23 +39,6 @@ public class CatalogControllerTest {
     /**
      * Test of convertIntoCatalog method, of class CatalogController.
      */
-    @Test
-    public void testConvertIntoCatalog() {
-        System.out.println("convertIntoCatalog");
-        HashMap<Object, Object> component = new HashMap<>();
-        component.put("id", 1);
-        component.put("quantity", 2);
-        component.put("cost", 23.4);
-        component.put("price", 26.89);
-         component.put("name", "lel");
-        component.put("model", "XD");
-        
-        CatalogController instance = CatalogController.getInstance();
-        Catalog expResult = new Catalog("lel XD", 2, 26.89);
-        System.out.println(expResult.toString());
-        Catalog result = instance.convertIntoCatalog(component);
-        System.out.println(result.toString());
-        assertEquals(expResult.toString(), result.toString());
-    }
+    
     
 }

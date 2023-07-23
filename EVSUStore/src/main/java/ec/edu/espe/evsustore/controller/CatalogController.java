@@ -2,6 +2,7 @@
 package ec.edu.espe.evsustore.controller;
 
 import ec.edu.espe.evsustore.model.Catalog;
+import ec.edu.espe.evsustore.utils.HashMapManger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,19 +40,20 @@ public class CatalogController {
             
             catalogProduct = convertIntoCatalog(component);
             catalog.add(catalogProduct.getData());
+            
         }
         return catalog;
     }
     
     public Catalog convertIntoCatalog(HashMap<Object, Object> component) {
-    
+        int id = Integer.parseInt(component.get("id").toString());
         int quantity = Integer.parseInt(component.get("quantity").toString());
         Double price = Double.valueOf(component.get("price").toString());
         String description1 = component.get("name").toString();
         String description2 = component.get("model").toString();
         String description = description1 + " " +description2;
     
-        Catalog catalog = new Catalog(description, quantity, price);
+        Catalog catalog = new Catalog(id, description, quantity, price);
         return catalog;
     }
 }
