@@ -56,7 +56,6 @@ public class PnelChangePassword extends javax.swing.JPanel {
         jLabel2.setText("Cambiar Contraseña");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo-removebg-preview.png"))); // NOI18N
-        jLabel1.setPreferredSize(new java.awt.Dimension(492, 492));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -77,7 +76,7 @@ public class PnelChangePassword extends javax.swing.JPanel {
                         .addGap(39, 39, 39)
                         .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
                 .addContainerGap(493, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,16 +98,16 @@ public class PnelChangePassword extends javax.swing.JPanel {
                         .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(492, Short.MAX_VALUE))
+                        .addComponent(jLabel1)))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         String newPassword = new String(txtPassword.getPassword()).trim();
         String confirmPassword = new String(txtConfirmPassword.getPassword()).trim();
-        
-        sessionController.setNewPassword(newPassword); 
+
+        sessionController.setNewPassword(newPassword);
 
         boolean passwordChanged = sessionController.changePassword(confirmPassword); // Solo se necesita pasar la confirmación de la contraseña.
 
