@@ -1,9 +1,7 @@
 package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.SessionController;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -46,6 +44,7 @@ public class FrmRegister extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(880, 500));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N

@@ -6,6 +6,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+
 /**
  * 
  * @author Andres Espin, KillChain, DCOO-ESPE
@@ -14,6 +16,7 @@ public class PasswordUtils {
 
     private String currentUsername;
     private String newPassword;
+    private String temporaryPassword;
 
     public boolean checkCredentials(String username, String password, MongoCollection<Document> collection) {
         BasicDBObject query = new BasicDBObject();
@@ -158,6 +161,8 @@ public class PasswordUtils {
 
         return false;
     }
+
     
+   
 
 }

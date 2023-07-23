@@ -2,6 +2,8 @@ package ec.edu.espe.evsustore.controller;
 import com.mongodb.client.MongoCollection;
 import ec.edu.espe.evsustore.utils.PasswordUtils;
 import ec.edu.espe.evsustore.utils.SessionManager;
+import ec.edu.espe.evsustore.utils.EmailUtils;
+import javax.mail.MessagingException;
 
 
 /**
@@ -28,6 +30,7 @@ public class SessionController {
     }
 
     PasswordUtils passwordUtils = new PasswordUtils();
+    EmailUtils emailUtils=new EmailUtils();
 
     public boolean checkCredentials(String username, String password) {
     if (passwordUtils.checkCredentials(username, password, collection)) {
@@ -71,10 +74,13 @@ public class SessionController {
     }
 
     public boolean updatePassword(String username, String newPassword, String temporaryPassword) {
-        String currentUsername = SessionManager.getCurrentUser();
-        if (currentUsername != null && SessionManager.sessionActive()) {
-            return passwordUtils.updatePassword(username, newPassword, temporaryPassword, collection);
-        }
-        return false;
+        return passwordUtils.updatePassword(username, newPassword, temporaryPassword, collection);
     }
+    
+    public void sendRecoveryEmail(String recipient, String username, String temporaryPassword) throws MessagingException {
+        emailUtils.sendRecoveryEmail(recipient, username, temporaryPassword);
+        
+    }
+    
+
 }

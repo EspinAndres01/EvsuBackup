@@ -2,10 +2,9 @@
 package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.DatabaseController;
+import ec.edu.espe.evsustore.utils.SessionManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +22,7 @@ import javax.swing.SwingUtilities;
  */
 public class EVSUStore extends javax.swing.JFrame {
     DatabaseController database = DatabaseController.getInstance();
-   
+    
     public EVSUStore() {
         
         initComponents();
@@ -35,7 +34,7 @@ public class EVSUStore extends javax.swing.JFrame {
         setPreferredSize(screenSize);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(false);
-        
+        nameSession();
         PnelStart pnelStart = new PnelStart();
         showPanel(pnelStart);
     } 
@@ -44,7 +43,8 @@ public class EVSUStore extends javax.swing.JFrame {
     private void setDate() {
         LocalDate now = LocalDate.now();
         Locale spanishLocale = new Locale("es", "ES");
-        lblDate.setText(now.format(DateTimeFormatter.ofPattern("'Hoy es' EEEE dd 'de' MMMM 'de' yyyy", spanishLocale)));
+        lblDate.setText(now.format(DateTimeFormatter.ofPattern("'FECHA: Hoy es' EEEE dd 'de' MMMM 'de' yyyy", spanishLocale)));
+
     }
     private void setTime() {
         LocalTime currentTime = LocalTime.now();
@@ -63,6 +63,10 @@ public class EVSUStore extends javax.swing.JFrame {
         };
         new javax.swing.Timer(delay, timerListener).start();
     }
+    
+    private void nameSession(){
+        lblNameSession.setText("Bienvenido usuario "+SessionManager.getCurrentUser());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,6 +81,7 @@ public class EVSUStore extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         lblDate = new javax.swing.JLabel();
         lblTime = new javax.swing.JLabel();
+        lblNameSession = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnCatalog = new javax.swing.JButton();
         btnSales = new javax.swing.JButton();
@@ -90,11 +95,12 @@ public class EVSUStore extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jmCloseSession = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 685));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Content.setBackground(new java.awt.Color(44, 45, 57));
         Content.setPreferredSize(new java.awt.Dimension(0, 650));
@@ -103,14 +109,12 @@ public class EVSUStore extends javax.swing.JFrame {
         Content.setLayout(ContentLayout);
         ContentLayout.setHorizontalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1370, Short.MAX_VALUE)
         );
         ContentLayout.setVerticalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 687, Short.MAX_VALUE)
         );
-
-        jPanel1.add(Content, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 50, 1412, 687));
 
         jPanel3.setBackground(new java.awt.Color(46, 46, 61));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
@@ -125,16 +129,23 @@ public class EVSUStore extends javax.swing.JFrame {
         lblTime.setForeground(new java.awt.Color(207, 207, 215));
         lblTime.setText("{00:00:00}");
 
+        lblNameSession.setBackground(new java.awt.Color(255, 255, 255));
+        lblNameSession.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNameSession.setForeground(new java.awt.Color(255, 255, 255));
+        lblNameSession.setText("jLabel4");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(589, 589, 589)
+                .addGap(17, 17, 17)
                 .addComponent(lblTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(500, 500, 500))
+                .addGap(313, 313, 313)
+                .addComponent(lblNameSession)
+                .addContainerGap(701, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,14 +153,13 @@ public class EVSUStore extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                    .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(lblNameSession))
                 .addContainerGap())
         );
 
         lblDate.getAccessibleContext().setAccessibleDescription("");
         lblTime.getAccessibleContext().setAccessibleDescription("");
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, -10, -1, 60));
 
         jPanel2.setBackground(new java.awt.Color(44, 44, 51));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 255, 102)));
@@ -219,8 +229,8 @@ public class EVSUStore extends javax.swing.JFrame {
                             .addComponent(btnCatalog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnChangePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnInventory, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(btnChangePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(btnInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCustomers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -248,7 +258,25 @@ public class EVSUStore extends javax.swing.JFrame {
                 .addContainerGap(132, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -13, -1, 760));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Content, javax.swing.GroupLayout.PREFERRED_SIZE, 1370, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(Content, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -256,13 +284,26 @@ public class EVSUStore extends javax.swing.JFrame {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario2.png"))); // NOI18N
+
+        jmCloseSession.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jmCloseSession.setText("Cerrar Sesión");
+        jmCloseSession.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCloseSessionActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmCloseSession);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1793, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1751, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,6 +344,14 @@ public class EVSUStore extends javax.swing.JFrame {
         PnelInventory pnelInventory=new PnelInventory();
         showPanel(pnelInventory);
     }//GEN-LAST:event_btnInventoryActionPerformed
+
+    private void jmCloseSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCloseSessionActionPerformed
+       SessionManager.closeSession();
+
+        FrmLogin mainApp = new FrmLogin();
+        mainApp.setVisible(true);
+        dispose(); 
+    }//GEN-LAST:event_jmCloseSessionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -372,11 +421,14 @@ public class EVSUStore extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JMenuItem jmCloseSession;
     private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblNameSession;
     private javax.swing.JLabel lblTime;
     // End of variables declaration//GEN-END:variables
 

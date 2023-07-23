@@ -2,13 +2,17 @@
 package ec.edu.espe.evsustore.view;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
-import ec.edu.espe.evsustore.controller.DatabaseController;
 import ec.edu.espe.evsustore.controller.SessionController;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 
 
@@ -27,14 +31,41 @@ public class FrmLogin extends javax.swing.JFrame {
         
         initComponents();
         this.setLocationRelativeTo(null);
-        txtOcult.setVisible(false);
-        
-        
+        txtOcult.setVisible(false);  
         
     }
-   
+    
+    private void showMessageWithoutButton(JFrame parentFrame, String message, String title, int delayInMilliseconds, boolean openNextWindow) {
+       JDialog dialog = new JDialog(parentFrame, title, true);
+       Font font = new Font("Arial", Font.PLAIN, 24); 
+       JLabel label = new JLabel(message, SwingConstants.CENTER);
+       label.setFont(font);
+       dialog.add(label);
+       dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+       dialog.setSize(300, 200);
+       dialog.setLocationRelativeTo(parentFrame);
+       dialog.setModal(false);
 
-   
+       Timer timer = new Timer(delayInMilliseconds, new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               dialog.dispose(); 
+               if (openNextWindow) {
+                   openNextWindow();
+               }
+           }
+       });
+
+       timer.setRepeats(false); 
+       timer.start();
+
+       dialog.setVisible(true);
+   }
+    private void openNextWindow() {
+        EVSUStore mainApp = new EVSUStore();
+        mainApp.setVisible(true);
+        dispose();
+    } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,16 +82,18 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtSee = new javax.swing.JLabel();
         txtOcult = new javax.swing.JLabel();
-        btnSingIn = new javax.swing.JButton();
-        btnLogin = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
         lblRestore = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
+        jPanel2 = new javax.swing.JPanel();
+        btnLogin = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        btnSingIn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(88, 50, 184));
         setPreferredSize(new java.awt.Dimension(800, 500));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(44, 45, 57));
         jPanel1.setPreferredSize(new java.awt.Dimension(880, 500));
@@ -101,35 +134,6 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        btnSingIn.setFont(new java.awt.Font("Stencil", 0, 12)); // NOI18N
-        btnSingIn.setText("Registrarse");
-        btnSingIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSingIn.setMargin(new java.awt.Insets(10, 20, 10, 20));
-        btnSingIn.setPreferredSize(new java.awt.Dimension(150, 50));
-        btnSingIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSingInActionPerformed(evt);
-            }
-        });
-
-        btnLogin.setFont(new java.awt.Font("Stencil", 0, 12)); // NOI18N
-        btnLogin.setText("Ingresar");
-        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
-            }
-        });
-
-        btnExit.setFont(new java.awt.Font("Stencil", 0, 12)); // NOI18N
-        btnExit.setText("Salir");
-        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
-
         lblRestore.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblRestore.setForeground(new java.awt.Color(255, 255, 255));
         lblRestore.setText("¿Olvido su contraseña?...Click aqui para recuperarla");
@@ -167,6 +171,61 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(44, 45, 57));
+
+        btnLogin.setFont(new java.awt.Font("Stencil", 0, 12)); // NOI18N
+        btnLogin.setText("Ingresar");
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+
+        btnExit.setFont(new java.awt.Font("Stencil", 0, 12)); // NOI18N
+        btnExit.setText("Salir");
+        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
+        btnSingIn.setFont(new java.awt.Font("Stencil", 0, 12)); // NOI18N
+        btnSingIn.setText("Registrarse");
+        btnSingIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSingIn.setMargin(new java.awt.Insets(10, 20, 10, 20));
+        btnSingIn.setPreferredSize(new java.awt.Dimension(150, 50));
+        btnSingIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSingInActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnSingIn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(177, 177, 177))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSingIn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -176,18 +235,9 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(205, 205, 205))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 143, Short.MAX_VALUE)
-                .addComponent(btnSingIn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRestore)
-                        .addGap(82, 82, 82))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(171, 171, 171))))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblRestore)
+                .addGap(82, 82, 82))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(155, 155, 155)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,6 +253,7 @@ public class FrmLogin extends javax.swing.JFrame {
                             .addComponent(txtOcult, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(57, 57, 57))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,31 +276,21 @@ public class FrmLogin extends javax.swing.JFrame {
                                     .addComponent(txtOcult, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtSee, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lblRestore)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSingIn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(134, 134, 134))))
+                .addGap(18, 18, 18)
+                .addComponent(lblRestore)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 40, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
         );
 
         pack();
@@ -261,18 +302,13 @@ public class FrmLogin extends javax.swing.JFrame {
         char[] passwordChars = txtPassword.getPassword();
         String password = String.valueOf(passwordChars).trim();
 
-
-        if(username.isEmpty() || password.isEmpty()){
+        if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Algun campo está vacío, intentelo de nuevo", "ERROR DE INGRESO", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            
+        } else {
             sessionController.migratePasswordsToBCrypt();
-
             if (sessionController.checkCredentials(username, password)) {
-                JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso", "Inicio de sesión", JOptionPane.INFORMATION_MESSAGE);
-                EVSUStore mainApp = new EVSUStore();
-                mainApp.setVisible(true);
-                dispose(); 
+                showMessageWithoutButton(this, "Inicio de sesión exitoso", "EVSUSTORE SYSTEM", 2000, true);
+               
             } else {
                 JOptionPane.showMessageDialog(this, "Credenciales inválidas", "Inicio de sesión fallido", JOptionPane.ERROR_MESSAGE);
             }
@@ -358,6 +394,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblRestore;
     private javax.swing.JLabel txtOcult;
     private javax.swing.JPasswordField txtPassword;
