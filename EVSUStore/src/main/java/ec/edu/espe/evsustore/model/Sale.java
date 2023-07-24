@@ -1,6 +1,7 @@
 
 package ec.edu.espe.evsustore.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,42 +12,30 @@ import java.util.HashMap;
  */
 public class Sale implements Mapeable{
     private int id;
-    private ArrayList <HardwareComponent> soldComponents;
-    private ArrayList <Clothing> soldClothing;
+    private ArrayList <Catalog> soldComponents;
     private int saleId;
     private Customer customer;
     private double salePrice;
-    private Date date;
+    private LocalDate date;
 
     private HashMap<Object, Object> data;
     
-    public Sale(int id, ArrayList<HardwareComponent> soldComponents, 
-        ArrayList<Clothing> soldClothing, Customer customer, double salePrice, Date date) {
+    public Sale(int id, ArrayList<Catalog> soldComponents, Customer customer, double salePrice, LocalDate date) {
         data = new HashMap<>();
         data.put("id", id);
         data.put("soldComponents", soldComponents);
-        data.put("soldClothing", soldClothing);
         data.put("customer", customer);
         data.put("salePrice", salePrice);
         data.put("date", date);
         
         this.soldComponents = soldComponents;
-        this.soldClothing = soldClothing;
         this.customer = customer;
         this.salePrice = salePrice;
         this.date = date;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
-    }
-    
-    public ArrayList<Clothing> getSoldClothing() {
-        return soldClothing;
-    }
-
-    public void setSoldClothing(ArrayList<Clothing> soldClothing) {
-        this.soldClothing = soldClothing;
     }
 
     public int getSaleId() {
@@ -73,11 +62,11 @@ public class Sale implements Mapeable{
         this.salePrice = salePrice;
     }
 
-    public ArrayList<HardwareComponent> getSoldComponents() {
+    public ArrayList<Catalog> getSoldComponents() {
         return soldComponents;
     }
 
-    public void setSoldComponents(ArrayList<HardwareComponent> soldComponents) {
+    public void setSoldComponents(ArrayList<Catalog> soldComponents) {
         this.soldComponents = soldComponents;
     }
 

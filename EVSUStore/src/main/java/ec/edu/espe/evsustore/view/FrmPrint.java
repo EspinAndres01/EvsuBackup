@@ -1,12 +1,17 @@
 
 package ec.edu.espe.evsustore.view;
 
+import ec.edu.espe.evsustore.model.Customer;
+import ec.edu.espe.evsustore.model.HardwareComponent;
+import ec.edu.espe.evsustore.model.Sale;
+import ec.edu.espe.evsustore.utils.ViewManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 /**
@@ -14,14 +19,16 @@ import javax.swing.JScrollPane;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class FrmPrint extends javax.swing.JFrame {
-
+    Bill bill;
+    
     /**
      * Creates new form FrmPrint
      */
     public FrmPrint() {
+        this.bill = new Bill(sale);
         initComponents();
-        
-        showBill();
+        JScrollPane pnel = new JScrollPane(bill);
+        ViewManager.showPanel(pnelContent, pnel);
     }
 
     /**
@@ -41,6 +48,7 @@ public class FrmPrint extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pnelContent.setBackground(new java.awt.Color(255, 255, 255));
         pnelContent.setAutoscrolls(true);
 
         javax.swing.GroupLayout pnelContentLayout = new javax.swing.GroupLayout(pnelContent);
@@ -115,48 +123,24 @@ public class FrmPrint extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        
+        openPrinter();
     }//GEN-LAST:event_btnPrintActionPerformed
 
-    private void showBill(){
-        Bill previewBill = new Bill();
-        previewBill.setSize(pnelContent.getWidth()-20, pnelContent.getHeight());
-        previewBill.setLocation(0,0);
-        
-        JScrollPane scrollPane = new JScrollPane(previewBill);
-        scrollPane.setSize(pnelContent.getWidth(), pnelContent.getHeight());
-        scrollPane.setLocation(0,0);
-        
-        pnelContent.removeAll();
-        pnelContent.add(scrollPane);
-        pnelContent.revalidate();
-        pnelContent.repaint();
-        
-        makePrintable(previewBill);
-    }
     
-    private void makePrintable(Bill bill){
-        
-        btnPrint.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PrinterJob printerJob = PrinterJob.getPrinterJob();
-                printerJob.setPrintable(bill);
-                    if(printerJob.printDialog()){
-                        try{
-                            printerJob.print();
-                        }
-                        catch(PrinterException ex){
-                            
-                        }
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(rootPane, "La impresión ha sido cancelada");
-                                
-                    }
+    private void openPrinter(){
+       PrinterJob printerJob = PrinterJob.getPrinterJob();
+       printerJob.setPrintable(bill);
+        if(printerJob.printDialog()){
+            try{
+                printerJob.print();
+            }
+            catch(PrinterException ex){
+                
             }
         }
-        );
+        else{
+            JOptionPane.showMessageDialog(rootPane, "La impresión ha sido cancelada");   
+        }
     }
     
     
@@ -190,6 +174,7 @@ public class FrmPrint extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new FrmPrint().setVisible(true);
             }
         });

@@ -10,6 +10,16 @@ import java.util.Map;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class HashMapManger {
+    
+    public static String toSring(HashMap<Object, Object> map){
+        ArrayList<Object> values = getValues(map);
+        String toString = "";
+        for(Object value: values){
+            toString = toString + " || " + value.toString();
+        }
+        return toString;
+    }
+    
     public static ArrayList<Object> getKeys(HashMap<Object, Object> map){
         ArrayList<Object> keys = new ArrayList<>();
         

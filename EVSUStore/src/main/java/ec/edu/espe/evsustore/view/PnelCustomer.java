@@ -1,8 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package ec.edu.espe.evsustore.view;
+
+import ec.edu.espe.evsustore.controller.CustomerController;
+import ec.edu.espe.evsustore.model.Customer;
+import ec.edu.espe.evsustore.utils.ViewManager;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -10,11 +13,23 @@ package ec.edu.espe.evsustore.view;
  */
 public class PnelCustomer extends javax.swing.JPanel {
 
+    CustomerController customerController = CustomerController.getInstance();
+    ArrayList<HashMap<Object, Object>> orderedProducts;
+    
+    
+    
     /**
      * Creates new form PnelCustomer
+     * @param orderedProducts
      */
-    public PnelCustomer() {
+    public PnelCustomer(ArrayList<HashMap<Object, Object>> orderedProducts) {
+        this.orderedProducts = orderedProducts;
+        
         initComponents();
+        
+        int generatedId = customerController.generateId();
+        txtId.setText(String.valueOf(generatedId));
+        addListeners();
     }
 
     /**
@@ -40,76 +55,101 @@ public class PnelCustomer extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
         txtLastName = new javax.swing.JTextField();
         txtIdCardNumber = new javax.swing.JTextField();
-        txtDirection = new javax.swing.JTextField();
+        txtLocation = new javax.swing.JTextField();
         txtPhoneNumber = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        btnContinue = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        btnContinue = new javax.swing.JButton();
 
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setText("CLIENTE DEL PEDIDO");
 
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel2.setText("ID:");
 
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel3.setText("Nombres:");
 
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel4.setText("Apellidos:");
 
+        jLabel5.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel5.setText("N° de Cédula:");
 
+        xxxxxddd.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         xxxxxddd.setText("Teléfono:");
 
+        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel7.setText("Email:");
 
+        jLabel8.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel8.setText("Dirección:");
 
+        txtId.setEditable(false);
+        txtId.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        txtId.setEnabled(false);
+
+        txtName.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+
+        txtLastName.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+
+        txtIdCardNumber.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         txtIdCardNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdCardNumberActionPerformed(evt);
             }
         });
 
+        txtLocation.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+
+        txtPhoneNumber.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+
+        txtEmail.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(297, 297, 297))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIdCardNumber)
-                            .addComponent(txtLastName)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEmail))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(xxxxxddd))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDirection)
-                            .addComponent(txtPhoneNumber))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtIdCardNumber)
+                                    .addComponent(txtLastName)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtEmail))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(xxxxxddd))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtLocation)
+                                    .addComponent(txtPhoneNumber))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(297, 297, 297))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +175,7 @@ public class PnelCustomer extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtDirection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(xxxxxddd)
@@ -144,14 +184,23 @@ public class PnelCustomer extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
-        btnContinue.setText("Continuar");
-
+        btnClear.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnClear.setText("Limpiar Campos");
 
+        btnBack.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnBack.setText("Volver al Pedido");
+
+        btnContinue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnContinue.setText("Continuar");
+        btnContinue.setEnabled(false);
+        btnContinue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinueActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,11 +208,11 @@ public class PnelCustomer extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -171,10 +220,10 @@ public class PnelCustomer extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnelContentLayout = new javax.swing.GroupLayout(pnelContent);
@@ -191,7 +240,7 @@ public class PnelCustomer extends javax.swing.JPanel {
             pnelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelContentLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -208,9 +257,76 @@ public class PnelCustomer extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdCardNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCardNumberActionPerformed
-        // TODO add your handling code here:
+        //  
     }//GEN-LAST:event_txtIdCardNumberActionPerformed
 
+    private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
+        Customer customer = read();
+        PnelPayConfirmation pnelPayConf = new PnelPayConfirmation(customer, orderedProducts);
+        ViewManager.showPanel(pnelContent, pnelPayConf);
+    }//GEN-LAST:event_btnContinueActionPerformed
+
+    private void addListeners(){
+        KeyTypeListener intKeyTypeListener = new KeyTypeListener("int");
+        KeyTypeListener doubleKeyTypeListener = new KeyTypeListener("Double");
+        KeyTypeListener charKeyTypeListener = new KeyTypeListener("char");
+        KeyTypeListener emailKeyTypeListener = new KeyTypeListener("email");
+        FilledListener allFieldsFilledListener = new FilledListener(this);
+        
+        txtName.addKeyListener(charKeyTypeListener);
+        txtLastName.addKeyListener(charKeyTypeListener);
+        txtIdCardNumber.addKeyListener(intKeyTypeListener);
+        txtPhoneNumber.addKeyListener(intKeyTypeListener);
+        txtEmail.addKeyListener(emailKeyTypeListener);
+        
+        
+        txtName.getDocument().addDocumentListener(allFieldsFilledListener);
+        txtLastName.getDocument().addDocumentListener(allFieldsFilledListener);
+        txtIdCardNumber.getDocument().addDocumentListener(allFieldsFilledListener);
+        txtLocation.getDocument().addDocumentListener(allFieldsFilledListener);
+        txtPhoneNumber.getDocument().addDocumentListener(allFieldsFilledListener);
+        txtEmail.getDocument().addDocumentListener(allFieldsFilledListener);
+    
+    }
+    
+    private Customer read(){
+        int id = Integer.parseInt(txtId.getText());
+        String name = txtName.getText();
+        String lastName = txtLastName.getText();
+        String idCardNumber =txtIdCardNumber.getText();
+        
+        
+        String phoneNumber = txtPhoneNumber.getText();
+        String location = txtLocation.getText();
+        String email = txtEmail.getText();
+        
+        Customer customer = new Customer(id, name, lastName, phoneNumber, idCardNumber, email, location);
+        
+        return customer;
+    }
+    
+    public void checkFields(){
+        if(txtId.getText().isEmpty() || txtName.getText().isEmpty() || txtLastName.getText().isEmpty()
+                || txtLocation.getText().isEmpty() || txtPhoneNumber.getText().isEmpty() 
+                || txtEmail.getText().isEmpty() || txtIdCardNumber.getText().isEmpty())
+        {
+            btnContinue.setEnabled(false); 
+            btnContinue.setToolTipText("No puede guardar el componente si faltan datos por llenar");
+        }
+        else if(!txtPhoneNumber.getText().matches("[0-9]{10}")){
+            btnContinue.setEnabled(false); 
+        }
+        else if(!txtIdCardNumber.getText().matches("[0-9]{10}")){
+            btnContinue.setEnabled(false); 
+        }
+        else if(!txtEmail.getText().matches("[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+(?:\\.[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?\\.)+[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?")){
+            btnContinue.setEnabled(false); 
+        }
+        else {
+            btnContinue.setEnabled(true);
+            btnContinue.setToolTipText("Guardar el componente en la base de datos");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -226,11 +342,11 @@ public class PnelCustomer extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel pnelContent;
-    private javax.swing.JTextField txtDirection;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtIdCardNumber;
     private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtLocation;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JLabel xxxxxddd;

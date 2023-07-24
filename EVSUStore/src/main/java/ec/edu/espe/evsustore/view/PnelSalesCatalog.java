@@ -214,14 +214,15 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
     
     private ArrayList<HashMap<Object, Object>> getSelectedComponents() {
         int[] selectedRowIndexes = tblCatalog.getSelectedRows();
-        ArrayList<HashMap<Object, Object>> components = new ArrayList<>();
+        ArrayList<HashMap<Object, Object>> products = new ArrayList<>();
         for(int rowIndex : selectedRowIndexes){
             int id = Integer.parseInt(tblCatalog.getValueAt(rowIndex, 0).toString());
-            System.out.println(id);
-            HashMap<Object, Object> component = componentController.obtainFromDb(id);
-            components.add(component);
+            
+            HashMap<Object, Object> product = catalogController.obtain(id);
+            
+            products.add(product);
         }
-        return components;
+        return products;
     }
     
 

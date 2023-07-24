@@ -34,7 +34,13 @@ public class HardwareComponentController {
     }
     
     public int generateId(){
-        return obtainAllFromDb().size()+1;
+        int lastId = 0;
+        ArrayList<HashMap<Object, Object>> components =  obtainAllFromDb();
+        if(!components.isEmpty()){
+            lastId = Integer.parseInt(components.get(components.size()-1).get("id").toString());
+        }
+        
+        return lastId+1;
     }
     
     public boolean isInDB(HardwareComponent component){
@@ -81,6 +87,14 @@ public class HardwareComponentController {
     public ArrayList<HashMap<Object, Object>> obtainAllFromDb(){
         
         return DatabaseManager.obtainAll(collection);
+    }
+    
+    public ArrayList<HashMap<Object, Object>> convertAllToHashMap(ArrayList<HardwareComponent> components){
+        ArrayList<HashMap<Object, Object>> convertedComponents = new ArrayList<>();
+        for(HardwareComponent component : components){
+            convertedComponents.add(component.getData());
+        }
+        return convertedComponents;
     }
     
     public Double calculatePrice(Double cost, Double gainPercentage){

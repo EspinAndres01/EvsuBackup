@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -106,6 +107,15 @@ public class ViewManager {
     }
     
     public static void showPanel(JPanel pnelContent, JPanel panelUI) {
+        panelUI.setSize(900, 675);
+        panelUI.setLocation(1, 0);
+        pnelContent.removeAll();
+        pnelContent.add(panelUI, BorderLayout.CENTER);
+        pnelContent.revalidate();
+        pnelContent.repaint();
+    }
+    
+    public static void showPanel(JPanel pnelContent, JScrollPane panelUI) {
         panelUI.setSize(900, 675);
         panelUI.setLocation(1, 0);
         pnelContent.removeAll();

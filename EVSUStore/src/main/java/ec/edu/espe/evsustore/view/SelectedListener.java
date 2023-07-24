@@ -39,7 +39,7 @@ public class SelectedListener implements ListSelectionListener{
             int rowIndex = table.getSelectedRow();
             int maxQuantity = Integer.parseInt(table.getValueAt(rowIndex, 1).toString());
             SpinnerNumberModel numberModel = new SpinnerNumberModel (0, 0, maxQuantity, 1); 
-            spinner = new JSpinner(numberModel);
+            spinner.setModel(numberModel);
             
             if(rowIndex!=-1){
                 for(JButton button : buttonsToEnableInSelection){
