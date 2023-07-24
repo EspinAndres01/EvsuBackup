@@ -92,7 +92,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="35" max="32767" attributes="0"/>
-                      <Component id="btnPrint" min="-2" pref="153" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnSendEmail" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="btnPrint" min="-2" pref="153" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -102,7 +105,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="btnPrint" min="-2" pref="43" max="-2" attributes="0"/>
-                      <EmptySpace pref="793" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnSendEmail" min="-2" pref="43" max="-2" attributes="0"/>
+                      <EmptySpace pref="732" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -114,6 +119,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnSendEmail">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="EnviarFactura"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSendEmailActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

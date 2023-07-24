@@ -1,12 +1,15 @@
 
 package ec.edu.espe.evsustore.view;
 
+import ec.edu.espe.evsustore.utils.EmailUtils;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.File;
+import javax.mail.MessagingException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 /**
@@ -14,13 +17,13 @@ import javax.swing.JScrollPane;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class FrmPrint extends javax.swing.JFrame {
-
+    private Bill bill;
     /**
      * Creates new form FrmPrint
      */
     public FrmPrint() {
         initComponents();
-        
+        bill = new Bill();
         showBill();
     }
 
@@ -38,6 +41,7 @@ public class FrmPrint extends javax.swing.JFrame {
         pnelContent = new javax.swing.JPanel();
         pnelButtons = new javax.swing.JPanel();
         btnPrint = new javax.swing.JButton();
+        btnSendEmail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,13 +65,22 @@ public class FrmPrint extends javax.swing.JFrame {
             }
         });
 
+        btnSendEmail.setText("EnviarFactura");
+        btnSendEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendEmailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnelButtonsLayout = new javax.swing.GroupLayout(pnelButtons);
         pnelButtons.setLayout(pnelButtonsLayout);
         pnelButtonsLayout.setHorizontalGroup(
             pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelButtonsLayout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
-                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSendEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
         pnelButtonsLayout.setVerticalGroup(
@@ -75,7 +88,9 @@ public class FrmPrint extends javax.swing.JFrame {
             .addGroup(pnelButtonsLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(793, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSendEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(732, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -117,13 +132,48 @@ public class FrmPrint extends javax.swing.JFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         
     }//GEN-LAST:event_btnPrintActionPerformed
+    
+    private void btnSendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEmailActionPerformed
+         
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int result = fileChooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFolder = fileChooser.getSelectedFile();
+            String folderPath = selectedFolder.getAbsolutePath() + File.separator + "Facturas";
+
+            // Crear la carpeta si no existe
+            File folder = new File(folderPath);
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+
+            bill.saveBill(folderPath);
+
+            String recipientEmail = "kiboki1234@gmail.com"; 
+            String subject = "EVSU STORE FACTURA";
+            String body = "Se adjunta la factura de su compra realizada, gracias por preferirnos.";
+
+            try {
+                String filePath = folderPath + File.separator + "Factura.pdf";
+
+                EmailUtils.sendEmailWithAttachment(recipientEmail, subject, body, filePath);
+
+                File pdfFile = new File(filePath);
+                JOptionPane.showMessageDialog(null, "El correo se envió correctamente.");
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Ocurrió un error al enviar el correo.");
+            }
+        }
+    }//GEN-LAST:event_btnSendEmailActionPerformed
 
     private void showBill(){
-        Bill previewBill = new Bill();
-        previewBill.setSize(pnelContent.getWidth()-20, pnelContent.getHeight());
-        previewBill.setLocation(0,0);
         
-        JScrollPane scrollPane = new JScrollPane(previewBill);
+        bill.setSize(pnelContent.getWidth()-20, pnelContent.getHeight());
+        bill.setLocation(0,0);
+        
+        JScrollPane scrollPane = new JScrollPane(bill);
         scrollPane.setSize(pnelContent.getWidth(), pnelContent.getHeight());
         scrollPane.setLocation(0,0);
         
@@ -132,7 +182,7 @@ public class FrmPrint extends javax.swing.JFrame {
         pnelContent.revalidate();
         pnelContent.repaint();
         
-        makePrintable(previewBill);
+        makePrintable(bill);
     }
     
     private void makePrintable(Bill bill){
@@ -197,6 +247,7 @@ public class FrmPrint extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrint;
+    private javax.swing.JButton btnSendEmail;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel pnelButtons;
