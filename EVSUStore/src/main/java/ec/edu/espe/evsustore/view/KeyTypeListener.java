@@ -67,7 +67,7 @@ public class KeyTypeListener implements KeyListener{
                 else if(Character.toString (enteredChar).matches("\\.") && field.getText().contains(".") ){
                     evt.consume ();
                 }
-                else if(Double.parseDouble(numbersText)>9999.99){
+                else if(numbersText.matches("[0-9]{6}") && !Character.toString (enteredChar).matches("\\.")){
                     evt.consume();
                 }
             }

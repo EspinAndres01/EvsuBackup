@@ -431,9 +431,9 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
         DecimalFormat decimalFormat = new DecimalFormat("0.00", symbols);
         String formattedTotal = decimalFormat.format(DecimalsControl.roundToTwoTenths(Total));
 
-        
-        formattedTotal = formattedTotal.replace(",", ".");
-
+        if(formattedTotal.contains(",")){
+            formattedTotal = formattedTotal.replace(",", ".");
+        }
         
         txtTotal.setText(formattedTotal);
 

@@ -11,24 +11,44 @@ import javax.swing.event.DocumentListener;
 public class FilledListener implements DocumentListener{
 
     PnelCustomer pnelCustomer;
+    PnelCashPay pnelCashpay;
 
     public FilledListener(PnelCustomer pnelCustomer) {
         this.pnelCustomer = pnelCustomer;
     }
     
+    public FilledListener(PnelCashPay pnelCashpay) {
+        this.pnelCashpay = pnelCashpay;
+    }
+    
     @Override
     public void insertUpdate(DocumentEvent e) {
-        pnelCustomer.checkFields();
+        if(pnelCustomer!=null){
+            pnelCustomer.checkFields();
+        }
+        if(pnelCashpay!=null){
+            pnelCashpay.checkFields();
+        }
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        pnelCustomer.checkFields();
+        if(pnelCustomer!=null){
+            pnelCustomer.checkFields();
+        }
+        if(pnelCashpay!=null){
+            pnelCashpay.checkFields();
+        }
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        pnelCustomer.checkFields();
+        if(pnelCustomer!=null){
+            pnelCustomer.checkFields();
+        }
+        if(pnelCashpay!=null){
+            pnelCashpay.checkFields();
+        }
     }
     
 }

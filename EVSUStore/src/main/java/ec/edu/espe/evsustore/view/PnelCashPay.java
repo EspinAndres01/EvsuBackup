@@ -1,8 +1,9 @@
 
 package ec.edu.espe.evsustore.view;
 
+import ec.edu.espe.evsustore.controller.TransactionsController;
 import ec.edu.espe.evsustore.model.Sale;
-import ec.edu.espe.evsustore.utils.Tax;
+import ec.edu.espe.evsustore.utils.ViewManager;
 
 /**
  *
@@ -20,7 +21,7 @@ public class PnelCashPay extends javax.swing.JPanel {
         
         initComponents();
         fillFields();
-        changeTotal();
+        addListeners();
     }
 
     /**
@@ -160,43 +161,49 @@ public class PnelCashPay extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChangeActionPerformed
-        
+       
     }//GEN-LAST:event_txtChangeActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        
+        PnelSaleBill pnelSaleBill = new PnelSaleBill(sale);
+        ViewManager.showPanel(pnelContent, pnelSaleBill);
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void txtSaleTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaleTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSaleTotalActionPerformed
 
-        private double fillFields(){
+        private void fillFields(){
             double saleTotal = sale.getSalePrice();
             txtSaleTotal.setText(String.valueOf(saleTotal));
-            return saleTotal;
         }
 
-        private double changeTotal() {
-            String cashReceivedText = txtCashReceived.getText().trim();
-            String saleTotalText = txtSaleTotal.getText().trim();
-
-            if (cashReceivedText.isEmpty() || saleTotalText.isEmpty()) {
-                System.out.println("Por favor, ingrese valores numéricos válidos en ambos campos.");
-                return 0.0; // o cualquier otro valor predeterminado si es adecuado para tu caso
+        private void addListeners(){
+            FilledListener filledListener = new FilledListener(this);
+            txtCashReceived.getDocument().addDocumentListener(filledListener);
+            
+            KeyTypeListener doubleKeyTypeListener = new KeyTypeListener("Double");
+            txtCashReceived.addKeyListener(doubleKeyTypeListener);
+        }
+        
+        public void checkFields(){
+            if (!txtCashReceived.getText().isEmpty()) {
+                double saleTotal = Double.parseDouble(txtSaleTotal.getText());
+                double cashReceived = Double.parseDouble(txtCashReceived.getText());
+                if(cashReceived<saleTotal){   
+                    btnPrint.setEnabled(false);
+                    txtChange.setText("");
+                }
+                else{
+                    String exchangeText = String.format("%.2f", TransactionsController.calcExchange(saleTotal, cashReceived));
+                    txtChange.setText(exchangeText);
+                    btnPrint.setEnabled(true);
+                }
             }
-
-            try {
-                double cashReceived = Double.parseDouble(cashReceivedText);
-                double saleTotal = Double.parseDouble(saleTotalText);
-                double change = cashReceived - saleTotal;
-                txtChange.setText(String.valueOf(change));
-                return change;
-            } catch (NumberFormatException e) {
-                System.out.println("Hay un problema con los valores");
-                return 0.0; // o cualquier otro valor predeterminado si es adecuado para tu caso
+            else{
+                btnPrint.setEnabled(false);
             }
-    }
+        }
 
 
    
