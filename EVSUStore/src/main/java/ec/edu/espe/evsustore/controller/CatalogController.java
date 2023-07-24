@@ -2,6 +2,7 @@
 package ec.edu.espe.evsustore.controller;
 
 import ec.edu.espe.evsustore.model.Catalog;
+import ec.edu.espe.evsustore.model.HardwareComponent;
 import ec.edu.espe.evsustore.utils.HashMapManger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,16 @@ public class CatalogController {
         return instance;
     }
     
+     public HashMap<Object, Object> obtain(int id) {
+        
+        Catalog catalogProduct;
+        HashMap<Object, Object> component = componentController.obtainFromDb(id);
+        catalogProduct = convertIntoCatalog(component);
+        
+        return catalogProduct.getData();
+    }
+    
+    
     public ArrayList<HashMap<Object, Object>> obtainAll() {
         ArrayList<HashMap<Object, Object>> catalog = new ArrayList<>();
         Catalog catalogProduct;
@@ -43,6 +54,29 @@ public class CatalogController {
             
         }
         return catalog;
+    }
+    
+    public ArrayList<HashMap<Object, Object>> convertAllToHashMap(ArrayList<Catalog> catalog){
+        ArrayList<HashMap<Object, Object>> convertedComponents = new ArrayList<>();
+        for(Catalog catalogProduct : catalog){
+            convertedComponents.add(catalogProduct.getData());
+        }
+        return convertedComponents;
+    }
+    
+    public ArrayList<Catalog> convertAllIntoCatalogProducts( ArrayList<HashMap<Object, Object>> catalog) {
+        ArrayList<Catalog> catalogProducts = new ArrayList<>();
+        
+        for(HashMap<Object, Object> catalogProductData : catalog){
+            int id = Integer.parseInt(catalogProductData.get("id").toString());
+            int quantity = Integer.parseInt(catalogProductData.get("quantity").toString());
+            Double price = Double.valueOf(catalogProductData.get("price").toString());
+            String description = catalogProductData.get("productDescription").toString();
+
+            Catalog catalogProduct = new Catalog(id, description, quantity, price);
+            catalogProducts.add(catalogProduct);
+        }
+        return catalogProducts;
     }
     
     public Catalog convertIntoCatalog(HashMap<Object, Object> component) {

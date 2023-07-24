@@ -4,9 +4,11 @@ package ec.edu.espe.evsustore.view;
 import ec.edu.espe.evsustore.controller.CatalogController;
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
 import ec.edu.espe.evsustore.utils.ViewManager;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
@@ -92,8 +94,8 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
             pnelViewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelViewInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1)
+                .addGap(26, 26, 26))
         );
 
         txtSearchBar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -127,6 +129,11 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
 
         btnBack.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnBack.setText("Volver al Menú de Ventas");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnelButtonsLayout = new javax.swing.GroupLayout(pnelButtons);
         pnelButtons.setLayout(pnelButtonsLayout);
@@ -158,16 +165,20 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
                     .addComponent(pnelSearchBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnelViewInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(pnelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnelContentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnelContentLayout.setVerticalGroup(
             pnelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelContentLayout.createSequentialGroup()
                 .addComponent(pnelSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnelViewInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(pnelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnelViewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -187,6 +198,11 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
         PnelOrderConfirmation pnelOrderConfirmation = new PnelOrderConfirmation(selectedComponents);
         ViewManager.showPanel(pnelContent, pnelOrderConfirmation);
     }//GEN-LAST:event_btnSellActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        PnelStart pnelStart=new PnelStart();
+        showPanel(pnelStart);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     
     
@@ -214,16 +230,25 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
     
     private ArrayList<HashMap<Object, Object>> getSelectedComponents() {
         int[] selectedRowIndexes = tblCatalog.getSelectedRows();
-        ArrayList<HashMap<Object, Object>> components = new ArrayList<>();
+        ArrayList<HashMap<Object, Object>> products = new ArrayList<>();
         for(int rowIndex : selectedRowIndexes){
             int id = Integer.parseInt(tblCatalog.getValueAt(rowIndex, 0).toString());
-            System.out.println(id);
-            HashMap<Object, Object> component = componentController.obtainFromDb(id);
-            components.add(component);
+            
+            HashMap<Object, Object> product = catalogController.obtain(id);
+            
+            products.add(product);
         }
-        return components;
+        return products;
     }
     
+     private void showPanel(JPanel panelUI) {
+        panelUI.setSize(900, 675);
+        panelUI.setLocation(0, 0);
+        pnelContent.removeAll();
+        pnelContent.add(panelUI, BorderLayout.CENTER);
+        pnelContent.revalidate();
+        pnelContent.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

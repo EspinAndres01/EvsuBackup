@@ -54,9 +54,5 @@ public class SessionManager {
         Document result = collection.find(query).first();
         return result != null;
     }
-    
-    
-
-    // Aquí puedes agregar métodos para verificar la validez de la sesión, como tiempo de inactividad, etc.
-    // También puedes agregar métodos para obtener información adicional sobre el usuario actual.
+   
 }

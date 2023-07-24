@@ -1,9 +1,13 @@
 
 package ec.edu.espe.evsustore.view;
 
+
 import ec.edu.espe.evsustore.utils.PDFUtils;
-import java.awt.Color;
-import java.awt.Dimension;
+
+import ec.edu.espe.evsustore.controller.CatalogController;
+import ec.edu.espe.evsustore.model.Sale;
+import ec.edu.espe.evsustore.utils.ViewManager;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -11,8 +15,8 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+
+
 
 
 /**
@@ -21,12 +25,24 @@ import javax.swing.JPanel;
  */
 public class Bill extends javax.swing.JPanel implements Printable {
 
+    CatalogController catalogController = CatalogController.getInstance();
+    Sale sale;
+    
     /**
      * Creates new form Bill
      */
     public Bill() {
         initComponents();
         
+        putLogo();
+    }
+    
+    public Bill(Sale sale) {
+        this.sale = sale;
+        
+        initComponents();
+        
+        fillBill();
         putLogo();
     }
 
@@ -59,8 +75,15 @@ public class Bill extends javax.swing.JPanel implements Printable {
         jLabel5 = new javax.swing.JLabel();
         pnelPriceAndTaxes = new javax.swing.JPanel();
         pnelAditionalInfo = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtCustomerLocation = new javax.swing.JTextField();
+        txtCustomerPhoneNumber = new javax.swing.JTextField();
+        txtCustomerEmail = new javax.swing.JTextField();
 
-        pnelBill.setBackground(new java.awt.Color(0, 0, 0));
+        pnelBill.setBackground(new java.awt.Color(255, 255, 255));
 
         pnelLogo.setBackground(new java.awt.Color(255, 255, 255));
         pnelLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -253,15 +276,65 @@ public class Bill extends javax.swing.JPanel implements Printable {
         pnelAditionalInfo.setBackground(new java.awt.Color(255, 255, 255));
         pnelAditionalInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel6.setText("Información Adicional:");
+
+        jLabel7.setText("Dirección: ");
+
+        jLabel8.setText("Tlf:");
+
+        jLabel9.setText("Email:");
+
+        txtCustomerLocation.setEditable(false);
+        txtCustomerLocation.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtCustomerPhoneNumber.setEditable(false);
+        txtCustomerPhoneNumber.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtCustomerEmail.setEditable(false);
+        txtCustomerEmail.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout pnelAditionalInfoLayout = new javax.swing.GroupLayout(pnelAditionalInfo);
         pnelAditionalInfo.setLayout(pnelAditionalInfoLayout);
         pnelAditionalInfoLayout.setHorizontalGroup(
             pnelAditionalInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 243, Short.MAX_VALUE)
+            .addGroup(pnelAditionalInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnelAditionalInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnelAditionalInfoLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCustomerEmail))
+                    .addGroup(pnelAditionalInfoLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCustomerLocation))
+                    .addGroup(pnelAditionalInfoLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 168, Short.MAX_VALUE))
+                    .addGroup(pnelAditionalInfoLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCustomerPhoneNumber)))
+                .addContainerGap())
         );
         pnelAditionalInfoLayout.setVerticalGroup(
             pnelAditionalInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 123, Short.MAX_VALUE)
+            .addGroup(pnelAditionalInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnelAditionalInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtCustomerLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnelAditionalInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtCustomerPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnelAditionalInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtCustomerEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnelBillLayout = new javax.swing.GroupLayout(pnelBill);
@@ -328,6 +401,10 @@ public class Bill extends javax.swing.JPanel implements Printable {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JPanel pnelAditionalInfo;
@@ -339,8 +416,11 @@ public class Bill extends javax.swing.JPanel implements Printable {
     private javax.swing.JPanel pnelRuc;
     private javax.swing.JPanel pnelSale;
     private javax.swing.JTable tblSoldObjects;
+    private javax.swing.JTextField txtCustomerEmail;
     private javax.swing.JTextField txtCustomerIdCardNumber;
+    private javax.swing.JTextField txtCustomerLocation;
     private javax.swing.JTextField txtCustomerName;
+    private javax.swing.JTextField txtCustomerPhoneNumber;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtGuide;
     // End of variables declaration//GEN-END:variables
@@ -353,12 +433,33 @@ public class Bill extends javax.swing.JPanel implements Printable {
         
         lblLogo.setIcon(scaledLogo);
     }
+
     public void saveBill(String folderPath) {
         pnelBill.setSize(pnelBill.getPreferredSize());
 
         String fileName = "Factura.pdf";
         PDFUtils.convertPanelToPDF(pnelBill, folderPath, fileName);
     }
+    
+    private void fillBill() {
+        txtCustomerIdCardNumber.setText(String.valueOf(sale.getCustomer().getIdCardNumber()));
+        txtCustomerName.setText(sale.getCustomer().getName() + " " + sale.getCustomer().getLastName());
+        txtDate.setText(sale.getDate().toString());
+        txtCustomerLocation.setText(sale.getCustomer().getLocation());
+        txtCustomerPhoneNumber.setText(sale.getCustomer().getPhoneNumber());
+        txtCustomerEmail.setText(sale.getCustomer().getEmail());
+        
+        ViewManager.displayTable(tblSoldObjects, catalogController.convertAllToHashMap(sale.getSoldComponents()));
+        
+
+    }
+    
+    public String getCustomerEmail() {
+        return txtCustomerEmail.getText();
+    }
+
+    
+    
     
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {

@@ -1,13 +1,18 @@
-package ec.edu.espe.evsustore.view;
+ package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.CatalogController;
-import ec.edu.espe.evsustore.controller.HardwareComponentController;
+import ec.edu.espe.evsustore.controller.TransactionsController;
+import ec.edu.espe.evsustore.utils.DecimalsControl;
+import ec.edu.espe.evsustore.utils.HashMapManger;
 import ec.edu.espe.evsustore.utils.ViewManager;
+import java.awt.BorderLayout;
+import java.awt.Panel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableRowSorter;
+
 
 /**
  *
@@ -15,17 +20,20 @@ import javax.swing.table.TableRowSorter;
  */
 public class PnelOrderConfirmation extends javax.swing.JPanel {
 
-    HardwareComponentController componentController = HardwareComponentController.getInstance();
     CatalogController catalogController = CatalogController.getInstance();
-    ArrayList<HashMap<Object, Object>> selectedComponents;
-    ArrayList<HashMap<Object, Object>> actualComponents;
+    ArrayList<HashMap<Object, Object>> orderedProducts = new ArrayList<>();
+    String productsResume = "";
+    Double total = 0.0;
+    ArrayList<HashMap<Object, Object>> selectedProducts;
+    ArrayList<HashMap<Object, Object>> actualProducts;
     int actualPage;
     
     /**
      * Creates new form PnelOrderConfirmation
+     * @param selectedProducts
      */
-    public PnelOrderConfirmation(ArrayList<HashMap<Object, Object>> selectedComponents) {
-        this.selectedComponents = selectedComponents;
+    public PnelOrderConfirmation(ArrayList<HashMap<Object, Object>> selectedProducts) {
+        this.selectedProducts = selectedProducts;
         this.actualPage = 1;
         
         initComponents();
@@ -58,10 +66,11 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
         btnPrevious = new javax.swing.JButton();
         pnelOrderVerification = new javax.swing.JPanel();
         txtTotal = new javax.swing.JTextField();
-        txtResume = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtResume = new javax.swing.JTextArea();
         pnelBtns = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnContinue = new javax.swing.JButton();
 
         tblProducts.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
@@ -149,13 +158,17 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
         txtTotal.setEditable(false);
         txtTotal.setEnabled(false);
 
+        txtResume.setColumns(20);
+        txtResume.setRows(5);
+        jScrollPane2.setViewportView(txtResume);
+
         javax.swing.GroupLayout pnelOrderVerificationLayout = new javax.swing.GroupLayout(pnelOrderVerification);
         pnelOrderVerification.setLayout(pnelOrderVerificationLayout);
         pnelOrderVerificationLayout.setHorizontalGroup(
             pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelOrderVerificationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtResume, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(104, 104, 104))
@@ -163,16 +176,29 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
         pnelOrderVerificationLayout.setVerticalGroup(
             pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelOrderVerificationLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtResume, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGroup(pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnelOrderVerificationLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelOrderVerificationLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Continuar con el pedido");
+        btnContinue.setText("Continuar con el pedido");
+        btnContinue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinueActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnelBtnsLayout = new javax.swing.GroupLayout(pnelBtns);
         pnelBtns.setLayout(pnelBtnsLayout);
@@ -182,8 +208,8 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         pnelBtnsLayout.setVerticalGroup(
             pnelBtnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,8 +217,8 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addGroup(pnelBtnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                    .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout ContentLayout = new javax.swing.GroupLayout(Content);
@@ -209,7 +235,7 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
                 .addComponent(pnelProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnelOrderVerification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnelBtns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -240,44 +266,77 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPreviousActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
+        addProducts();
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
+        PnelCustomer pnelCustomer = new PnelCustomer(orderedProducts);
+        ViewManager.showPanel(Content, pnelCustomer);
+    }//GEN-LAST:event_btnContinueActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PnelSalesCatalog pnelSalesCatalog=new PnelSalesCatalog();
+        showPanel(pnelSalesCatalog);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void showPanel(JPanel panelUI) {
+        panelUI.setSize(900, 675);
+        panelUI.setLocation(0, 0);
+        Content.removeAll();
+        Content.add(panelUI, BorderLayout.CENTER);
+        Content.revalidate();
+        Content.repaint();
+    }
+    
+    private void addProducts(){
+        int selectedRowIndex = tblProducts.getSelectedRow();
+        int id = Integer.parseInt(tblProducts.getValueAt(selectedRowIndex, 0).toString());
+        
+        HashMap<Object, Object> catalogProduct = catalogController.obtain(id);
+        catalogProduct.replace("quantity", spinnerQuantity.getValue());
+        productsResume = productsResume + " \n " + HashMapManger.toSring(catalogProduct);
+        total = total + TransactionsController.calcTotal(catalogProduct);
+        String totalText = "$ " + String.format ("%.2f", DecimalsControl.roundToTwoTenths(total)); 
+        
+        txtResume.setText(productsResume);
+        txtTotal.setText(totalText);
+        
+        orderedProducts.add(catalogProduct);
+    }
+    
     private void addListeners(){
         
         ArrayList<JButton> buttonsToEnable = new ArrayList<>();
         buttonsToEnable.add(btnAdd);
         SelectedListener selectedListener = new SelectedListener(buttonsToEnable, spinnerQuantity, tblProducts);
         tblProducts.getSelectionModel().addListSelectionListener(selectedListener);
-        
-        
     
     }
     
     private void displayProductsTable(){
-        if(selectedComponents.size()>=actualPage*7){
-            this.actualComponents = new ArrayList<>(selectedComponents.subList((actualPage*7)-7, actualPage*7));
+        if(selectedProducts.size()>=actualPage*7){
+            this.actualProducts = new ArrayList<>(selectedProducts.subList((actualPage*7)-7, actualPage*7));
         }
         else{
-            this.actualComponents = new ArrayList<>(selectedComponents.subList((actualPage*7)-7, selectedComponents.size()));
+            this.actualProducts = new ArrayList<>(selectedProducts.subList((actualPage*7)-7, selectedProducts.size()));
         }
         
         
-        ViewManager.displayTable(tblProducts, actualComponents);
+        ViewManager.displayTable(tblProducts, actualProducts);
         
         TableColumnModel tblColumnModel = tblProducts.getColumnModel();
         
         //ReorderColumns
-        tblColumnModel.moveColumn(5, 1);
-        tblColumnModel.moveColumn(5, 2);
-        tblColumnModel.moveColumn(5, 3);
+        tblColumnModel.moveColumn(3, 1);
+        tblColumnModel.moveColumn(3, 1);
     }
     
+    
+    
     private boolean areNextElements(){
-        if(actualComponents.size()<7){
+        if(actualProducts.size()<7){
              return false;
         }
-        else if(actualComponents.size()*actualPage == selectedComponents.size()){
+        else if(actualProducts.size()*actualPage == selectedProducts.size()){
             return false;
         }
         else{
@@ -297,17 +356,18 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Content;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnContinue;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrevious;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pnelBtns;
     private javax.swing.JPanel pnelOrderVerification;
     private javax.swing.JPanel pnelProducts;
     private javax.swing.JSpinner spinnerQuantity;
     private javax.swing.JTable tblProducts;
-    private javax.swing.JTextField txtResume;
+    private javax.swing.JTextArea txtResume;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }

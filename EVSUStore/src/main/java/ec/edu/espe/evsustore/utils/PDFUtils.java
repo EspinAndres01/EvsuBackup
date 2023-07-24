@@ -12,7 +12,10 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 
-
+/**
+ *
+ * @author Andres Espin, KillChain, DCOO-ESPE
+ */
 public class PDFUtils {
 
     public static void convertPanelToPDF(JPanel panel, String folderPath, String fileName) {

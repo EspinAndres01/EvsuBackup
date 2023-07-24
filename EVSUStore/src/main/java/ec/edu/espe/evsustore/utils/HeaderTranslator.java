@@ -16,8 +16,9 @@ public class HeaderTranslator {
         transalations.put("model" , "modelo");
         transalations.put("productDescription" , "Descripción del producto");
         transalations.put("quantity" , "cantidad");
-        transalations.put("cost" , "costo");
-        transalations.put("price" , "precio");
+        transalations.put("cost" , "$ costo");
+        transalations.put("price" , "$ precio");
+        transalations.put("", "");
         
         return transalations;
     }

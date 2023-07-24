@@ -12,32 +12,34 @@ public class Customer implements Mapeable{
     private int id;
     private String name;
     private String lastName;
-    private int phoneNumber;
-    private int idCardNumber;
-    private ArrayList<Sale> sales;
+    private String phoneNumber;
+    private String idCardNumber;
+    private String email;
+    private String location;
+    
     
     private HashMap<Object, Object> data;
 
-    @Override
-    public String toString() {
-        return "Customer{" + "id=" + id + ", name=" + name + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", idCardNumber=" + idCardNumber + ", sales=" + sales + ", data=" + data + '}';
-    }
-
-    public Customer(int id, String name, String lastName, int phoneNumber, int idCardNumber, ArrayList<Sale> sales) {
+    
+    
+    
+    public Customer(int id, String name, String lastName, String phoneNumber, String idCardNumber, String email, String location) {
         data = new HashMap<>();
         data.put("id", id);
         data.put("name", name);
         data.put("lastName", lastName);
         data.put("phoneNumber", phoneNumber);
         data.put("idCardNumber", idCardNumber);
-        data.put("sales", sales);
+        data.put("email", email);
+        data.put("location", location);
         
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.idCardNumber = idCardNumber;
-        this.sales = sales;
+        this.email = email;
+        this.location = location;
     }
     
     public int getId() {
@@ -64,30 +66,38 @@ public class Customer implements Mapeable{
         this.lastName = lastName;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getIdCardNumber() {
+    public String getIdCardNumber() {
         return idCardNumber;
     }
 
-    public void setIdCardNumber(int idCardNumber) {
+    public void setIdCardNumber(String idCardNumber) {
         this.idCardNumber = idCardNumber;
     }
 
-    public ArrayList<Sale> getSales() {
-        return sales;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSales(ArrayList<Sale> sales) {
-        this.sales = sales;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    
 
     @Override
     public HashMap<Object, Object> getData() {
