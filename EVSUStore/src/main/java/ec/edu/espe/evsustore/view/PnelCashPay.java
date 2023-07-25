@@ -1,7 +1,11 @@
 
 package ec.edu.espe.evsustore.view;
 
+import ec.edu.espe.evsustore.controller.CustomerController;
+import ec.edu.espe.evsustore.controller.HardwareComponentController;
+import ec.edu.espe.evsustore.controller.SaleController;
 import ec.edu.espe.evsustore.controller.TransactionsController;
+import ec.edu.espe.evsustore.model.HardwareComponent;
 import ec.edu.espe.evsustore.model.Sale;
 import ec.edu.espe.evsustore.utils.ViewManager;
 
@@ -11,6 +15,10 @@ import ec.edu.espe.evsustore.utils.ViewManager;
  */
 public class PnelCashPay extends javax.swing.JPanel {
 
+    HardwareComponentController componentController = HardwareComponentController.getInstance();
+    CustomerController customerController = CustomerController.getInstance();
+    SaleController saleController = SaleController.getInstance();
+    
     Sale sale;
     
     /**
@@ -42,7 +50,7 @@ public class PnelCashPay extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtChange = new javax.swing.JTextField();
         pnelButtons = new javax.swing.JPanel();
-        btnPrint = new javax.swing.JButton();
+        btnComplete = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setText("CANTIDAD DE DINERO RECIBIDO:");
@@ -70,11 +78,12 @@ public class PnelCashPay extends javax.swing.JPanel {
             }
         });
 
-        btnPrint.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        btnPrint.setText("VER FACTURA");
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+        btnComplete.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnComplete.setText("Completar transacción");
+        btnComplete.setEnabled(false);
+        btnComplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
+                btnCompleteActionPerformed(evt);
             }
         });
 
@@ -84,14 +93,14 @@ public class PnelCashPay extends javax.swing.JPanel {
             pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelButtonsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnComplete, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnelButtonsLayout.setVerticalGroup(
             pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelButtonsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnComplete, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -164,10 +173,14 @@ public class PnelCashPay extends javax.swing.JPanel {
        
     }//GEN-LAST:event_txtChangeActionPerformed
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+    private void btnCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteActionPerformed
         PnelSaleBill pnelSaleBill = new PnelSaleBill(sale);
         ViewManager.showPanel(pnelContent, pnelSaleBill);
-    }//GEN-LAST:event_btnPrintActionPerformed
+        
+        customerController.save(sale.getCustomer());
+        componentController.updateQuantities(sale.getSoldComponents());
+        saleController.save(sale);
+    }//GEN-LAST:event_btnCompleteActionPerformed
 
     private void txtSaleTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaleTotalActionPerformed
         // TODO add your handling code here:
@@ -191,17 +204,17 @@ public class PnelCashPay extends javax.swing.JPanel {
                 double saleTotal = Double.parseDouble(txtSaleTotal.getText());
                 double cashReceived = Double.parseDouble(txtCashReceived.getText());
                 if(cashReceived<saleTotal){   
-                    btnPrint.setEnabled(false);
+                    btnComplete.setEnabled(false);
                     txtChange.setText("");
                 }
                 else{
                     String exchangeText = String.format("%.2f", TransactionsController.calcExchange(saleTotal, cashReceived));
                     txtChange.setText(exchangeText);
-                    btnPrint.setEnabled(true);
+                    btnComplete.setEnabled(true);
                 }
             }
             else{
-                btnPrint.setEnabled(false);
+                btnComplete.setEnabled(false);
             }
         }
 
@@ -211,7 +224,7 @@ public class PnelCashPay extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPrint;
+    private javax.swing.JButton btnComplete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

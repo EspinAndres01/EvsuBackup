@@ -38,7 +38,7 @@ public class SelectedListener implements ListSelectionListener{
         if(spinner!=null){
             int rowIndex = table.getSelectedRow();
             int maxQuantity = Integer.parseInt(table.getValueAt(rowIndex, 1).toString());
-            SpinnerNumberModel numberModel = new SpinnerNumberModel (0, 0, maxQuantity, 1); 
+            SpinnerNumberModel numberModel = new SpinnerNumberModel (1, 1, maxQuantity, 1); 
             spinner.setModel(numberModel);
             
             if(rowIndex!=-1){

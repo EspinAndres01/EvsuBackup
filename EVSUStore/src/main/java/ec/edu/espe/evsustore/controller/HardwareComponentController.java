@@ -1,6 +1,7 @@
 package ec.edu.espe.evsustore.controller;
 
 import com.mongodb.client.MongoCollection;
+import ec.edu.espe.evsustore.model.Catalog;
 import ec.edu.espe.evsustore.model.HardwareComponent;
 import ec.edu.espe.evsustore.utils.DatabaseManager;
 import ec.edu.espe.evsustore.utils.DecimalsControl;
@@ -67,6 +68,24 @@ public class HardwareComponentController {
         return verification;
     }
     
+    public void updateQuantities(ArrayList<Catalog> orderedInCatalog){
+        for(Catalog catalogProduct : orderedInCatalog){
+            HashMap<Object, Object> initialComponent = obtainFromDb(catalogProduct.getId());
+            
+            int initialQuantity = Integer.parseInt(initialComponent.get("quantity").toString());
+            int newQuantity = initialQuantity - catalogProduct.getQuantity() ;
+            
+            initialComponent.replace("id", Integer.valueOf(initialComponent.get("id").toString()));
+            initialComponent.replace("quantity", newQuantity);
+            initialComponent.replace("cost", Double.valueOf(initialComponent.get("cost").toString()));
+            initialComponent.replace("price", Double.valueOf(initialComponent.get("price").toString()));
+            update(initialComponent);
+           
+        }
+        
+        
+    }
+    
     public boolean delete(HardwareComponent component){
         boolean verification;
         verification = DatabaseManager.deleteDocument(collection, component.getData());
@@ -101,6 +120,12 @@ public class HardwareComponentController {
         Double price = (1+(gainPercentage/100.0))*cost;
         
         return DecimalsControl.roundToTwoTenths(price);
+    }
+    
+    public Double calculateGainPercentage(Double cost, Double price){
+        Double gainPercentage = ((price/cost)-1)*100;
+        
+        return DecimalsControl.roundToTwoTenths(gainPercentage);
     }
     
 }

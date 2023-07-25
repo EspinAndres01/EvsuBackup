@@ -20,7 +20,10 @@ public class Customer implements Mapeable{
     
     private HashMap<Object, Object> data;
 
-    
+    @Override
+    public String toString() {
+        return  name + " " + lastName + " N°Cédula: " + idCardNumber ;
+    }
     
     
     public Customer(int id, String name, String lastName, String phoneNumber, String idCardNumber, String email, String location) {

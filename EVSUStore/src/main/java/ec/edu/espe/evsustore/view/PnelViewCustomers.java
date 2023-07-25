@@ -1,19 +1,25 @@
 
 package ec.edu.espe.evsustore.view;
 
+import ec.edu.espe.evsustore.controller.CustomerController;
+import ec.edu.espe.evsustore.controller.SaleController;
+import ec.edu.espe.evsustore.utils.ViewManager;
+
 /**
  *
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class PnelViewCustomers extends javax.swing.JPanel {
 
+    CustomerController customerController = CustomerController.getInstance();
+    
     /**
      * Creates new form PnelViewCustomers
      */
     public PnelViewCustomers() {
         initComponents();
         
-        
+        ViewManager.displayTable(tblCustomers, customerController.obtainAllFromDb());
     }
 
     /**
@@ -162,7 +168,7 @@ public class PnelViewCustomers extends javax.swing.JPanel {
                 .addGap(0, 22, Short.MAX_VALUE))
         );
 
-        btnBack.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnBack.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnBack.setText("Volver a la Pantalla Principal");
 
         javax.swing.GroupLayout pnelButtonsLayout = new javax.swing.GroupLayout(pnelButtons);
