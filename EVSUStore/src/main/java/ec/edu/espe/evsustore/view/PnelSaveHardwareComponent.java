@@ -3,8 +3,10 @@ package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.CatalogController;
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
+import ec.edu.espe.evsustore.controller.PurchaseController;
 import ec.edu.espe.evsustore.model.Catalog;
 import ec.edu.espe.evsustore.model.HardwareComponent;
+import ec.edu.espe.evsustore.model.Purchase;
 import ec.edu.espe.evsustore.utils.DecimalsControl;
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -12,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.time.LocalDate;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -28,7 +31,7 @@ import javax.swing.event.DocumentListener;
 public class PnelSaveHardwareComponent extends javax.swing.JPanel {
 
     HardwareComponentController componentController = HardwareComponentController.getInstance();
-    CatalogController catalogController = CatalogController.getInstance();
+    PurchaseController purchaseController = PurchaseController.getInstance();
     
     /**
      * Creates new form PnelSaveHardwareComponent
@@ -43,7 +46,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    clearFields();
+                    clearFieldsOption();
 
                 }
             }
@@ -62,7 +65,7 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    clearFields(idOfUpdatingComponent);
+                    clearFieldsOption(idOfUpdatingComponent);
 
                 }
             }
@@ -395,6 +398,8 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         }
         else{
             saveConfirmation(enteredComponent);
+            Purchase purchase = new Purchase(purchaseController.generateId(), enteredComponent, enteredComponent.getCost()*enteredComponent.getQuantity(), LocalDate.now());
+            purchaseController.save(purchase);
         }
         
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -670,21 +675,25 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
     }
     
     public void clearFields(){
+        String voidString = "";
+        int generatedId = componentController.generateId();
+        txtId.setText(String.valueOf(generatedId));
+        txtQuantity.setText(voidString);
+        txtName.setText(voidString);
+        txtGainPercentage.setText(voidString);
+        txtModel.setText(voidString);
+        txtCost.setText(voidString);
+        txtPrice.setText(voidString);
+    }
+    
+    public void clearFieldsOption(){
         String warningMessage = "¿Está seguro de que quiere limpiar todos los campos?\n";
         
         int option = JOptionPane.showConfirmDialog(this, warningMessage);
         JRootPane rootPane = new JRootPane();
         
         if(option == 0){
-            
-            String voidString = "";
-            int generatedId = componentController.generateId();
-            txtId.setText(String.valueOf(generatedId));
-            txtQuantity.setText(voidString);
-            txtName.setText(voidString);
-            txtModel.setText(voidString);
-            txtCost.setText(voidString);
-            txtPrice.setText(voidString);
+            clearFields();
             
             
         }
@@ -715,22 +724,28 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
         txtModel.setText(updatingComponent.get("model").toString());
         txtCost.setText(updatingComponent.get("cost").toString());
         txtPrice.setText(updatingComponent.get("price").toString());
+        txtGainPercentage.setText(String.format("%.2f", componentController.calculateGainPercentage(Double.valueOf(txtCost.getText()), Double.valueOf(txtPrice.getText()))));
     }
     
     public void clearFields(int idOfUpdating){
+        String voidString = "";
+        txtId.setText(String.valueOf(idOfUpdating));
+        txtQuantity.setText(voidString);
+        txtName.setText(voidString);
+        txtModel.setText(voidString);
+        txtGainPercentage.setText(voidString);
+        txtCost.setText(voidString);
+        txtPrice.setText(voidString);
+    }
+    
+    public void clearFieldsOption(int idOfUpdating){
         String warningMessage = "¿Está seguro de que quiere limpiar todos los campos?\n";
         
         int option = JOptionPane.showConfirmDialog(this, warningMessage);
         JRootPane rootPane = new JRootPane();
         
         if(option == 0){
-            String voidString = "";
-            txtId.setText(String.valueOf(idOfUpdating));
-            txtQuantity.setText(voidString);
-            txtName.setText(voidString);
-            txtModel.setText(voidString);
-            txtCost.setText(voidString);
-            txtPrice.setText(voidString);
+            clearFields(idOfUpdating);
 
         }
         else if(option == 1){

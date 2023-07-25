@@ -122,4 +122,10 @@ public class HardwareComponentController {
         return DecimalsControl.roundToTwoTenths(price);
     }
     
+    public Double calculateGainPercentage(Double cost, Double price){
+        Double gainPercentage = ((price/cost)-1)*100;
+        
+        return DecimalsControl.roundToTwoTenths(gainPercentage);
+    }
+    
 }
