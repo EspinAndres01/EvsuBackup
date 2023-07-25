@@ -4,13 +4,14 @@ import ec.edu.espe.evsustore.controller.CatalogController;
 import ec.edu.espe.evsustore.controller.TransactionsController;
 import ec.edu.espe.evsustore.utils.DecimalsControl;
 import ec.edu.espe.evsustore.utils.HashMapManger;
+import ec.edu.espe.evsustore.utils.Tax;
 import ec.edu.espe.evsustore.utils.ViewManager;
 import java.awt.BorderLayout;
-import java.awt.Panel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.table.TableColumnModel;
 
 
@@ -22,7 +23,7 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
 
     CatalogController catalogController = CatalogController.getInstance();
     ArrayList<HashMap<Object, Object>> orderedProducts = new ArrayList<>();
-    String productsResume = "";
+    String productsResume = " Cantidad \t||\t Descripción \t||\t Precio por unidad \n";
     Double total = 0.0;
     ArrayList<HashMap<Object, Object>> selectedProducts;
     ArrayList<HashMap<Object, Object>> actualProducts;
@@ -65,9 +66,10 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
         btnNext = new javax.swing.JButton();
         btnPrevious = new javax.swing.JButton();
         pnelOrderVerification = new javax.swing.JPanel();
-        txtTotal = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtResume = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtTotal = new javax.swing.JTextArea();
         pnelBtns = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnContinue = new javax.swing.JButton();
@@ -155,12 +157,19 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        txtTotal.setEditable(false);
-        txtTotal.setEnabled(false);
-
+        txtResume.setEditable(false);
         txtResume.setColumns(20);
+        txtResume.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         txtResume.setRows(5);
         jScrollPane2.setViewportView(txtResume);
+
+        txtTotal.setEditable(false);
+        txtTotal.setColumns(20);
+        txtTotal.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtTotal.setRows(5);
+        txtTotal.setEnabled(false);
+        txtTotal.setOpaque(false);
+        jScrollPane3.setViewportView(txtTotal);
 
         javax.swing.GroupLayout pnelOrderVerificationLayout = new javax.swing.GroupLayout(pnelOrderVerification);
         pnelOrderVerification.setLayout(pnelOrderVerificationLayout);
@@ -168,21 +177,18 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
             pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelOrderVerificationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(126, 126, 126)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnelOrderVerificationLayout.setVerticalGroup(
             pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelOrderVerificationLayout.createSequentialGroup()
-                .addGroup(pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnelOrderVerificationLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnelOrderVerificationLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addGroup(pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -194,6 +200,7 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
         });
 
         btnContinue.setText("Continuar con el pedido");
+        btnContinue.setEnabled(false);
         btnContinue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContinueActionPerformed(evt);
@@ -218,7 +225,7 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
                 .addGroup(pnelBtnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout ContentLayout = new javax.swing.GroupLayout(Content);
@@ -227,7 +234,10 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnelProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnelOrderVerification, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnelBtns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnelBtns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         ContentLayout.setVerticalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,8 +245,9 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
                 .addComponent(pnelProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnelOrderVerification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnelBtns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnelBtns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -293,17 +304,32 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
         
         HashMap<Object, Object> catalogProduct = catalogController.obtain(id);
         catalogProduct.replace("quantity", spinnerQuantity.getValue());
-        productsResume = productsResume + " \n " + HashMapManger.toSring(catalogProduct);
+        
+        String txtPrice = catalogProduct.get("price").toString();
+        String txtQuantity = catalogProduct.get("quantity").toString();
+        String txtDescription = catalogProduct.get("productDescription").toString();
+
+        String productResume = txtQuantity + " \t||\t " + txtDescription + " \t||\t " + txtPrice + "\n";
+        productsResume = productsResume + productResume;
+        
         total = total + TransactionsController.calcTotal(catalogProduct);
-        String totalText = "$ " + String.format ("%.2f", DecimalsControl.roundToTwoTenths(total)); 
+        Double totalWithTax = total + Tax.computeIVA(total, 12.0);
+        String totalText = "Total sin Impuestos:\n$ " + String.format ("%.2f", DecimalsControl.roundToTwoTenths(total))+"\n"; 
+        String totalWithTaxText = "\nTotal con Impuestos:\n$" + String.format ("%.2f", DecimalsControl.roundToTwoTenths(totalWithTax));
         
         txtResume.setText(productsResume);
-        txtTotal.setText(totalText);
+        txtTotal.setText(totalText+totalWithTaxText);
         
         orderedProducts.add(catalogProduct);
     }
     
     private void addListeners(){
+        ArrayList<JTextArea> fieldsToCheck = new ArrayList<>();
+        fieldsToCheck.add(txtResume);
+        ArrayList<JButton> buttonsToEnableWithText = new ArrayList<>();
+        buttonsToEnableWithText.add(btnContinue);
+        FilledTxtArListener txtArListener = new FilledTxtArListener(fieldsToCheck, buttonsToEnableWithText);
+        txtResume.getDocument().addDocumentListener(txtArListener);
         
         ArrayList<JButton> buttonsToEnable = new ArrayList<>();
         buttonsToEnable.add(btnAdd);
@@ -330,7 +356,14 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
         tblColumnModel.moveColumn(3, 1);
     }
     
-    
+    public void checkFields(){
+        if(!txtResume.getText().isEmpty()){
+            btnContinue.setEnabled(true);
+        }
+        else{
+            btnContinue.setEnabled(true);
+        }
+    }
     
     private boolean areNextElements(){
         if(actualProducts.size()<7){
@@ -362,12 +395,13 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel pnelBtns;
     private javax.swing.JPanel pnelOrderVerification;
     private javax.swing.JPanel pnelProducts;
     private javax.swing.JSpinner spinnerQuantity;
     private javax.swing.JTable tblProducts;
     private javax.swing.JTextArea txtResume;
-    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextArea txtTotal;
     // End of variables declaration//GEN-END:variables
 }

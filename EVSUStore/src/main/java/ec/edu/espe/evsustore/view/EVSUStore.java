@@ -3,6 +3,7 @@ package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.DatabaseController;
 import ec.edu.espe.evsustore.utils.SessionManager;
+import ec.edu.espe.evsustore.utils.ViewManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -212,6 +213,11 @@ public class EVSUStore extends javax.swing.JFrame {
         jLabel2.setText("MENÚ PRINCIPAL");
 
         btnCustomers.setText("Clientes");
+        btnCustomers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomersActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -303,7 +309,7 @@ public class EVSUStore extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1751, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1753, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,6 +358,11 @@ public class EVSUStore extends javax.swing.JFrame {
         mainApp.setVisible(true);
         dispose(); 
     }//GEN-LAST:event_jmCloseSessionActionPerformed
+
+    private void btnCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomersActionPerformed
+        PnelViewCustomers pnelViewCustomers = new PnelViewCustomers();
+        ViewManager.showPanel(Content, pnelViewCustomers);
+    }//GEN-LAST:event_btnCustomersActionPerformed
 
     /**
      * @param args the command line arguments

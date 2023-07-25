@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -30,12 +31,15 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
     
     /**
      * Creates new form PnelPayConfirmation
+     * @param customer
+     * @param orderedProducts
      */
     public PnelPayConfirmation(Customer customer, ArrayList<HashMap<Object, Object>> orderedProducts) {
         this.customer = customer;
         this.orderedProducts = orderedProducts;
         
         initComponents();
+        addListeners();
         fillFields();
     }
 
@@ -86,17 +90,39 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         btnConfirmPay = new javax.swing.JButton();
 
+        setEnabled(false);
+
         jLabel1.setText("Información del cliente:");
 
         jLabel2.setText("Nombres y Apellidos:");
 
         jLabel3.setText("N° de Cédula:");
 
+        txtName.setEditable(false);
+        txtName.setEnabled(false);
+        txtName.setOpaque(false);
+
+        txtIdCardNumber.setEditable(false);
+        txtIdCardNumber.setEnabled(false);
+        txtIdCardNumber.setOpaque(false);
+
         jLabel4.setText("Dirección:");
+
+        txtLocation.setEditable(false);
+        txtLocation.setEnabled(false);
+        txtLocation.setOpaque(false);
 
         jLabel5.setText("Teléfono:");
 
         jLabel6.setText("Email:");
+
+        txtPhoneNumber.setEditable(false);
+        txtPhoneNumber.setEnabled(false);
+        txtPhoneNumber.setOpaque(false);
+
+        txtEmail.setEditable(false);
+        txtEmail.setEnabled(false);
+        txtEmail.setOpaque(false);
 
         javax.swing.GroupLayout pnelCustomerInfoLayout = new javax.swing.GroupLayout(pnelCustomerInfo);
         pnelCustomerInfo.setLayout(pnelCustomerInfoLayout);
@@ -156,8 +182,11 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
+        txtProductsResume.setEditable(false);
         txtProductsResume.setColumns(20);
         txtProductsResume.setRows(5);
+        txtProductsResume.setEnabled(false);
+        txtProductsResume.setOpaque(false);
         jScrollPane1.setViewportView(txtProductsResume);
 
         javax.swing.GroupLayout pnelSaleInfoLayout = new javax.swing.GroupLayout(pnelSaleInfo);
@@ -186,6 +215,26 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
         jLabel10.setText("ICE:");
 
         jLabel11.setText("TOTAL:");
+
+        txtSubtotal12.setEditable(false);
+        txtSubtotal12.setEnabled(false);
+        txtSubtotal12.setOpaque(false);
+
+        txtSubtotal0.setEditable(false);
+        txtSubtotal0.setEnabled(false);
+        txtSubtotal0.setOpaque(false);
+
+        txtIVA.setEditable(false);
+        txtIVA.setEnabled(false);
+        txtIVA.setOpaque(false);
+
+        txtICE.setEditable(false);
+        txtICE.setEnabled(false);
+        txtICE.setOpaque(false);
+
+        txtTotal.setEditable(false);
+        txtTotal.setEnabled(false);
+        txtTotal.setOpaque(false);
 
         javax.swing.GroupLayout pnelSubtotalAndTotalLayout = new javax.swing.GroupLayout(pnelSubtotalAndTotal);
         pnelSubtotalAndTotal.setLayout(pnelSubtotalAndTotalLayout);
@@ -234,16 +283,20 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        jLabel12.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel12.setText("Método de Pago:");
 
         btnGroupPayMethod.add(btnCash);
+        btnCash.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnCash.setText("Efectivo");
 
         btnGroupPayMethod.add(btnBankTransfer);
+        btnBankTransfer.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnBankTransfer.setText("Transferencia Bancaria");
         btnBankTransfer.setEnabled(false);
 
         btnGroupPayMethod.add(btnPaypal);
+        btnPaypal.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnPaypal.setText("Paypal");
         btnPaypal.setEnabled(false);
 
@@ -251,16 +304,18 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
         pnelPayMethods.setLayout(pnelPayMethodsLayout);
         pnelPayMethodsLayout.setHorizontalGroup(
             pnelPayMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelPayMethodsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel12)
-                .addGap(140, 140, 140))
             .addGroup(pnelPayMethodsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addGroup(pnelPayMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCash)
-                    .addComponent(btnBankTransfer)
-                    .addComponent(btnPaypal))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelPayMethodsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel12))
+                    .addGroup(pnelPayMethodsLayout.createSequentialGroup()
+                        .addGroup(pnelPayMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCash)
+                            .addComponent(btnBankTransfer)
+                            .addComponent(btnPaypal))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnelPayMethodsLayout.setVerticalGroup(
@@ -285,6 +340,7 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
         });
 
         btnConfirmPay.setText("Proceder con el Pago");
+        btnConfirmPay.setEnabled(false);
         btnConfirmPay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmPayActionPerformed(evt);
@@ -397,6 +453,18 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void addListeners(){
+        ArrayList<JRadioButton> buttons = new ArrayList<>();
+        buttons.add(btnCash);
+        buttons.add(btnPaypal);
+        buttons.add(btnBankTransfer);
+        ButtonGroupListener btnListener = new ButtonGroupListener(buttons, btnConfirmPay);
+        
+        btnCash.addActionListener(btnListener);
+        btnPaypal.addActionListener(btnListener);
+        btnBankTransfer.addActionListener(btnListener);
+    }
+    
     private Sale confirmSale(){
         Double total = Double.parseDouble(txtTotal.getText().toString());
         
@@ -405,7 +473,7 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
     }
     
     private void fillFields(){
-        String productsResume = " Quantity \t||\t Description \t||\t Price per unit";
+        String productsResume = " Cantidad \t||\t Descripción \t||\t Precio por unidad ";
         Double Subtotal12 = 0.0;
 
         for (HashMap map : orderedProducts) {

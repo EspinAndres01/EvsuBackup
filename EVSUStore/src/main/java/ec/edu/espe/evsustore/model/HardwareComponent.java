@@ -22,7 +22,7 @@ public class HardwareComponent implements Mapeable{
     public String toString() {
         return  id + "\t|| " + name + "\t|| " + model + "\t|| " + quantity + 
                 "\t|| " + cost + 
-                "\t|| " + price;
+                "\t|| " + price + "\n";
     }
 
     public HardwareComponent(int id, int quantity, double cost, double price, String name, String model) {

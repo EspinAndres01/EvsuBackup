@@ -68,12 +68,15 @@ public class CatalogController {
         ArrayList<Catalog> catalogProducts = new ArrayList<>();
         
         for(HashMap<Object, Object> catalogProductData : catalog){
+            
             int id = Integer.parseInt(catalogProductData.get("id").toString());
             int quantity = Integer.parseInt(catalogProductData.get("quantity").toString());
             Double price = Double.valueOf(catalogProductData.get("price").toString());
+            System.out.println("id"+id);
             String description = catalogProductData.get("productDescription").toString();
-
+            
             Catalog catalogProduct = new Catalog(id, description, quantity, price);
+            System.out.println("id"+catalogProduct.getId());
             catalogProducts.add(catalogProduct);
         }
         return catalogProducts;

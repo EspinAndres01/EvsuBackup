@@ -12,7 +12,12 @@ public class FilledListener implements DocumentListener{
 
     PnelCustomer pnelCustomer;
     PnelCashPay pnelCashpay;
-
+    PnelOrderConfirmation pnelOrder;
+    
+    public FilledListener(PnelOrderConfirmation pnelOrder) {
+        this.pnelOrder = pnelOrder;
+    }
+    
     public FilledListener(PnelCustomer pnelCustomer) {
         this.pnelCustomer = pnelCustomer;
     }
@@ -28,6 +33,9 @@ public class FilledListener implements DocumentListener{
         }
         if(pnelCashpay!=null){
             pnelCashpay.checkFields();
+        }
+        if(pnelOrder!=null){
+            pnelOrder.checkFields();
         }
     }
 

@@ -23,8 +23,8 @@ public class Sale implements Mapeable{
     public Sale(int id, ArrayList<Catalog> soldComponents, Customer customer, double salePrice, LocalDate date) {
         data = new HashMap<>();
         data.put("id", id);
-        data.put("soldComponents", soldComponents);
-        data.put("customer", customer);
+        data.put("soldComponents", soldComponents.toString());
+        data.put("customer", customer.toString());
         data.put("salePrice", salePrice);
         data.put("date", date);
         

@@ -65,6 +65,12 @@ public class DatabaseManager {
         return document;
     }
     
+    private static Document createUpdateOneFieldDocument(String targetField, Object newValue) {
+        Document document = new Document();
+        Document updateDocument = new Document("$set", targetField+":"+newValue);
+        return updateDocument;
+    }
+    
     private static Document createUpdateDocument(HashMap<Object, Object> map) {
         Document document = new Document();
         for (Map.Entry<Object, Object> entry : map.entrySet()) {
@@ -93,6 +99,21 @@ public class DatabaseManager {
         Bson filter = search(collection, Integer.parseInt(documentId.toString()));
         if (filter!=null) {
             Bson updatedDocument = createUpdateDocument(updatedMap);
+            collection.updateOne(filter, updatedDocument);
+            System.out.println("-> Updated succesfully");
+            return true;
+        }
+        else {
+            System.out.println("-> Updated failed");
+            return false;
+        }
+    }
+    
+    public static boolean updateOneFieldDocument(HashMap<Object, Object> map,MongoCollection<Document> collection,  String targetField, Object newValue){
+        Object documentId  = map.get("id");
+        Bson filter = search(collection, Integer.parseInt(documentId.toString()));
+        if (filter!=null) {
+            Bson updatedDocument = createUpdateOneFieldDocument(targetField, newValue);
             collection.updateOne(filter, updatedDocument);
             System.out.println("-> Updated succesfully");
             return true;
