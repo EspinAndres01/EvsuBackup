@@ -101,10 +101,15 @@ public class ViewManager {
         return tableModel;
     }
     
-    public static String translateText(String text){
-        String translatedTex = HeaderTranslator.translateEN_ES(text);
-        return translatedTex;
+    public static String translateText(String text) {
+        String translatedText = HeaderTranslator.translateEN_ES(text);
+        if (translatedText != null) {
+            return translatedText;
+        } else {
+            return text; 
+        }
     }
+
     
     public static void showPanel(JPanel pnelContent, JPanel panelUI) {
         panelUI.setSize(900, 675);

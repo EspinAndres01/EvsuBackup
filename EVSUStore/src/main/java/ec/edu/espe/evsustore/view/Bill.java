@@ -35,11 +35,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
      */
     public Bill() {
         initComponents();
-        FlatLightFlatIJTheme.setup();
-        UIManager.put( "Button.arc", 999 );
-        UIManager.put( "TextComponent.arc", 999 );
-        UIManager.put( "Component.focusWidth", 1);
-        UIManager.put( "TextComponent.arc", 5 );
+        
         putLogo();
     }
     

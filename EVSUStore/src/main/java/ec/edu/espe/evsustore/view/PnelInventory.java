@@ -1,6 +1,7 @@
 
 package ec.edu.espe.evsustore.view;
 
+import ec.edu.espe.evsustore.utils.ViewManager;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
@@ -98,8 +99,8 @@ public class PnelInventory extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrintInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintInventoryActionPerformed
-        PnelViewCustomers pnelViewCustomers = new PnelViewCustomers();
-        showPanel(pnelViewCustomers);
+        FrmPrintInventory frmPrintInventory = new FrmPrintInventory();
+        frmPrintInventory.setVisible(true); 
     }//GEN-LAST:event_btnPrintInventoryActionPerformed
 
     private void btnSeeInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeeInventoryActionPerformed

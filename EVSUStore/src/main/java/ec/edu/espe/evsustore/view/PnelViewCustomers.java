@@ -2,8 +2,9 @@
 package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.CustomerController;
-import ec.edu.espe.evsustore.controller.SaleController;
 import ec.edu.espe.evsustore.utils.ViewManager;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -18,8 +19,12 @@ public class PnelViewCustomers extends javax.swing.JPanel {
      */
     public PnelViewCustomers() {
         initComponents();
+        displayCustomersTable();
         
-        ViewManager.displayTable(tblCustomers, customerController.obtainAllFromDb());
+    }
+    private void displayCustomersTable() {
+        ArrayList<HashMap<Object, Object>> customersData = customerController.obtainAllFromDb();
+        ViewManager.displayTable(tblCustomers, customersData);
     }
 
     /**
@@ -141,13 +146,10 @@ public class PnelViewCustomers extends javax.swing.JPanel {
         tblCustomers.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(tblCustomers);
