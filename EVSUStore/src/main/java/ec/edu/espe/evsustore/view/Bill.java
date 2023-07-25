@@ -2,6 +2,7 @@
 package ec.edu.espe.evsustore.view;
 
 
+import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import ec.edu.espe.evsustore.utils.PDFUtils;
 
 import ec.edu.espe.evsustore.controller.CatalogController;
@@ -15,6 +16,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 
 
@@ -33,7 +35,11 @@ public class Bill extends javax.swing.JPanel implements Printable {
      */
     public Bill() {
         initComponents();
-        
+        FlatLightFlatIJTheme.setup();
+        UIManager.put( "Button.arc", 999 );
+        UIManager.put( "TextComponent.arc", 999 );
+        UIManager.put( "Component.focusWidth", 1);
+        UIManager.put( "TextComponent.arc", 5 );
         putLogo();
     }
     
@@ -225,6 +231,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
                 return canEdit [columnIndex];
             }
         });
+        tblSoldObjects.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblSoldObjects);
 
         javax.swing.GroupLayout pnelSaleLayout = new javax.swing.GroupLayout(pnelSale);
