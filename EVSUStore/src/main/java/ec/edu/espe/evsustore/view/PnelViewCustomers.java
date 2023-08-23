@@ -3,7 +3,12 @@ package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.CustomerController;
 import ec.edu.espe.evsustore.utils.ViewManager;
+<<<<<<< HEAD
 import javax.swing.table.TableRowSorter;
+=======
+import java.util.ArrayList;
+import java.util.HashMap;
+>>>>>>> bf3471a80333493f1ecbb623f1cad9d8ecb7ef11
 
 /**
  *
@@ -18,9 +23,17 @@ public class PnelViewCustomers extends javax.swing.JPanel {
      */
     public PnelViewCustomers() {
         initComponents();
+        displayCustomersTable();
         
+<<<<<<< HEAD
         displayTable();
         addListeners();
+=======
+    }
+    private void displayCustomersTable() {
+        ArrayList<HashMap<Object, Object>> customersData = customerController.obtainAllFromDb();
+        ViewManager.displayTable(tblCustomers, customersData);
+>>>>>>> bf3471a80333493f1ecbb623f1cad9d8ecb7ef11
     }
 
     /**
@@ -64,13 +77,10 @@ public class PnelViewCustomers extends javax.swing.JPanel {
         tblCustomers.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(tblCustomers);
