@@ -13,14 +13,12 @@ import java.util.HashMap;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class HardwareComponentController {
-    DatabaseController database;
     MongoCollection collection;
     
     private static HardwareComponentController instance;
     
     private HardwareComponentController() {
-        this.database = DatabaseController.getInstance();
-        this.collection = this.database.changeCollection("HardwareComponents");
+        this.collection = DatabaseController.getInstance().changeCollection("HardwareComponents");
     }
     
     public synchronized static HardwareComponentController getInstance (){
@@ -117,13 +115,15 @@ public class HardwareComponentController {
     }
     
     public Double calculatePrice(Double cost, Double gainPercentage){
-        Double price = (1+(gainPercentage/100.0))*cost;
+        double price = (1+(gainPercentage/100.0))*cost;
         
         return DecimalsControl.roundToTwoTenths(price);
     }
     
+    
+    
     public Double calculateGainPercentage(Double cost, Double price){
-        Double gainPercentage = ((price/cost)-1)*100;
+        double gainPercentage = ((price/cost)-1)*100;
         
         return DecimalsControl.roundToTwoTenths(gainPercentage);
     }

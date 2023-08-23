@@ -2,8 +2,8 @@
 
 import ec.edu.espe.evsustore.controller.CatalogController;
 import ec.edu.espe.evsustore.controller.TransactionsController;
+ 
 import ec.edu.espe.evsustore.utils.DecimalsControl;
-import ec.edu.espe.evsustore.utils.HashMapManger;
 import ec.edu.espe.evsustore.utils.Tax;
 import ec.edu.espe.evsustore.utils.ViewManager;
 import java.awt.BorderLayout;
@@ -23,7 +23,7 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
 
     CatalogController catalogController = CatalogController.getInstance();
     ArrayList<HashMap<Object, Object>> orderedProducts = new ArrayList<>();
-    String productsResume = " Cantidad \t||\t Descripción \t||\t Precio por unidad \n";
+    String productsResume = " Cantidad \t||\t Descripción \t\t||\t Precio por unidad \n";
     Double total = 0.0;
     ArrayList<HashMap<Object, Object>> selectedProducts;
     ArrayList<HashMap<Object, Object>> actualProducts;
@@ -177,10 +177,10 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
             pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelOrderVerificationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnelOrderVerificationLayout.setVerticalGroup(
             pnelOrderVerificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,6 +278,7 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         addProducts();
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
@@ -289,6 +290,8 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
         PnelSalesCatalog pnelSalesCatalog=new PnelSalesCatalog();
         showPanel(pnelSalesCatalog);
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+    
     private void showPanel(JPanel panelUI) {
         panelUI.setSize(900, 675);
         panelUI.setLocation(0, 0);
@@ -313,7 +316,7 @@ public class PnelOrderConfirmation extends javax.swing.JPanel {
         productsResume = productsResume + productResume;
         
         total = total + TransactionsController.calcTotal(catalogProduct);
-        Double totalWithTax = total + Tax.computeIVA(total, 12.0);
+        Double totalWithTax = total + TransactionsController.calcIVA(total);
         String totalText = "Total sin Impuestos:\n$ " + String.format ("%.2f", DecimalsControl.roundToTwoTenths(total))+"\n"; 
         String totalWithTaxText = "\nTotal con Impuestos:\n$" + String.format ("%.2f", DecimalsControl.roundToTwoTenths(totalWithTax));
         

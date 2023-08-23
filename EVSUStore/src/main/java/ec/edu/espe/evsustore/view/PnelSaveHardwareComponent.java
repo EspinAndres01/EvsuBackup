@@ -1,10 +1,8 @@
 
 package ec.edu.espe.evsustore.view;
 
-import ec.edu.espe.evsustore.controller.CatalogController;
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
 import ec.edu.espe.evsustore.controller.PurchaseController;
-import ec.edu.espe.evsustore.model.Catalog;
 import ec.edu.espe.evsustore.model.HardwareComponent;
 import ec.edu.espe.evsustore.model.Purchase;
 import ec.edu.espe.evsustore.utils.DecimalsControl;
@@ -716,7 +714,6 @@ public class PnelSaveHardwareComponent extends javax.swing.JPanel {
     }
     
     public void fillFields(HashMap<Object, Object> updatingComponent){
-        String voidString = "";
         
         txtId.setText(updatingComponent.get("id").toString());
         txtQuantity.setText(updatingComponent.get("quantity").toString());

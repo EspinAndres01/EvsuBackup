@@ -466,7 +466,7 @@ public class PnelPayConfirmation extends javax.swing.JPanel {
     }
     
     private Sale confirmSale(){
-        Double total = Double.parseDouble(txtTotal.getText().toString());
+        Double total = Double.valueOf(txtTotal.getText());
         
         Sale sale = new Sale(saleController.generateId(), catalogController.convertAllIntoCatalogProducts(orderedProducts), customer, total, LocalDate.now());
         return sale;

@@ -7,6 +7,8 @@ import ec.edu.espe.evsustore.utils.ViewManager;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 
 /**
@@ -60,6 +62,8 @@ public class PnelCustomer extends javax.swing.JPanel {
         txtLocation = new javax.swing.JTextField();
         txtPhoneNumber = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
+        cmbBoxCustomers = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnClear = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
@@ -110,6 +114,16 @@ public class PnelCustomer extends javax.swing.JPanel {
 
         txtEmail.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
 
+        cmbBoxCustomers.setEditable(true);
+        cmbBoxCustomers.setOpaque(false);
+        cmbBoxCustomers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBoxCustomersActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Elegir cliente ya existente:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,6 +131,10 @@ public class PnelCustomer extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 412, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(297, 297, 297))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -147,11 +165,13 @@ public class PnelCustomer extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtLocation)
                                     .addComponent(txtPhoneNumber))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(297, 297, 297))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbBoxCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(178, 178, 178)))
+                        .addGap(30, 30, 30))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,12 +181,14 @@ public class PnelCustomer extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbBoxCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -186,7 +208,7 @@ public class PnelCustomer extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         btnClear.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -275,8 +297,17 @@ public class PnelCustomer extends javax.swing.JPanel {
     }//GEN-LAST:event_btnContinueActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        
+        MainPanel mainPanel = new MainPanel();
+        ViewManager.showPanel(pnelContent, mainPanel);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void cmbBoxCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxCustomersActionPerformed
+
+        int customerId = Integer.parseInt(cmbBoxCustomers.getSelectedItem().toString().split(" ")[0]);
+        HashMap<Object, Object> customer = customerController.obtainFromDb(customerId);
+        fillFields(customer);
+    }//GEN-LAST:event_cmbBoxCustomersActionPerformed
+    
     
     private void addListeners(){
         KeyTypeListener intKeyTypeListener = new KeyTypeListener("int");
@@ -301,6 +332,16 @@ public class PnelCustomer extends javax.swing.JPanel {
     
     }
     
+    private void fillFields(HashMap<Object, Object> customer){
+        txtId.setText(customer.get("id").toString());
+        txtName.setText(customer.get("name").toString());
+        txtLastName.setText(customer.get("lastName").toString());
+        txtLocation.setText(customer.get("location").toString());
+        txtPhoneNumber.setText(customer.get("phoneNumber").toString());
+        txtEmail.setText(customer.get("email").toString());
+        txtIdCardNumber.setText("idCardNumber");
+    }
+    
     private Customer read(){
         int id = Integer.parseInt(txtId.getText());
         String name = txtName.getText();
@@ -316,6 +357,19 @@ public class PnelCustomer extends javax.swing.JPanel {
         
         return customer;
     }
+    
+     private void chargeCustomers(){
+        ArrayList<HashMap<Object, Object>> customers = customerController.obtainAllFromDb();
+        ArrayList<String> customersEssentialInfo = new ArrayList<>();
+        for(HashMap<Object, Object> customer : customers){
+            customersEssentialInfo.add(customer.get("id") + " " + customer.get("name") + " " + customer.get("lastName") + " " + customer.get("idCardNumber"));
+        }
+        
+        DefaultComboBoxModel comboModel = new DefaultComboBoxModel();
+        comboModel.addAll(customersEssentialInfo);
+        cmbBoxCustomers.setModel(comboModel);
+    }
+    
     
     public void checkFields(){
         if(txtId.getText().isEmpty() || txtName.getText().isEmpty() || txtLastName.getText().isEmpty()
@@ -344,11 +398,13 @@ public class PnelCustomer extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnContinue;
+    private javax.swing.JComboBox<String> cmbBoxCustomers;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;

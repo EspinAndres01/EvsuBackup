@@ -18,15 +18,22 @@ public class HeaderTranslator {
         transalations.put("quantity" , "cantidad");
         transalations.put("cost" , "$ costo");
         transalations.put("price" , "$ precio");
-        transalations.put("", "");
+        transalations.put("phoneNumber" , "No. de Tlf.");
+        transalations.put("idCardNumber" , "No. de Cedula");
+        transalations.put("location" , "direccion");
+        transalations.put("lastName" , "apellido");
         
         return transalations;
     }
     
     public static String translateEN_ES(String textToTranslate) {
         HashMap<String, String> translations = possibleTranslationsEN_ES();
+        String translation = translations.get(textToTranslate);
         
-        
-        return translations.get(textToTranslate);
+        if(translation == null){
+            return textToTranslate;
+        } else {
+            return translation;
+        }
     }
 }

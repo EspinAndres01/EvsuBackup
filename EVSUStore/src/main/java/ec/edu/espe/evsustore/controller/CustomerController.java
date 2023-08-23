@@ -12,14 +12,12 @@ import java.util.HashMap;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class CustomerController {
-    DatabaseController database;
     MongoCollection collection;
     
     private static CustomerController instance;
     
     private CustomerController() {
-        this.database = DatabaseController.getInstance();
-        this.collection = this.database.changeCollection("Customers");
+        this.collection = DatabaseController.getInstance().changeCollection("Customers");
     }
     
     public synchronized static CustomerController getInstance (){

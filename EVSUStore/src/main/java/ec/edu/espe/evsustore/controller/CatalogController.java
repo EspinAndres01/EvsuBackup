@@ -2,7 +2,6 @@
 package ec.edu.espe.evsustore.controller;
 
 import ec.edu.espe.evsustore.model.Catalog;
-import ec.edu.espe.evsustore.model.HardwareComponent;
 import ec.edu.espe.evsustore.utils.HashMapManger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,13 +11,11 @@ import java.util.HashMap;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class CatalogController {
-    DatabaseController database;
     HardwareComponentController componentController;
     
     private static CatalogController instance;
     
     private CatalogController() {
-        this.database = DatabaseController.getInstance();
         this.componentController = HardwareComponentController.getInstance();
     }
     

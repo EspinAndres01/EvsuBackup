@@ -45,7 +45,7 @@ public class KeyTypeListener implements KeyListener{
     
     private void validateTypedCharacters (java.awt.event.KeyEvent evt) { 
         char enteredChar = evt.getKeyChar ();  
-        if (!Character.toString (enteredChar).matches ("[a-zA-ZáéíóúÁÉÍÓÚñÑ]")){
+        if (!Character.toString (enteredChar).matches ("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]")){
             evt.consume ();
         } 
     }

@@ -11,14 +11,12 @@ import javax.mail.MessagingException;
  * @author Joan Cobeña, KillChain, DCCO-ESPE
  */
 public class SessionController {
-    DatabaseController database;
     MongoCollection collection;
 
     private static SessionController instance;
 
     private SessionController() {
-        this.database = DatabaseController.getInstance();
-        this.collection = this.database.changeCollection("Users");
+        this.collection = DatabaseController.getInstance().changeCollection("Users");
     }
 
     public synchronized static SessionController getInstance() {

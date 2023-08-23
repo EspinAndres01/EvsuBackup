@@ -56,8 +56,6 @@ public class Bill extends javax.swing.JPanel implements Printable {
     private void initComponents() {
 
         pnelBill = new javax.swing.JPanel();
-        pnelLogo = new javax.swing.JPanel();
-        lblLogo = new javax.swing.JLabel();
         pnelRuc = new javax.swing.JPanel();
         pnelCustomerInfo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -74,6 +72,16 @@ public class Bill extends javax.swing.JPanel implements Printable {
         pnelPayMethod = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         pnelPriceAndTaxes = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
         pnelAditionalInfo = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -82,30 +90,9 @@ public class Bill extends javax.swing.JPanel implements Printable {
         txtCustomerLocation = new javax.swing.JTextField();
         txtCustomerPhoneNumber = new javax.swing.JTextField();
         txtCustomerEmail = new javax.swing.JTextField();
+        lblLogo = new javax.swing.JLabel();
 
         pnelBill.setBackground(new java.awt.Color(255, 255, 255));
-
-        pnelLogo.setBackground(new java.awt.Color(255, 255, 255));
-        pnelLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        lblLogo.setToolTipText("");
-
-        javax.swing.GroupLayout pnelLogoLayout = new javax.swing.GroupLayout(pnelLogo);
-        pnelLogo.setLayout(pnelLogoLayout);
-        pnelLogoLayout.setHorizontalGroup(
-            pnelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelLogoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnelLogoLayout.setVerticalGroup(
-            pnelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnelLogoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         pnelRuc.setBackground(new java.awt.Color(255, 255, 255));
         pnelRuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -125,6 +112,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
         pnelCustomerInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Razón Social / Nombre y Apellidos:");
 
         txtCustomerName.setEditable(false);
@@ -132,6 +120,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
         txtCustomerName.setBorder(null);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Fecha emisión:");
 
         txtDate.setEditable(false);
@@ -139,6 +128,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
         txtDate.setBorder(null);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("RUC / C.I. :");
 
         txtCustomerIdCardNumber.setEditable(false);
@@ -146,6 +136,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
         txtCustomerIdCardNumber.setBorder(null);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Guía Remisión: ");
 
         txtGuide.setEditable(false);
@@ -176,7 +167,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
         pnelCustomerInfoLayout.setVerticalGroup(
             pnelCustomerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +192,8 @@ public class Bill extends javax.swing.JPanel implements Printable {
         pnelSale.setBackground(new java.awt.Color(255, 255, 255));
         pnelSale.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        tblSoldObjects.setForeground(new java.awt.Color(51, 51, 51));
+        tblSoldObjects.setBackground(new java.awt.Color(255, 255, 255));
+        tblSoldObjects.setForeground(new java.awt.Color(0, 0, 0));
         tblSoldObjects.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null}
@@ -241,6 +233,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
         pnelPayMethod.setBackground(new java.awt.Color(255, 255, 255));
         pnelPayMethod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Forma de Pago:");
 
         javax.swing.GroupLayout pnelPayMethodLayout = new javax.swing.GroupLayout(pnelPayMethod);
@@ -250,7 +243,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
             .addGroup(pnelPayMethodLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addContainerGap(273, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnelPayMethodLayout.setVerticalGroup(
             pnelPayMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,37 +254,136 @@ public class Bill extends javax.swing.JPanel implements Printable {
 
         pnelPriceAndTaxes.setBackground(new java.awt.Color(255, 255, 255));
         pnelPriceAndTaxes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnelPriceAndTaxes.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Subtotal (12%):");
+
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Subtotal (0%):");
+
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel12.setText("Total Descuento: ");
+
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Subtotal sin impuestos:");
+
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("Total:");
+
+        jTextField1.setEditable(false);
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField1.setEnabled(false);
+        jTextField1.setOpaque(false);
+
+        jTextField2.setEditable(false);
+        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField2.setEnabled(false);
+        jTextField2.setOpaque(false);
+
+        jTextField3.setEditable(false);
+        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField3.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField3.setEnabled(false);
+        jTextField3.setOpaque(false);
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
+        jTextField4.setEditable(false);
+        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField4.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField4.setEnabled(false);
+        jTextField4.setOpaque(false);
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
+
+        jTextField5.setEditable(false);
+        jTextField5.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField5.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField5.setEnabled(false);
+        jTextField5.setOpaque(false);
 
         javax.swing.GroupLayout pnelPriceAndTaxesLayout = new javax.swing.GroupLayout(pnelPriceAndTaxes);
         pnelPriceAndTaxes.setLayout(pnelPriceAndTaxesLayout);
         pnelPriceAndTaxesLayout.setHorizontalGroup(
             pnelPriceAndTaxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnelPriceAndTaxesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnelPriceAndTaxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnelPriceAndTaxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1)
+                    .addComponent(jTextField2)
+                    .addComponent(jTextField3)
+                    .addComponent(jTextField4)
+                    .addComponent(jTextField5))
+                .addContainerGap())
         );
         pnelPriceAndTaxesLayout.setVerticalGroup(
             pnelPriceAndTaxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 214, Short.MAX_VALUE)
+            .addGroup(pnelPriceAndTaxesLayout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(pnelPriceAndTaxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnelPriceAndTaxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnelPriceAndTaxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnelPriceAndTaxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnelPriceAndTaxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pnelAditionalInfo.setBackground(new java.awt.Color(255, 255, 255));
         pnelAditionalInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Información Adicional:");
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Dirección: ");
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Tlf:");
 
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Email:");
 
         txtCustomerLocation.setEditable(false);
         txtCustomerLocation.setBackground(new java.awt.Color(255, 255, 255));
+        txtCustomerLocation.setBorder(null);
 
         txtCustomerPhoneNumber.setEditable(false);
         txtCustomerPhoneNumber.setBackground(new java.awt.Color(255, 255, 255));
+        txtCustomerPhoneNumber.setBorder(null);
 
         txtCustomerEmail.setEditable(false);
         txtCustomerEmail.setBackground(new java.awt.Color(255, 255, 255));
+        txtCustomerEmail.setBorder(null);
 
         javax.swing.GroupLayout pnelAditionalInfoLayout = new javax.swing.GroupLayout(pnelAditionalInfo);
         pnelAditionalInfo.setLayout(pnelAditionalInfoLayout);
@@ -337,6 +429,8 @@ public class Bill extends javax.swing.JPanel implements Printable {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
+        lblLogo.setText(" ");
+
         javax.swing.GroupLayout pnelBillLayout = new javax.swing.GroupLayout(pnelBill);
         pnelBill.setLayout(pnelBillLayout);
         pnelBillLayout.setHorizontalGroup(
@@ -345,39 +439,42 @@ public class Bill extends javax.swing.JPanel implements Printable {
                 .addContainerGap()
                 .addGroup(pnelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnelBillLayout.createSequentialGroup()
-                        .addGroup(pnelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnelPayMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pnelAditionalInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
+                        .addGroup(pnelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pnelAditionalInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnelPayMethod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addComponent(pnelPriceAndTaxes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(pnelSale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnelCustomerInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelBillLayout.createSequentialGroup()
-                        .addComponent(pnelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(106, 106, 106)
+                        .addComponent(lblLogo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnelRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
         pnelBillLayout.setVerticalGroup(
             pnelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelBillLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(pnelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnelRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelBillLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pnelRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelBillLayout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(lblLogo)))
                 .addGap(18, 18, 18)
                 .addComponent(pnelCustomerInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnelSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(pnelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnelBillLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addComponent(pnelPayMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(32, 32, 32)
                         .addComponent(pnelAditionalInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnelPriceAndTaxes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(pnelPriceAndTaxes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -394,9 +491,22 @@ public class Bill extends javax.swing.JPanel implements Printable {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -406,11 +516,15 @@ public class Bill extends javax.swing.JPanel implements Printable {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JPanel pnelAditionalInfo;
     private javax.swing.JPanel pnelBill;
     private javax.swing.JPanel pnelCustomerInfo;
-    private javax.swing.JPanel pnelLogo;
     private javax.swing.JPanel pnelPayMethod;
     private javax.swing.JPanel pnelPriceAndTaxes;
     private javax.swing.JPanel pnelRuc;
@@ -428,7 +542,7 @@ public class Bill extends javax.swing.JPanel implements Printable {
     private void putLogo() {
         ImageIcon logo = new ImageIcon("src/main/resources/logo.jpg");
         Image logoImage = logo.getImage();
-        Image scaledLogoImage = logoImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Image scaledLogoImage = logoImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         ImageIcon scaledLogo = new ImageIcon(scaledLogoImage);
         
         lblLogo.setIcon(scaledLogo);

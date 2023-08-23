@@ -44,7 +44,7 @@ public class EVSUStore extends javax.swing.JFrame {
     private void setDate() {
         LocalDate now = LocalDate.now();
         Locale spanishLocale = new Locale("es", "ES");
-        lblDate.setText(now.format(DateTimeFormatter.ofPattern("'FECHA: Hoy es' EEEE dd 'de' MMMM 'de' yyyy", spanishLocale)));
+        lblDate.setText(now.format(DateTimeFormatter.ofPattern("'FECHA: ' EEEE dd 'de' MMMM 'de' yyyy", spanishLocale)));
 
     }
     private void setTime() {
@@ -66,7 +66,7 @@ public class EVSUStore extends javax.swing.JFrame {
     }
     
     private void nameSession(){
-        lblNameSession.setText("Bienvenido usuario "+SessionManager.getCurrentUser());
+        lblSessionName.setText(SessionManager.getCurrentUser());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,10 +79,6 @@ public class EVSUStore extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Content = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        lblDate = new javax.swing.JLabel();
-        lblTime = new javax.swing.JLabel();
-        lblNameSession = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnCatalog = new javax.swing.JButton();
         btnSales = new javax.swing.JButton();
@@ -96,8 +92,12 @@ public class EVSUStore extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        space = new javax.swing.JMenu();
+        lblDate = new javax.swing.JMenu();
+        lblTime = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jmCloseSession = new javax.swing.JMenuItem();
+        lblSessionName = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,53 +114,8 @@ public class EVSUStore extends javax.swing.JFrame {
         );
         ContentLayout.setVerticalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 687, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-
-        jPanel3.setBackground(new java.awt.Color(46, 46, 61));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
-
-        lblDate.setBackground(new java.awt.Color(163, 158, 177));
-        lblDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblDate.setForeground(new java.awt.Color(207, 207, 215));
-        lblDate.setText("|| {dayname} {day} de {month} de {year}");
-
-        lblTime.setBackground(new java.awt.Color(163, 158, 177));
-        lblTime.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblTime.setForeground(new java.awt.Color(207, 207, 215));
-        lblTime.setText("{00:00:00}");
-
-        lblNameSession.setBackground(new java.awt.Color(255, 255, 255));
-        lblNameSession.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblNameSession.setForeground(new java.awt.Color(255, 255, 255));
-        lblNameSession.setText("jLabel4");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(lblTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(313, 313, 313)
-                .addComponent(lblNameSession)
-                .addContainerGap(701, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                    .addComponent(lblNameSession))
-                .addContainerGap())
-        );
-
-        lblDate.getAccessibleContext().setAccessibleDescription("");
-        lblTime.getAccessibleContext().setAccessibleDescription("");
 
         jPanel2.setBackground(new java.awt.Color(44, 44, 51));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 255, 102)));
@@ -270,18 +225,14 @@ public class EVSUStore extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Content, javax.swing.GroupLayout.PREFERRED_SIZE, 1370, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(Content, javax.swing.GroupLayout.PREFERRED_SIZE, 1370, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(Content, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Content, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
@@ -289,6 +240,19 @@ public class EVSUStore extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
+
+        space.setText("                                                                                                        ");
+        jMenuBar1.add(space);
+
+        lblDate.setText("dd:mm:yy");
+        lblDate.setEnabled(false);
+        lblDate.setOpaque(false);
+        jMenuBar1.add(lblDate);
+
+        lblTime.setText("00:00:00");
+        lblTime.setEnabled(false);
+        lblTime.setOpaque(false);
+        jMenuBar1.add(lblTime);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario2.png"))); // NOI18N
 
@@ -302,6 +266,11 @@ public class EVSUStore extends javax.swing.JFrame {
         jMenu3.add(jmCloseSession);
 
         jMenuBar1.add(jMenu3);
+
+        lblSessionName.setText("username");
+        lblSessionName.setEnabled(false);
+        lblSessionName.setOpaque(false);
+        jMenuBar1.add(lblSessionName);
 
         setJMenuBar(jMenuBar1);
 
@@ -436,11 +405,11 @@ public class EVSUStore extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JMenuItem jmCloseSession;
-    private javax.swing.JLabel lblDate;
-    private javax.swing.JLabel lblNameSession;
-    private javax.swing.JLabel lblTime;
+    private javax.swing.JMenu lblDate;
+    private javax.swing.JMenu lblSessionName;
+    private javax.swing.JMenu lblTime;
+    private javax.swing.JMenu space;
     // End of variables declaration//GEN-END:variables
 
  

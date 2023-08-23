@@ -202,18 +202,29 @@ public class DatabaseManager {
         String[] keyValues = documentString.split(", ");
         
         for(int i = 1; i<keyValues.length; i++){
+            String keyValue = "";
             
-            int separator = keyValues[i].indexOf("=");
-            String key = keyValues[i].substring(0, separator);
+            keyValue = keyValues[i]; 
+            
+            if(keyValue.contains("[")){
+                do{
+                    keyValue = keyValue + keyValues[i];
+                    i++;    
+                }while(!keyValue.contains("]"));
+            }
+            
+            int separator = keyValue.indexOf("=");
+
+            String key = keyValue.substring(0, separator);
             String value;
             if(i<keyValues.length-1){
-                value = keyValues[i].substring(separator+1, keyValues[i].length());
+                value = keyValue.substring(separator+1, keyValue.length());
             }
             else{
-                value = keyValues[i].substring(separator+1, keyValues[i].length()-2);
+                value = keyValue.substring(separator+1, keyValue.length()-2);
             }
             converted.put(key, value);
-            
+
         }
         return converted;
     }

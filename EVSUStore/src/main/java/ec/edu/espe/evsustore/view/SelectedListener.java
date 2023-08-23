@@ -41,6 +41,7 @@ public class SelectedListener implements ListSelectionListener{
             SpinnerNumberModel numberModel = new SpinnerNumberModel (1, 1, maxQuantity, 1); 
             spinner.setModel(numberModel);
             
+            
             if(rowIndex!=-1){
                 for(JButton button : buttonsToEnableInSelection){
                 button.setLocation(button.getX(), (rowIndex+1)*35);

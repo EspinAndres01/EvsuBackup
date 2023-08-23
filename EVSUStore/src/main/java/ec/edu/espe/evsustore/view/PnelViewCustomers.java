@@ -2,8 +2,8 @@
 package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.CustomerController;
-import ec.edu.espe.evsustore.controller.SaleController;
 import ec.edu.espe.evsustore.utils.ViewManager;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -19,7 +19,8 @@ public class PnelViewCustomers extends javax.swing.JPanel {
     public PnelViewCustomers() {
         initComponents();
         
-        ViewManager.displayTable(tblCustomers, customerController.obtainAllFromDb());
+        displayTable();
+        addListeners();
     }
 
     /**
@@ -34,62 +35,14 @@ public class PnelViewCustomers extends javax.swing.JPanel {
         btnGroupFilterSelection = new javax.swing.ButtonGroup();
         pnelContent = new javax.swing.JPanel();
         pnelTableButtons = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        btnRefresh = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        txtSearchBar = new javax.swing.JTextField();
         pnelViewInfo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomers = new javax.swing.JTable();
         pnelButtons = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
 
-        jTextField1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-
-        btnRefresh.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        btnRefresh.setText("Refrescar Tabla");
-
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel1.setText("Filtrar por:");
-
-        btnGroupFilterSelection.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jRadioButton1.setText("Nombre");
-
-        btnGroupFilterSelection.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jRadioButton2.setText("Apellido");
-
-        btnGroupFilterSelection.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jRadioButton3.setText("No. de Cedula");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
-
-        btnGroupFilterSelection.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jRadioButton4.setText("No. de Telefono");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
-            }
-        });
-
-        btnGroupFilterSelection.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jRadioButton5.setText("Correo");
-
-        btnGroupFilterSelection.add(jRadioButton6);
-        jRadioButton6.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jRadioButton6.setText("Compras");
+        txtSearchBar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout pnelTableButtonsLayout = new javax.swing.GroupLayout(pnelTableButtons);
         pnelTableButtons.setLayout(pnelTableButtonsLayout);
@@ -97,45 +50,15 @@ public class PnelViewCustomers extends javax.swing.JPanel {
             pnelTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelTableButtonsLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(pnelTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnelTableButtonsLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton6)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnelTableButtonsLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                .addComponent(txtSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(244, Short.MAX_VALUE))
         );
         pnelTableButtonsLayout.setVerticalGroup(
             pnelTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelTableButtonsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnelTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pnelTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5)
-                    .addComponent(jRadioButton6))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(txtSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         tblCustomers.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -164,12 +87,17 @@ public class PnelViewCustomers extends javax.swing.JPanel {
         pnelViewInfoLayout.setVerticalGroup(
             pnelViewInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelViewInfoLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
         );
 
         btnBack.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnBack.setText("Volver a la Pantalla Principal");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnelButtonsLayout = new javax.swing.GroupLayout(pnelButtons);
         pnelButtons.setLayout(pnelButtonsLayout);
@@ -185,7 +113,7 @@ public class PnelViewCustomers extends javax.swing.JPanel {
             .addGroup(pnelButtonsLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnelContentLayout = new javax.swing.GroupLayout(pnelContent);
@@ -194,16 +122,20 @@ public class PnelViewCustomers extends javax.swing.JPanel {
             pnelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnelTableButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnelViewInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnelContentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnelContentLayout.setVerticalGroup(
             pnelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelContentLayout.createSequentialGroup()
                 .addComponent(pnelTableButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnelViewInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -218,32 +150,37 @@ public class PnelViewCustomers extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        MainPanel mainPanel = new MainPanel();
+        ViewManager.showPanel(pnelContent, mainPanel);
+    }//GEN-LAST:event_btnBackActionPerformed
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
-
+    private void addListeners(){
+        TableRowSorter rowSorter = new TableRowSorter(tblCustomers.getModel());
+        tblCustomers.setRowSorter(rowSorter);
+        
+        SearchBarListener searchBarListener = new SearchBarListener(tblCustomers, txtSearchBar);
+        txtSearchBar.getDocument().addDocumentListener(searchBarListener);
+        
+    }
+    
+    private void displayTable(){
+        ViewManager.displayTable(tblCustomers, customerController.obtainAllFromDb());
+        tblCustomers.moveColumn(2, 1);
+        tblCustomers.moveColumn(5, 2);
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.ButtonGroup btnGroupFilterSelection;
-    private javax.swing.JButton btnRefresh;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel pnelButtons;
     private javax.swing.JPanel pnelContent;
     private javax.swing.JPanel pnelTableButtons;
     private javax.swing.JPanel pnelViewInfo;
     private javax.swing.JTable tblCustomers;
+    private javax.swing.JTextField txtSearchBar;
     // End of variables declaration//GEN-END:variables
 }

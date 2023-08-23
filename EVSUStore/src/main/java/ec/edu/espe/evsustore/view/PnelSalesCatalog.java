@@ -3,6 +3,7 @@ package ec.edu.espe.evsustore.view;
 
 import ec.edu.espe.evsustore.controller.CatalogController;
 import ec.edu.espe.evsustore.controller.HardwareComponentController;
+import ec.edu.espe.evsustore.model.Catalog;
 import ec.edu.espe.evsustore.utils.ViewManager;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -99,7 +100,6 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
         );
 
         txtSearchBar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtSearchBar.setText("Escriba aqui para buscar...");
 
         javax.swing.GroupLayout pnelSearchBarLayout = new javax.swing.GroupLayout(pnelSearchBar);
         pnelSearchBar.setLayout(pnelSearchBarLayout);
@@ -140,19 +140,18 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
         pnelButtonsLayout.setHorizontalGroup(
             pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelButtonsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSell, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSell, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         pnelButtonsLayout.setVerticalGroup(
             pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelButtonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSell, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSell, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -164,7 +163,7 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
                 .addGroup(pnelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnelSearchBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnelViewInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 15, Short.MAX_VALUE))
             .addGroup(pnelContentLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,6 +209,7 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
         TableRowSorter rowSorter = new TableRowSorter(tblCatalog.getModel());
         tblCatalog.setRowSorter(rowSorter);
         
+        
         SearchBarListener searchBarListener = new SearchBarListener(tblCatalog, txtSearchBar);
         txtSearchBar.getDocument().addDocumentListener(searchBarListener);
         
@@ -220,12 +220,22 @@ public class PnelSalesCatalog extends javax.swing.JPanel {
     }
     
     private void displayCatalogTable(){
-        ViewManager.displayTableWithoutIds(tblCatalog, catalogController.obtainAll());
+        ArrayList<HashMap<Object, Object>> catalog = catalogController.obtainAll();
+        ArrayList<HashMap<Object, Object>> catalogWithStock = new ArrayList<>();
+        
+        for(HashMap<Object, Object> catalogProduct : catalog){
+            if (Integer.parseInt(catalogProduct.get("quantity").toString()) != 0){
+                catalogWithStock.add(catalogProduct);
+            }
+        }
+        
+        ViewManager.displayTableWithoutIds(tblCatalog, catalogWithStock);
         
         TableColumnModel tblColumnModel = tblCatalog.getColumnModel();
         
         tblColumnModel.moveColumn(2, 0);
         tblColumnModel.moveColumn(3, 1);
+        
     }
     
     private ArrayList<HashMap<Object, Object>> getSelectedComponents() {
